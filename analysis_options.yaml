@@ -13,7 +13,6 @@ linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
   # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
   #
   # Instead of disabling a lint rule for the entire project in the
   # section below, it can also be suppressed for a single line of code
@@ -21,8 +20,28 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    prefer_single_quotes: true  # 単一引用符を使用する
+    prefer_relative_imports: true  # 相対インポートを使用する
+    directives_ordering: true  # インポート、エクスポート、パートディレクティブの順序付け
+    prefer_final_locals: true  # ローカル変数をfinalにする
+    sort_child_properties_last: true  # 子プロパティを最後に配置する
+    sort_constructors_first: true  # コンストラクタを最初に配置する
+    sort_unnamed_constructors_first: true  # 名前なしコンストラクタを最初に配置する
+    prefer_const_constructors: true  # 可能な場合はconstコンストラクタを使用する
+    avoid_print: true  # printの代わりにロガーを使用する
+    use_key_in_widget_constructors: true  # Widgetコンストラクタでkeyを使用する
+    use_full_hex_values_for_flutter_colors: true  # Flutterカラーに完全な16進値を使用する
+    use_build_context_synchronously: true  # BuildContextを非同期処理後に使用する場合の警告
+    sized_box_for_whitespace: true  # 空白のためにSizedBoxを使用する
+    
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"  # 生成されたファイルを除外
+    - "**/*.freezed.dart"
+  errors:
+    invalid_annotation_target: ignore  # JSON関連のアノテーションで発生する可能性のあるエラーを無視
+    deprecated_member_use: warning  # 非推奨のメンバー使用を警告レベルに設定
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
