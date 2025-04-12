@@ -24,4 +24,19 @@ class ValidationException extends AppException {
   const ValidationException(super.message, [super.stackTrace]);
 }
 
+/// 通信タイムアウト例外
+class TimeoutException extends ServerException {
+  const TimeoutException(super.message, [super.stackTrace]);
+}
+
+/// ネットワーク接続エラー例外
+class NetworkException extends ServerException {
+  const NetworkException(super.message, [super.stackTrace]);
+}
+
+/// API認証エラー例外
+class AuthenticationException extends ServerException {
+  const AuthenticationException(super.message, [super.stackTrace]);
+}
+
 // Add other specific exception types as needed.
