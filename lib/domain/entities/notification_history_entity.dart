@@ -2,13 +2,6 @@ import 'package:equatable/equatable.dart';
 
 /// 通知履歴エンティティ
 class NotificationHistoryEntity extends Equatable {
-  final String id;
-  final String timerId;
-  final String characterId;
-  final String message;
-  final DateTime notificationTime;
-  final DateTime createdAt;
-
   const NotificationHistoryEntity({
     required this.id,
     required this.timerId,
@@ -17,6 +10,13 @@ class NotificationHistoryEntity extends Equatable {
     required this.notificationTime,
     required this.createdAt,
   });
+
+  final String id;
+  final String timerId;
+  final String characterId;
+  final String message;
+  final DateTime notificationTime;
+  final DateTime createdAt;
 
   @override
   List<Object?> get props => [

@@ -7,10 +7,10 @@ import 'package:tick_mate_t3/domain/repositories/subscription_repository.dart';
 
 @LazySingleton(as: SubscriptionRepository)
 class SubscriptionRepositoryImpl implements SubscriptionRepository {
-  final Box<SubscriptionModel> _subscriptionBox;
-
   SubscriptionRepositoryImpl()
     : _subscriptionBox = Hive.box<SubscriptionModel>(HiveBoxes.subscriptionBox);
+
+  final Box<SubscriptionModel> _subscriptionBox;
 
   @override
   Future<SubscriptionEntity?> getCurrentSubscription() async {

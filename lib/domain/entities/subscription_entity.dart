@@ -11,14 +11,6 @@ enum SubscriptionPlanType {
 
 /// サブスクリプションエンティティ
 class SubscriptionEntity extends Equatable {
-  final String id;
-  final SubscriptionPlanType planType;
-  final int additionalTimerCount;
-  final DateTime? expiryDate;
-  final String userId;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
   const SubscriptionEntity({
     required this.id,
     required this.planType,
@@ -28,6 +20,14 @@ class SubscriptionEntity extends Equatable {
     required this.createdAt,
     required this.updatedAt,
   });
+
+  final String id;
+  final SubscriptionPlanType planType;
+  final int additionalTimerCount;
+  final DateTime? expiryDate;
+  final String userId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   @override
   List<Object?> get props => [

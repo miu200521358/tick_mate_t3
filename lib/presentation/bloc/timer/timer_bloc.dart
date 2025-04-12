@@ -7,9 +7,6 @@ import 'package:tick_mate_t3/presentation/bloc/timer/timer_state.dart';
 
 /// タイマー状態を管理するBLoC
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
-  final GetTimersUseCase _getTimersUseCase;
-  final CreateTimerUseCase _createTimerUseCase;
-
   TimerBloc({
     required GetTimersUseCase getTimersUseCase,
     required CreateTimerUseCase createTimerUseCase,
@@ -20,6 +17,9 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     on<TimerCreated>(_onTimerCreated);
     on<TimerDeleted>(_onTimerDeleted);
   }
+
+  final GetTimersUseCase _getTimersUseCase;
+  final CreateTimerUseCase _createTimerUseCase;
 
   /// タイマー読み込みイベントの処理
   Future<void> _onTimersLoaded(

@@ -6,6 +6,39 @@ part 'timer_model.g.dart';
 /// タイマーモデル（Hive用）
 @HiveType(typeId: 1)
 class TimerModel extends HiveObject {
+  TimerModel({
+    required this.id,
+    required this.title,
+    this.dateTime,
+    this.timeRange,
+    required this.timerType,
+    required this.repeatType,
+    required this.characterIds,
+    this.notificationSound,
+    this.location,
+    this.useCurrentLocation = false,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  /// エンティティからモデルに変換
+  factory TimerModel.fromEntity(TimerEntity entity) {
+    return TimerModel(
+      id: entity.id,
+      title: entity.title,
+      dateTime: entity.dateTime,
+      timeRange: entity.timeRange,
+      timerType: entity.timerType.index,
+      repeatType: entity.repeatType.index,
+      characterIds: entity.characterIds,
+      notificationSound: entity.notificationSound,
+      location: entity.location,
+      useCurrentLocation: entity.useCurrentLocation,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+    );
+  }
+
   @HiveField(0)
   final String id;
 
@@ -41,39 +74,6 @@ class TimerModel extends HiveObject {
 
   @HiveField(11)
   final DateTime updatedAt;
-
-  TimerModel({
-    required this.id,
-    required this.title,
-    this.dateTime,
-    this.timeRange,
-    required this.timerType,
-    required this.repeatType,
-    required this.characterIds,
-    this.notificationSound,
-    this.location,
-    this.useCurrentLocation = false,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  /// エンティティからモデルに変換
-  factory TimerModel.fromEntity(TimerEntity entity) {
-    return TimerModel(
-      id: entity.id,
-      title: entity.title,
-      dateTime: entity.dateTime,
-      timeRange: entity.timeRange,
-      timerType: entity.timerType.index,
-      repeatType: entity.repeatType.index,
-      characterIds: entity.characterIds,
-      notificationSound: entity.notificationSound,
-      location: entity.location,
-      useCurrentLocation: entity.useCurrentLocation,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
-    );
-  }
 
   /// モデルからエンティティに変換
   TimerEntity toEntity() {

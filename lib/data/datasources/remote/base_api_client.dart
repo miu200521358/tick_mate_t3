@@ -1,15 +1,14 @@
-import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/config/app_config.dart';
 import 'package:tick_mate_t3/data/datasources/remote/http_client.dart';
 
 /// API通信の基本クラス
 abstract class BaseApiClient {
-  final HttpClient _httpClient;
-  final AppConfig _config;
-
   BaseApiClient(this._httpClient, this._config) {
     _initialize();
   }
+
+  final HttpClient _httpClient;
+  final AppConfig _config;
 
   /// APIクライアントの初期化
   void _initialize() {

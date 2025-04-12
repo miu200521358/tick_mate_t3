@@ -20,17 +20,17 @@ class SettingsLoading extends SettingsState {
 
 /// 設定画面読み込み完了状態
 class SettingsLoaded extends SettingsState {
-  final String? geminiApiKey;
-  final bool isTesting;
-  final String? testResult;
-  final bool? testSuccess;
-
   const SettingsLoaded({
     this.geminiApiKey,
     this.isTesting = false,
     this.testResult,
     this.testSuccess,
   });
+
+  final String? geminiApiKey;
+  final bool isTesting;
+  final String? testResult;
+  final bool? testSuccess;
 
   SettingsLoaded copyWith({
     String? geminiApiKey,
@@ -52,9 +52,9 @@ class SettingsLoaded extends SettingsState {
 
 /// 設定画面エラー状態
 class SettingsError extends SettingsState {
-  final String message;
-
   const SettingsError(this.message);
+
+  final String message;
 
   @override
   List<Object> get props => [message];

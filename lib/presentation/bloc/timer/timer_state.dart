@@ -21,9 +21,9 @@ class TimerLoading extends TimerState {
 
 /// タイマー読み込み完了状態
 class TimerLoaded extends TimerState {
-  final List<TimerEntity> timers;
-
   const TimerLoaded({required this.timers});
+
+  final List<TimerEntity> timers;
 
   /// 新しい状態を作成
   TimerLoaded copyWith({List<TimerEntity>? timers}) {
@@ -36,9 +36,9 @@ class TimerLoaded extends TimerState {
 
 /// タイマーエラー状態
 class TimerError extends TimerState {
-  final String message;
-
   const TimerError({required this.message});
+
+  final String message;
 
   @override
   List<Object?> get props => [message];

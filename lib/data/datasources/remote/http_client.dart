@@ -1,16 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/core/error/exceptions.dart';
 import 'package:tick_mate_t3/data/datasources/remote/interceptors/logging_interceptor.dart';
 import 'package:tick_mate_t3/data/datasources/remote/interceptors/retry_interceptor.dart';
 
 /// DioをラップするカスタムHTTPクライアント
-@lazySingleton
 class HttpClient {
-  final Dio _dio;
-  final LoggingInterceptor _loggingInterceptor;
-  final RetryInterceptor _retryInterceptor;
-
   HttpClient(this._dio, this._loggingInterceptor, this._retryInterceptor) {
     _dio.interceptors.addAll([_loggingInterceptor, _retryInterceptor]);
 
@@ -19,6 +13,10 @@ class HttpClient {
     _dio.options.receiveTimeout = const Duration(seconds: 10);
     _dio.options.sendTimeout = const Duration(seconds: 10);
   }
+
+  final Dio _dio;
+  final LoggingInterceptor _loggingInterceptor;
+  final RetryInterceptor _retryInterceptor;
 
   /// リクエストオプションを準備
   Options _prepareOptions(Options? options) {

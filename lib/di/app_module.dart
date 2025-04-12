@@ -3,6 +3,12 @@ import 'dart:math' show Random;
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
+import 'package:tick_mate_t3/config/app_config.dart';
+import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart';
+import 'package:tick_mate_t3/data/datasources/remote/gemini_api_client.dart';
+import 'package:tick_mate_t3/data/datasources/remote/http_client.dart';
+import 'package:tick_mate_t3/data/datasources/remote/interceptors/logging_interceptor.dart';
+import 'package:tick_mate_t3/data/datasources/remote/interceptors/retry_interceptor.dart';
 
 /// 外部ライブラリの依存関係を提供するモジュール
 @module
@@ -18,4 +24,19 @@ abstract class AppModule {
   /// Randomインスタンスを提供
   @lazySingleton
   Random get random => Random();
+
+  /// HttpClientインスタンスを提供
+  HttpClient provideHttpClient(
+    Dio dio,
+    LoggingInterceptor loggingInterceptor,
+    RetryInterceptor retryInterceptor,
+  ) => HttpClient(dio, loggingInterceptor, retryInterceptor);
+
+  /// GeminiApiClientを環境に応じて提供
+  @lazySingleton
+  GeminiApiClient provideGeminiApiClient(
+    HttpClient httpClient,
+    AppConfig config, // 環境に応じた適切なAppConfigが注入される
+    SecureStorageDataSource secureStorage,
+  ) => GeminiApiClient(httpClient, config, secureStorage);
 }

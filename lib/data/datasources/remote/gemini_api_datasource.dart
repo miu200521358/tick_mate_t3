@@ -1,12 +1,14 @@
 import 'package:injectable/injectable.dart';
+import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart';
 import 'package:tick_mate_t3/data/datasources/remote/gemini_api_client.dart';
 
 /// Gemini API データソース
 @lazySingleton
 class GeminiApiDataSource {
-  final GeminiApiClient _apiClient;
+  GeminiApiDataSource(this._apiClient, this._secureStorage);
 
-  GeminiApiDataSource(this._apiClient);
+  final GeminiApiClient _apiClient;
+  final SecureStorageDataSource _secureStorage;
 
   /// メッセージを生成
   Future<String> generateMessage({

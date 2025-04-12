@@ -16,9 +16,9 @@ class AppStarted extends AppEvent {
 
 /// テーマ変更イベント
 class ThemeChanged extends AppEvent {
-  final bool isDarkMode;
-
   const ThemeChanged({required this.isDarkMode});
+
+  final bool isDarkMode;
 
   @override
   List<Object?> get props => [isDarkMode];
@@ -26,9 +26,9 @@ class ThemeChanged extends AppEvent {
 
 /// 言語変更イベント
 class LanguageChanged extends AppEvent {
-  final Locale locale;
-
   const LanguageChanged({required this.locale});
+
+  final Locale locale;
 
   @override
   List<Object?> get props => [locale];

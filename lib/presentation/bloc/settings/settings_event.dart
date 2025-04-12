@@ -15,9 +15,9 @@ class SettingsInitialized extends SettingsEvent {
 
 /// Gemini APIキー保存イベント
 class GeminiApiKeySaved extends SettingsEvent {
-  final String apiKey;
-
   const GeminiApiKeySaved({required this.apiKey});
+
+  final String apiKey;
 
   @override
   List<Object> get props => [apiKey];
@@ -30,9 +30,9 @@ class GeminiApiKeyDeleted extends SettingsEvent {
 
 /// Gemini APIキーテストイベント
 class GeminiApiKeyTested extends SettingsEvent {
-  final String apiKey;
-
   const GeminiApiKeyTested({required this.apiKey});
+
+  final String apiKey;
 
   @override
   List<Object> get props => [apiKey];

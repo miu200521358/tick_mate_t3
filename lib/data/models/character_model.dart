@@ -6,27 +6,6 @@ part 'character_model.g.dart';
 /// キャラクターモデル（Hive用）
 @HiveType(typeId: 2)
 class CharacterModel extends HiveObject {
-  @HiveField(0)
-  final String id;
-
-  @HiveField(1)
-  final String name;
-
-  @HiveField(2)
-  final String workId;
-
-  @HiveField(3)
-  final String promptText;
-
-  @HiveField(4)
-  final Map<String, dynamic> parameters;
-
-  @HiveField(5)
-  final DateTime createdAt;
-
-  @HiveField(6)
-  final DateTime updatedAt;
-
   CharacterModel({
     required this.id,
     required this.name,
@@ -49,6 +28,27 @@ class CharacterModel extends HiveObject {
       updatedAt: entity.updatedAt,
     );
   }
+
+  @HiveField(0)
+  final String id;
+
+  @HiveField(1)
+  final String name;
+
+  @HiveField(2)
+  final String workId;
+
+  @HiveField(3)
+  final String promptText;
+
+  @HiveField(4)
+  final Map<String, dynamic> parameters;
+
+  @HiveField(5)
+  final DateTime createdAt;
+
+  @HiveField(6)
+  final DateTime updatedAt;
 
   /// モデルからエンティティに変換
   CharacterEntity toEntity() {

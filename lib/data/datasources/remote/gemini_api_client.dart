@@ -1,20 +1,15 @@
-import 'package:injectable/injectable.dart';
-import 'package:tick_mate_t3/config/app_config.dart';
 import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart';
 import 'package:tick_mate_t3/data/datasources/remote/base_api_client.dart';
-import 'package:tick_mate_t3/data/datasources/remote/http_client.dart';
 
 /// Gemini API用クライアント
-@lazySingleton
 class GeminiApiClient extends BaseApiClient {
+  GeminiApiClient(super.httpClient, super.config, this._secureStorage);
+
   final SecureStorageDataSource _secureStorage;
 
   /// Gemini APIのベースURL
   static const String baseUrl =
       'https://generativelanguage.googleapis.com/v1beta/models';
-
-  GeminiApiClient(HttpClient httpClient, AppConfig config, this._secureStorage)
-    : super(httpClient, config);
 
   /// APIキーを取得してURLに付加
   Future<String> _getUrlWithApiKey(String endpoint) async {
