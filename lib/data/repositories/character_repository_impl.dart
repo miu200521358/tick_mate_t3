@@ -7,9 +7,9 @@ import 'package:tick_mate_t3/domain/repositories/character_repository.dart';
 /// キャラクターリポジトリの実装
 @LazySingleton(as: CharacterRepository)
 class CharacterRepositoryImpl implements CharacterRepository {
-  final LocalStorageDataSource _localStorageDataSource;
-
   CharacterRepositoryImpl(this._localStorageDataSource);
+
+  final LocalStorageDataSource _localStorageDataSource;
 
   @override
   Future<List<CharacterEntity>> getAllCharacters() async {

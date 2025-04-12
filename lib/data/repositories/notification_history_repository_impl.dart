@@ -8,9 +8,9 @@ import 'package:tick_mate_t3/domain/repositories/notification_history_repository
 @LazySingleton(as: NotificationHistoryRepository)
 class NotificationHistoryRepositoryImpl
     implements NotificationHistoryRepository {
-  final LocalStorageDataSource _localStorageDataSource;
-
   NotificationHistoryRepositoryImpl(this._localStorageDataSource);
+
+  final LocalStorageDataSource _localStorageDataSource;
 
   @override
   Future<List<NotificationHistoryEntity>> getAllNotificationHistory() async {

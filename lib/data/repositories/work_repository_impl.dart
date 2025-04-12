@@ -7,9 +7,9 @@ import 'package:tick_mate_t3/domain/repositories/work_repository.dart';
 /// 作品リポジトリの実装
 @LazySingleton(as: WorkRepository)
 class WorkRepositoryImpl implements WorkRepository {
-  final LocalStorageDataSource _localStorageDataSource;
-
   WorkRepositoryImpl(this._localStorageDataSource);
+
+  final LocalStorageDataSource _localStorageDataSource;
 
   @override
   Future<List<WorkEntity>> getAllWorks() async {
