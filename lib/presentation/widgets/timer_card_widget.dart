@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 class TimerCardWidget extends StatelessWidget {
   /// タイマーのタイトル
   final String title;
-  
+
   /// タイマーの発動予定時刻
   final DateTime scheduledTime;
-  
+
   /// タイマー種別（予定通知 or 近況報告）
   final String timerType;
-  
+
   /// 担当キャラクター名
   final String characterName;
 

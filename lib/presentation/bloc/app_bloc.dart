@@ -25,7 +25,7 @@ class NavigateToScreen extends AppEvent {
 // 状態
 abstract class AppState extends Equatable {
   const AppState();
-  
+
   @override
   List<Object> get props => [];
 }

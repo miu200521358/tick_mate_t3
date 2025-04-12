@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// ホーム画面
-/// 
+///
 /// タイマー一覧を表示する画面です。
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
