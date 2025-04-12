@@ -8,8 +8,6 @@ import 'package:tick_mate_t3/domain/repositories/timer_repository.dart';
 @LazySingleton(as: TimerRepository)
 class TimerRepositoryImpl implements TimerRepository {
   TimerRepositoryImpl(this._localStorageDataSource);
-  
-  final LocalStorageDataSource _localStorageDataSource;
 
   final LocalStorageDataSource _localStorageDataSource;
 
