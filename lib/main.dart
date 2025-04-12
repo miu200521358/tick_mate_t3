@@ -12,9 +12,12 @@ import 'package:tick_mate_t3/domain/usecases/timer/create_timer_usecase.dart';
 import 'package:tick_mate_t3/domain/usecases/timer/get_timers_usecase.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_event.dart';
+import 'package:tick_mate_t3/presentation/bloc/app/app_state.dart';
+import 'package:tick_mate_t3/presentation/bloc/settings/settings_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate_t3/presentation/screens/home/home_screen.dart';
+// Settings screen is imported in home_screen.dart
 
 void main() async {
   // Flutter Widgetの初期化を確実に
@@ -86,13 +89,18 @@ class MyApp extends StatelessWidget {
                 createTimerUseCase: getIt<CreateTimerUseCase>(),
               )..add(const TimersLoaded()),
         ),
+        BlocProvider(create: (context) => SettingsBloc(getIt(), getIt())),
       ],
-      child: MaterialApp(
-        title: 'Tick Mate',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        ),
-        home: const HomeScreen(),
+      child: BlocBuilder<AppBloc, AppState>(
+        builder: (context, state) {
+          return MaterialApp(
+            title: 'Tick Mate',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            ),
+            home: const HomeScreen(),
+          );
+        },
       ),
     );
   }

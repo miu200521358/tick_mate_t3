@@ -35,6 +35,7 @@ import 'package:tick_mate_t3/data/repositories/timer_repository_impl.dart'
 import 'package:tick_mate_t3/data/repositories/work_repository_impl.dart'
     as _i393;
 import 'package:tick_mate_t3/di/app_module.dart' as _i865;
+import 'package:tick_mate_t3/di/settings_module.dart' as _i716;
 import 'package:tick_mate_t3/domain/repositories/character_repository.dart'
     as _i62;
 import 'package:tick_mate_t3/domain/repositories/notification_history_repository.dart'
@@ -52,6 +53,8 @@ import 'package:tick_mate_t3/domain/usecases/timer/create_timer_usecase.dart'
     as _i802;
 import 'package:tick_mate_t3/domain/usecases/timer/get_timers_usecase.dart'
     as _i194;
+import 'package:tick_mate_t3/presentation/bloc/settings/settings_bloc.dart'
+    as _i485;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -61,6 +64,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final appModule = _$AppModule();
+    final settingsModule = _$SettingsModule();
     gh.lazySingleton<_i570.LocalStorageDataSource>(
       () => _i570.LocalStorageDataSource(),
     );
@@ -122,8 +126,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i194.GetTimersUseCase>(
       () => _i194.GetTimersUseCase(gh<_i200.TimerRepository>()),
     );
+    gh.factory<_i485.SettingsBloc>(
+      () => settingsModule.provideSettingsBloc(
+        gh<_i676.SecureStorageDataSource>(),
+        gh<_i534.GeminiApiDataSource>(),
+      ),
+    );
     return this;
   }
 }
 
 class _$AppModule extends _i865.AppModule {}
+
+class _$SettingsModule extends _i716.SettingsModule {}
