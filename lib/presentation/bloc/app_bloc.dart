@@ -10,7 +10,7 @@ abstract class AppEvent extends Equatable {
 }
 
 /// アプリの初期化イベント
-class AppInitialized extends AppEvent {}
+class AppInitializedEvent extends AppEvent {}
 
 /// 画面遷移イベント
 class NavigateToScreen extends AppEvent {
@@ -52,11 +52,11 @@ class AppInitialized extends AppState {
 /// アプリBLoC
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc() : super(AppInitializing()) {
-    on<AppInitialized>(_onAppInitialized);
+    on<AppInitializedEvent>(_onAppInitialized);
     on<NavigateToScreen>(_onNavigateToScreen);
   }
 
-  void _onAppInitialized(AppInitialized event, Emitter<AppState> emit) {
+  void _onAppInitialized(AppInitializedEvent event, Emitter<AppState> emit) {
     emit(const AppInitialized());
   }
 

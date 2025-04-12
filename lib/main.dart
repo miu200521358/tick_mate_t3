@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppBloc()..add(AppInitialized()),
+      create: (context) => AppBloc()..add(AppInitializedEvent()),
       child: MaterialApp(
         title: 'Tick Mate',
         theme: ThemeData(
