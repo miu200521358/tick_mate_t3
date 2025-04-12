@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tick_mate_t3/config/app_config.dart'; // 追加
-import 'package:tick_mate_t3/config/config_dev.dart'; // 追加
-import 'package:tick_mate_t3/config/config_prod.dart'; // 追加
-import 'package:tick_mate_t3/config/config_stg.dart'; // 追加
+import 'package:tick_mate_t3/config/app_config.dart';
+import 'package:tick_mate_t3/config/config_dev.dart';
+import 'package:tick_mate_t3/config/config_prod.dart';
+import 'package:tick_mate_t3/config/config_stg.dart';
+import 'package:tick_mate_t3/core/constants/app_constants.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_event.dart';
 import 'package:tick_mate_t3/presentation/screens/home/home_screen.dart';
 
-final getIt = GetIt.instance; // 追加
+final getIt = GetIt.instance;
 
-void main() {
+void main() async {
+  // Flutter Widgetの初期化を確実に
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // .envファイルの読み込み
+  await dotenv.load(fileName: '.env');
+
   // 環境設定の読み込みと登録
-  const String environment = String.fromEnvironment(
-    'ENV',
-    defaultValue: 'dev',
-  ); // 追加
-  _setupConfig(environment); // 追加
+  _setupConfig();
 
   runApp(const MyApp());
 }
 
-// 設定登録用の関数を追加
-void _setupConfig(String environment) {
+// 設定登録用の関数を更新
+void _setupConfig() {
+  // 環境変数から環境を取得（.envファイルまたはプラットフォーム環境変数）
+  final String environment =
+      dotenv.env[AppConstants.ENV_KEY] ??
+      const String.fromEnvironment(AppConstants.ENV_KEY, defaultValue: 'dev');
+
   late AppConfig config;
   switch (environment) {
     case 'prod':
@@ -37,12 +46,19 @@ void _setupConfig(String environment) {
       config = DevConfig();
       break;
   }
+
+  // .envファイルの値で設定を上書きすることも可能
+  // ただし、実際の実装では、APIキーなどのセキュアな値は
+  // flutter_secure_storageを使用することを推奨
+
   // get_it にシングルトンとして登録
   getIt.registerSingleton<AppConfig>(config);
+
   // ignore: avoid_print
   print(
-    'Initialized with environment: $environment, baseUrl: ${config.baseUrl}',
-  ); // 確認用ログ
+    'Initialized with environment: $environment, baseUrl: ${config.baseUrl}, '
+    'debug: ${config.isDebugMode}, betaBanner: ${config.showBetaBanner}',
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -37,6 +37,8 @@ void main() {
       final config = GetIt.instance<AppConfig>();
       expect(config, isA<DevConfig>());
       expect(config.baseUrl, 'https://dev.api.tickmate.example.com');
+      expect(config.isDebugMode, true);
+      expect(config.showBetaBanner, true);
     });
 
     test('should register DevConfig for default (unknown) environment', () {
@@ -44,6 +46,8 @@ void main() {
       final config = GetIt.instance<AppConfig>();
       expect(config, isA<DevConfig>());
       expect(config.baseUrl, 'https://dev.api.tickmate.example.com');
+      expect(config.isDebugMode, true);
+      expect(config.showBetaBanner, true);
     });
 
     test('should register StgConfig for "stg" environment', () {
@@ -51,6 +55,8 @@ void main() {
       final config = GetIt.instance<AppConfig>();
       expect(config, isA<StgConfig>());
       expect(config.baseUrl, 'https://stg.api.tickmate.example.com');
+      expect(config.isDebugMode, false);
+      expect(config.showBetaBanner, true);
     });
 
     test('should register ProdConfig for "prod" environment', () {
@@ -58,6 +64,8 @@ void main() {
       final config = GetIt.instance<AppConfig>();
       expect(config, isA<ProdConfig>());
       expect(config.baseUrl, 'https://api.tickmate.example.com');
+      expect(config.isDebugMode, false);
+      expect(config.showBetaBanner, false);
     });
 
     // Clean up GetIt after tests if necessary, though reset() handles it per test

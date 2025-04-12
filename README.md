@@ -22,5 +22,24 @@ Tick Mateは、日々のタスクや習慣を簡単に記録・管理できる�
 - 習慣トラッキング
 - 進捗状況の可視化
 
+## 環境変数の設定
+
+このプロジェクトでは、環境変数を使用して異なる設定を管理しています。
+
+### 環境変数の設定方法
+
+1. プロジェクトのルートディレクトリに `.env` ファイルを作成
+2. `.env.example` ファイルを参考に必要な環境変数を設定
+
+```
+ENV=dev
+BASE_URL=https://dev.api.tickmate.example.com
+API_VERSION=v1
+DEBUG_MODE=true
+SHOW_BETA_BANNER=true
+```
+
+注意: APIキーなどのセキュリティに関わる情報は `.env` ファイルではなく、アプリの安全なストレージに保存してください。
+
 ## 開発者
 - [miu200521358](https://github.com/miu200521358)

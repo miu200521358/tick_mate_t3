@@ -1,10 +1,15 @@
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
+import 'package:tick_mate_t3/config/app_config.dart';
 
 // シンプルなロガー。本番環境では専用のロギングパッケージの使用を検討してください。
 enum LogLevel { debug, info, warning, error }
 
 class Logger {
-  static LogLevel currentLevel = LogLevel.debug; // または設定から読み込む
+  static LogLevel get currentLevel {
+    final config = GetIt.instance<AppConfig>();
+    return config.isDebugMode ? LogLevel.debug : LogLevel.info;
+  }
 
   static void log(
     LogLevel level,
