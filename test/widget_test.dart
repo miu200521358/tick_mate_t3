@@ -11,20 +11,23 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tick_mate_t3/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Home screen displays correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that the home screen title is displayed
+    expect(find.text('Tick Mate'), findsOneWidget);
+    
+    // Verify that the timer list title is displayed
+    expect(find.text('タイマー一覧'), findsOneWidget);
+    
+    // Verify that the add button is present
+    expect(find.byIcon(Icons.add), findsOneWidget);
+    
+    // Verify that the bottom navigation bar has the expected items
+    expect(find.text('タイマー'), findsOneWidget);
+    expect(find.text('通知履歴'), findsOneWidget);
+    expect(find.text('キャラクター'), findsOneWidget);
+    expect(find.text('設定'), findsOneWidget);
   });
 }
