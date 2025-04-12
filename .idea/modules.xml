@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/tick_mate_t3.iml" filepath="$PROJECT_DIR$/tick_mate_t3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/tick_mate_t3_android.iml" filepath="$PROJECT_DIR$/android/tick_mate_t3_android.iml" />
+    </modules>
+  </component>
+</project>
