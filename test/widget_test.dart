@@ -26,29 +26,32 @@ class MockAppBloc extends Mock implements AppBloc {
 
 class MockTimerBloc extends Mock implements TimerBloc {
   final now = DateTime.now();
-  
+
   @override
   Stream<TimerState> get stream => Stream.fromIterable([
-        TimerLoaded(timers: [
-          TimerEntity(
-            id: '1',
-            title: 'テストタイマー',
-            dateTime: null,
-            timeRange: '9:00-10:00',
-            timerType: TimerType.schedule,
-            repeatType: RepeatType.none,
-            characterIds: ['test_character'],
-            notificationSound: null,
-            location: null,
-            useCurrentLocation: false,
-            createdAt: now,
-            updatedAt: now,
-          ),
-        ]),
-      ]);
+    TimerLoaded(
+      timers: [
+        TimerEntity(
+          id: '1',
+          title: 'テストタイマー',
+          dateTime: null,
+          timeRange: '9:00-10:00',
+          timerType: TimerType.schedule,
+          repeatType: RepeatType.none,
+          characterIds: ['test_character'],
+          notificationSound: null,
+          location: null,
+          useCurrentLocation: false,
+          createdAt: now,
+          updatedAt: now,
+        ),
+      ],
+    ),
+  ]);
 }
 
 class MockGetTimersUseCase extends Mock implements GetTimersUseCase {}
+
 class MockCreateTimerUseCase extends Mock implements CreateTimerUseCase {}
 
 void main() {
@@ -66,7 +69,9 @@ void main() {
     when(() => timerBloc.state).thenReturn(const TimerLoaded(timers: []));
   });
 
-  testWidgets('Home screen renders correctly with BLoC', (WidgetTester tester) async {
+  testWidgets('Home screen renders correctly with BLoC', (
+    WidgetTester tester,
+  ) async {
     // テストウィジェットを構築
     await tester.pumpWidget(
       MaterialApp(
@@ -96,7 +101,9 @@ void main() {
     expect(find.byIcon(Icons.add), findsOneWidget);
   });
 
-  testWidgets('Home screen shows timer list when timers are available', (WidgetTester tester) async {
+  testWidgets('Home screen shows timer list when timers are available', (
+    WidgetTester tester,
+  ) async {
     // タイマーリストがある状態をモック
     final now = DateTime.now();
     final timers = [
@@ -115,7 +122,7 @@ void main() {
         updatedAt: now,
       ),
     ];
-    
+
     when(() => timerBloc.state).thenReturn(TimerLoaded(timers: timers));
 
     // テストウィジェットを構築
@@ -136,10 +143,10 @@ void main() {
 
     // タイマータイトルが表示されていることを確認
     expect(find.text('テストタイマー'), findsOneWidget);
-    
+
     // タイマーの時間範囲が表示されていることを確認
     expect(find.text('時間範囲: 9:00-10:00'), findsOneWidget);
-    
+
     // タイマータイプが表示されていることを確認
     expect(find.text('タイプ: schedule'), findsOneWidget);
   });
