@@ -1,11 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:tick_mate_t3/config/app_config.dart'; // 追加
+import 'package:tick_mate_t3/config/config_dev.dart'; // 追加
+import 'package:tick_mate_t3/config/config_prod.dart'; // 追加
+import 'package:tick_mate_t3/config/config_stg.dart'; // 追加
 import 'package:tick_mate_t3/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_event.dart';
 import 'package:tick_mate_t3/presentation/screens/home/home_screen.dart';
 
+final getIt = GetIt.instance; // 追加
+
 void main() {
+  // 環境設定の読み込みと登録
+  const String environment = String.fromEnvironment(
+    'ENV',
+    defaultValue: 'dev',
+  ); // 追加
+  _setupConfig(environment); // 追加
+
   runApp(const MyApp());
+}
+
+// 設定登録用の関数を追加
+void _setupConfig(String environment) {
+  late AppConfig config;
+  switch (environment) {
+    case 'prod':
+      config = ProdConfig();
+      break;
+    case 'stg':
+      config = StgConfig();
+      break;
+    case 'dev':
+    default:
+      config = DevConfig();
+      break;
+  }
+  // get_it にシングルトンとして登録
+  getIt.registerSingleton<AppConfig>(config);
+  // ignore: avoid_print
+  print(
+    'Initialized with environment: $environment, baseUrl: ${config.baseUrl}',
+  ); // 確認用ログ
 }
 
 class MyApp extends StatelessWidget {
