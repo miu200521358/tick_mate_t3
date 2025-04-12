@@ -1,7 +1,8 @@
+import 'dart:math' show Random;
+
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
-import 'dart:math' show Random;
 
 /// 外部ライブラリの依存関係を提供するモジュール
 @module
