@@ -17,16 +17,16 @@ void main() {
 
     // Verify that the app title is displayed
     expect(find.text('Tick Mate'), findsOneWidget);
-    
+
     // Verify that the home screen text is displayed
     expect(find.text('ホーム画面'), findsOneWidget);
-    
+
     // Verify that the bottom navigation bar has the expected items
     expect(find.text('タイマー'), findsOneWidget);
     expect(find.text('通知履歴'), findsOneWidget);
     expect(find.text('キャラクター'), findsOneWidget);
     expect(find.text('設定'), findsOneWidget);
-    
+
     // Verify that the add button is present
     expect(find.byIcon(Icons.add), findsOneWidget);
   });
