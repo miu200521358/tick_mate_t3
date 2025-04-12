@@ -7,9 +7,9 @@ import 'package:tick_mate_t3/domain/repositories/timer_repository.dart';
 /// タイマーリポジトリの実装
 @LazySingleton(as: TimerRepository)
 class TimerRepositoryImpl implements TimerRepository {
-  final LocalStorageDataSource _localStorageDataSource;
-
   TimerRepositoryImpl(this._localStorageDataSource);
+  
+  final LocalStorageDataSource _localStorageDataSource;
 
   @override
   Future<List<TimerEntity>> getAllTimers() async {
