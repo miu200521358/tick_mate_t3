@@ -11,10 +11,10 @@ class RetryInterceptor extends Interceptor {
   final int maxRetries;
   final Duration retryDelay;
 
-  RetryInterceptor({
-    this.maxRetries = 3,
-    this.retryDelay = const Duration(seconds: 1),
-  });
+  @factoryMethod
+  RetryInterceptor()
+      : maxRetries = 3,
+        retryDelay = const Duration(seconds: 1);
 
   @override
   Future<void> onError(
