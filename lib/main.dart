@@ -6,6 +6,7 @@ import 'package:tick_mate_t3/config/config_dev.dart';
 import 'package:tick_mate_t3/config/config_prod.dart';
 import 'package:tick_mate_t3/config/config_stg.dart';
 import 'package:tick_mate_t3/core/constants/app_constants.dart';
+import 'package:tick_mate_t3/data/hive_init.dart';
 import 'package:tick_mate_t3/di/injection.dart';
 import 'package:tick_mate_t3/domain/usecases/timer/create_timer_usecase.dart';
 import 'package:tick_mate_t3/domain/usecases/timer/get_timers_usecase.dart';
@@ -21,6 +22,9 @@ void main() async {
 
   // .envファイルの読み込み
   await dotenv.load(fileName: '.env');
+
+  // Hiveの初期化
+  await HiveInit.initialize();
 
   // 依存性注入の設定
   configureDependencies();

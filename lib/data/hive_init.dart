@@ -3,6 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tick_mate_t3/data/datasources/local/hive_boxes.dart';
 import 'package:tick_mate_t3/data/models/character_model.dart';
 import 'package:tick_mate_t3/data/models/notification_history_model.dart';
+import 'package:tick_mate_t3/data/models/subscription_model.dart';
 import 'package:tick_mate_t3/data/models/timer_model.dart';
 import 'package:tick_mate_t3/data/models/work_model.dart';
 
@@ -19,6 +20,7 @@ class HiveInit {
     Hive.registerAdapter(CharacterModelAdapter());
     Hive.registerAdapter(WorkModelAdapter());
     Hive.registerAdapter(NotificationHistoryModelAdapter());
+    Hive.registerAdapter(SubscriptionModelAdapter());
 
     // ボックスを開く
     await Hive.openBox<TimerModel>(HiveBoxes.timerBox);
@@ -27,5 +29,6 @@ class HiveInit {
     await Hive.openBox<NotificationHistoryModel>(
       HiveBoxes.notificationHistoryBox,
     );
+    await Hive.openBox<SubscriptionModel>(HiveBoxes.subscriptionBox);
   }
 }

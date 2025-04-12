@@ -28,6 +28,8 @@ import 'package:tick_mate_t3/data/repositories/character_repository_impl.dart'
     as _i245;
 import 'package:tick_mate_t3/data/repositories/notification_history_repository_impl.dart'
     as _i672;
+import 'package:tick_mate_t3/data/repositories/subscription_repository_impl.dart'
+    as _i181;
 import 'package:tick_mate_t3/data/repositories/timer_repository_impl.dart'
     as _i971;
 import 'package:tick_mate_t3/data/repositories/work_repository_impl.dart'
@@ -37,6 +39,8 @@ import 'package:tick_mate_t3/domain/repositories/character_repository.dart'
     as _i62;
 import 'package:tick_mate_t3/domain/repositories/notification_history_repository.dart'
     as _i655;
+import 'package:tick_mate_t3/domain/repositories/subscription_repository.dart'
+    as _i60;
 import 'package:tick_mate_t3/domain/repositories/timer_repository.dart'
     as _i200;
 import 'package:tick_mate_t3/domain/repositories/work_repository.dart' as _i896;
@@ -63,6 +67,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => appModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
     gh.lazySingleton<_i407.Random>(() => appModule.random);
+    gh.lazySingleton<_i60.SubscriptionRepository>(
+      () => _i181.SubscriptionRepositoryImpl(),
+    );
     gh.lazySingleton<_i777.AppConfig>(
       () => _i760.DevConfig(),
       instanceName: 'dev',
