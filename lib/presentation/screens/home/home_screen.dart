@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tick_mate_t3/domain/entities/timer_entity.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_state.dart';
+import 'package:tick_mate_t3/presentation/bloc/timer/timer_bloc.dart';
+import 'package:tick_mate_t3/presentation/bloc/timer/timer_event.dart';
+import 'package:tick_mate_t3/presentation/bloc/timer/timer_state.dart';
+import 'package:tick_mate_t3/presentation/widgets/timer_card_widget.dart';
 
 /// ホーム画面
 class HomeScreen extends StatelessWidget {
@@ -16,14 +21,34 @@ class HomeScreen extends StatelessWidget {
             title: const Text('Tick Mate'),
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text('ホーム画面'),
-                // TODO: タイマーリストの表示を実装
-              ],
-            ),
+          body: BlocBuilder<TimerBloc, TimerState>(
+            builder: (context, timerState) {
+              if (timerState is TimerInitial || timerState is TimerLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (timerState is TimerLoaded) {
+                return timerState.timers.isEmpty
+                    ? const Center(child: Text('タイマーがありません。追加してください。'))
+                    : ListView.builder(
+                      itemCount: timerState.timers.length,
+                      itemBuilder: (context, index) {
+                        final timer = timerState.timers[index];
+                        return TimerCardWidget(
+                          title: timer.title,
+                          dateTime: timer.dateTime,
+                          timeRange: timer.timeRange,
+                          timerType: timer.timerType.toString().split('.').last,
+                          characters: timer.characterIds,
+                          onTap: () {
+                            // TODO: タイマー詳細画面への遷移を実装
+                          },
+                        );
+                      },
+                    );
+              } else if (timerState is TimerError) {
+                return Center(child: Text('エラー: ${timerState.message}'));
+              }
+              return const Center(child: Text('不明な状態です'));
+            },
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: 0,
@@ -44,7 +69,17 @@ class HomeScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              // TODO: タイマー追加画面への遷移を実装
+              // サンプルとしてタイマー作成イベントを発火
+              context.read<TimerBloc>().add(
+                const TimerCreated(
+                  title: 'サンプルタイマー',
+                  timerType: TimerType.schedule,
+                  repeatType: RepeatType.none,
+                  characterIds: ['sample_character_id'],
+                  dateTime: null,
+                  timeRange: '9:00-10:00',
+                ),
+              );
             },
             tooltip: 'タイマーを追加',
             child: const Icon(Icons.add),
