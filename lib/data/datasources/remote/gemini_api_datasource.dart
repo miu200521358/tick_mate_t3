@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart';
 
 /// Gemini API データソース
+@lazySingleton
 class GeminiApiDataSource {
   final Dio _dio;
   final SecureStorageDataSource _secureStorage;
 
-  GeminiApiDataSource({Dio? dio, SecureStorageDataSource? secureStorage})
-    : _dio = dio ?? Dio(),
-      _secureStorage = secureStorage ?? SecureStorageDataSource();
+  GeminiApiDataSource(this._dio, this._secureStorage);
 
   /// Gemini APIのベースURL
   static const String baseUrl =

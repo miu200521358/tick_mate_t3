@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import '../../entities/notification_history_entity.dart';
 import '../../repositories/notification_history_repository.dart';
 
 /// 通知作成ユースケース
+@injectable
 class CreateNotificationUseCase {
   final NotificationHistoryRepository _notificationHistoryRepository;
 

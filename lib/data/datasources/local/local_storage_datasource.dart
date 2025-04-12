@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/data/datasources/local/hive_boxes.dart';
 import 'package:tick_mate_t3/data/models/character_model.dart';
 import 'package:tick_mate_t3/data/models/notification_history_model.dart';
@@ -6,6 +7,7 @@ import 'package:tick_mate_t3/data/models/timer_model.dart';
 import 'package:tick_mate_t3/data/models/work_model.dart';
 
 /// ローカルストレージデータソース
+@lazySingleton
 class LocalStorageDataSource {
   /// タイマーボックスを取得
   Box<TimerModel> getTimerBox() {

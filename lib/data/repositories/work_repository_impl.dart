@@ -1,15 +1,15 @@
+import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/data/datasources/local/local_storage_datasource.dart';
 import 'package:tick_mate_t3/data/models/work_model.dart';
 import 'package:tick_mate_t3/domain/entities/work_entity.dart';
 import 'package:tick_mate_t3/domain/repositories/work_repository.dart';
 
 /// 作品リポジトリの実装
+@LazySingleton(as: WorkRepository)
 class WorkRepositoryImpl implements WorkRepository {
-  final LocalStorageDataSource _localStorageDataSource;
+  WorkRepositoryImpl(this._localStorageDataSource);
 
-  WorkRepositoryImpl({LocalStorageDataSource? localStorageDataSource})
-    : _localStorageDataSource =
-          localStorageDataSource ?? LocalStorageDataSource();
+  final LocalStorageDataSource _localStorageDataSource;
 
   @override
   Future<List<WorkEntity>> getAllWorks() async {
