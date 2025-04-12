@@ -21,7 +21,7 @@ linter:
   # producing the lint.
   rules:
     prefer_single_quotes: true  # 単一引用符を使用する
-    prefer_relative_imports: true  # 相対インポートを使用する
+    prefer_relative_imports: false  # 相対インポートを使用しない
     directives_ordering: true  # インポート、エクスポート、パートディレクティブの順序付け
     prefer_final_locals: true  # ローカル変数をfinalにする
     sort_child_properties_last: true  # 子プロパティを最後に配置する
