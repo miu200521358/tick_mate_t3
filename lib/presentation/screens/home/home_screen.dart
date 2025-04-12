@@ -6,6 +6,7 @@ import 'package:tick_mate_t3/presentation/bloc/app/app_state.dart';
 import 'package:tick_mate_t3/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate_t3/presentation/bloc/timer/timer_state.dart';
+import 'package:tick_mate_t3/presentation/screens/settings/settings_screen.dart';
 import 'package:tick_mate_t3/presentation/widgets/timer_card_widget.dart';
 
 /// ホーム画面
@@ -64,8 +65,16 @@ class HomeScreen extends StatelessWidget {
               ),
               BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
             ],
-            // TODO: タブ切り替えの実装
-            onTap: (index) {},
+            onTap: (index) {
+              if (index == 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                );
+              }
+            },
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
