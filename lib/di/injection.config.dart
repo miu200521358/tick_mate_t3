@@ -22,8 +22,15 @@ import 'package:tick_mate_t3/data/datasources/local/local_storage_datasource.dar
     as _i570;
 import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart'
     as _i676;
+import 'package:tick_mate_t3/data/datasources/remote/gemini_api_client.dart'
+    as _i470;
 import 'package:tick_mate_t3/data/datasources/remote/gemini_api_datasource.dart'
     as _i534;
+import 'package:tick_mate_t3/data/datasources/remote/http_client.dart' as _i240;
+import 'package:tick_mate_t3/data/datasources/remote/interceptors/logging_interceptor.dart'
+    as _i818;
+import 'package:tick_mate_t3/data/datasources/remote/interceptors/retry_interceptor.dart'
+    as _i458;
 import 'package:tick_mate_t3/data/repositories/character_repository_impl.dart'
     as _i245;
 import 'package:tick_mate_t3/data/repositories/notification_history_repository_impl.dart'
@@ -57,23 +64,30 @@ import 'package:tick_mate_t3/presentation/bloc/settings/settings_bloc.dart'
     as _i485;
 
 extension GetItInjectableX on _i174.GetIt {
-  // initializes the registration of main-scope dependencies inside of GetIt
+// initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final gh = _i526.GetItHelper(
+      this,
+      environment,
+      environmentFilter,
+    );
     final appModule = _$AppModule();
     final settingsModule = _$SettingsModule();
+    gh.factory<_i818.LoggingInterceptor>(() => _i818.LoggingInterceptor());
     gh.lazySingleton<_i570.LocalStorageDataSource>(
-      () => _i570.LocalStorageDataSource(),
-    );
+        () => _i570.LocalStorageDataSource());
     gh.lazySingleton<_i361.Dio>(() => appModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
     gh.lazySingleton<_i407.Random>(() => appModule.random);
     gh.lazySingleton<_i60.SubscriptionRepository>(
-      () => _i181.SubscriptionRepositoryImpl(),
-    );
+        () => _i181.SubscriptionRepositoryImpl());
+    gh.factory<_i458.RetryInterceptor>(() => _i458.RetryInterceptor(
+          maxRetries: gh<int>(),
+          retryDelay: gh<Duration>(),
+        ));
     gh.lazySingleton<_i777.AppConfig>(
       () => _i760.DevConfig(),
       instanceName: 'dev',
@@ -87,51 +101,43 @@ extension GetItInjectableX on _i174.GetIt {
       instanceName: 'prod',
     );
     gh.lazySingleton<_i676.SecureStorageDataSource>(
-      () => _i676.SecureStorageDataSource(gh<_i558.FlutterSecureStorage>()),
-    );
-    gh.lazySingleton<_i62.CharacterRepository>(
-      () => _i245.CharacterRepositoryImpl(gh<_i570.LocalStorageDataSource>()),
-    );
-    gh.lazySingleton<_i655.NotificationHistoryRepository>(
-      () => _i672.NotificationHistoryRepositoryImpl(
-        gh<_i570.LocalStorageDataSource>(),
-      ),
-    );
+        () => _i676.SecureStorageDataSource(gh<_i558.FlutterSecureStorage>()));
+    gh.lazySingleton<_i240.HttpClient>(() => _i240.HttpClient(
+          gh<_i361.Dio>(),
+          gh<_i818.LoggingInterceptor>(),
+          gh<_i458.RetryInterceptor>(),
+        ));
+    gh.lazySingleton<_i62.CharacterRepository>(() =>
+        _i245.CharacterRepositoryImpl(gh<_i570.LocalStorageDataSource>()));
+    gh.lazySingleton<_i655.NotificationHistoryRepository>(() =>
+        _i672.NotificationHistoryRepositoryImpl(
+            gh<_i570.LocalStorageDataSource>()));
     gh.lazySingleton<_i896.WorkRepository>(
-      () => _i393.WorkRepositoryImpl(gh<_i570.LocalStorageDataSource>()),
-    );
+        () => _i393.WorkRepositoryImpl(gh<_i570.LocalStorageDataSource>()));
     gh.lazySingleton<_i200.TimerRepository>(
-      () => _i971.TimerRepositoryImpl(gh<_i570.LocalStorageDataSource>()),
-    );
-    gh.lazySingleton<_i534.GeminiApiDataSource>(
-      () => _i534.GeminiApiDataSource(
-        gh<_i361.Dio>(),
-        gh<_i676.SecureStorageDataSource>(),
-      ),
-    );
-    gh.factory<_i891.CreateNotificationUseCase>(
-      () => _i891.CreateNotificationUseCase(
-        gh<_i655.NotificationHistoryRepository>(),
-      ),
-    );
-    gh.factory<_i758.SelectCharacterUseCase>(
-      () => _i758.SelectCharacterUseCase(
-        gh<_i62.CharacterRepository>(),
-        gh<_i407.Random>(),
-      ),
-    );
+        () => _i971.TimerRepositoryImpl(gh<_i570.LocalStorageDataSource>()));
+    gh.lazySingleton<_i470.GeminiApiClient>(() => _i470.GeminiApiClient(
+          gh<_i240.HttpClient>(),
+          gh<_i777.AppConfig>(instanceName: 'dev'),
+          gh<_i676.SecureStorageDataSource>(),
+        ));
+    gh.factory<_i891.CreateNotificationUseCase>(() =>
+        _i891.CreateNotificationUseCase(
+            gh<_i655.NotificationHistoryRepository>()));
+    gh.factory<_i758.SelectCharacterUseCase>(() => _i758.SelectCharacterUseCase(
+          gh<_i62.CharacterRepository>(),
+          gh<_i407.Random>(),
+        ));
     gh.factory<_i802.CreateTimerUseCase>(
-      () => _i802.CreateTimerUseCase(gh<_i200.TimerRepository>()),
-    );
+        () => _i802.CreateTimerUseCase(gh<_i200.TimerRepository>()));
     gh.factory<_i194.GetTimersUseCase>(
-      () => _i194.GetTimersUseCase(gh<_i200.TimerRepository>()),
-    );
-    gh.factory<_i485.SettingsBloc>(
-      () => settingsModule.provideSettingsBloc(
-        gh<_i676.SecureStorageDataSource>(),
-        gh<_i534.GeminiApiDataSource>(),
-      ),
-    );
+        () => _i194.GetTimersUseCase(gh<_i200.TimerRepository>()));
+    gh.lazySingleton<_i534.GeminiApiDataSource>(
+        () => _i534.GeminiApiDataSource(gh<_i470.GeminiApiClient>()));
+    gh.factory<_i485.SettingsBloc>(() => settingsModule.provideSettingsBloc(
+          gh<_i676.SecureStorageDataSource>(),
+          gh<_i534.GeminiApiDataSource>(),
+        ));
     return this;
   }
 }
