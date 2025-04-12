@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/config/app_config.dart';
 
-@Named("dev")
+@Named('dev')
 @LazySingleton(as: AppConfig)
 class DevConfig implements AppConfig {
   @override
