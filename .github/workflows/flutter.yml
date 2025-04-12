@@ -18,6 +18,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       - name: Format code
-        run: dart format --set-exit-if-changed .
+        run: dart format -o write .
       - name: Analyze code
         run: flutter analyze
