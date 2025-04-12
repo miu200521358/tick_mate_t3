@@ -12,15 +12,15 @@ import 'package:tick_mate_t3/presentation/screens/settings/settings_screen.dart'
 // Mock class
 class MockSettingsBloc extends Mock implements SettingsBloc {
   final _stateController = StreamController<SettingsState>.broadcast();
-  
+
   @override
   Stream<SettingsState> get stream => _stateController.stream;
-  
+
   void emitState(SettingsState state) {
     when(() => this.state).thenReturn(state);
     _stateController.add(state);
   }
-  
+
   @override
   Future<void> close() async {
     await _stateController.close();
@@ -43,7 +43,7 @@ void main() {
     // Default state setup
     when(() => mockSettingsBloc.state).thenReturn(const SettingsInitial());
   });
-  
+
   tearDown(() {
     reset(mockSettingsBloc);
   });
@@ -58,7 +58,9 @@ void main() {
   }
 
   group('SettingsScreen', () {
-    testWidgets('初期化時にSettingsInitializedイベントを発行すること', (WidgetTester tester) async {
+    testWidgets('初期化時にSettingsInitializedイベントを発行すること', (
+      WidgetTester tester,
+    ) async {
       // Arrange
       when(() => mockSettingsBloc.state).thenReturn(const SettingsInitial());
 
@@ -69,7 +71,9 @@ void main() {
       verify(() => mockSettingsBloc.add(const SettingsInitialized())).called(1);
     });
 
-    testWidgets('SettingsInitial状態でローディングインジケータを表示すること', (WidgetTester tester) async {
+    testWidgets('SettingsInitial状態でローディングインジケータを表示すること', (
+      WidgetTester tester,
+    ) async {
       // Arrange
       when(() => mockSettingsBloc.state).thenReturn(const SettingsInitial());
 
@@ -80,7 +84,9 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('SettingsLoading状態でローディングインジケータを表示すること', (WidgetTester tester) async {
+    testWidgets('SettingsLoading状態でローディングインジケータを表示すること', (
+      WidgetTester tester,
+    ) async {
       // Arrange
       when(() => mockSettingsBloc.state).thenReturn(const SettingsLoading());
 
@@ -94,7 +100,9 @@ void main() {
     testWidgets('SettingsError状態でエラーメッセージを表示すること', (WidgetTester tester) async {
       // Arrange
       const errorMessage = 'テストエラー';
-      when(() => mockSettingsBloc.state).thenReturn(const SettingsError(errorMessage));
+      when(
+        () => mockSettingsBloc.state,
+      ).thenReturn(const SettingsError(errorMessage));
 
       // Act
       await tester.pumpWidget(createWidgetUnderTest());
@@ -106,14 +114,16 @@ void main() {
     group('SettingsLoaded状態', () {
       const testApiKey = 'test_api_key_123';
 
-      testWidgets('APIキーが存在する場合、フォームにAPIキーを表示すること', (WidgetTester tester) async {
+      testWidgets('APIキーが存在する場合、フォームにAPIキーを表示すること', (
+        WidgetTester tester,
+      ) async {
         // Arrange
         final state = const SettingsLoaded(geminiApiKey: testApiKey);
         when(() => mockSettingsBloc.state).thenReturn(state);
 
         // Act
         await tester.pumpWidget(createWidgetUnderTest());
-        
+
         // Trigger the BlocConsumer's listener
         mockSettingsBloc.emitState(state);
         await tester.pumpAndSettle();
@@ -121,20 +131,22 @@ void main() {
         // Assert
         final textField = find.byType(TextField);
         expect(textField, findsOneWidget);
-        
+
         // Get the controller from the TextField
         final controller = (tester.widget(textField) as TextField).controller;
         expect(controller?.text, testApiKey);
       });
 
-      testWidgets('APIキー保存ボタンをタップするとGeminiApiKeySavedイベントを発行すること', (WidgetTester tester) async {
+      testWidgets('APIキー保存ボタンをタップするとGeminiApiKeySavedイベントを発行すること', (
+        WidgetTester tester,
+      ) async {
         // Arrange
         final state = const SettingsLoaded(geminiApiKey: testApiKey);
         when(() => mockSettingsBloc.state).thenReturn(state);
 
         // Act
         await tester.pumpWidget(createWidgetUnderTest());
-        
+
         // Trigger the BlocConsumer's listener
         mockSettingsBloc.emitState(state);
         await tester.pumpAndSettle();
@@ -148,17 +160,23 @@ void main() {
         await tester.pump();
 
         // Assert
-        verify(() => mockSettingsBloc.add(const GeminiApiKeySaved(apiKey: 'new_api_key'))).called(1);
+        verify(
+          () => mockSettingsBloc.add(
+            const GeminiApiKeySaved(apiKey: 'new_api_key'),
+          ),
+        ).called(1);
       });
 
-      testWidgets('APIキー削除ボタンをタップするとGeminiApiKeyDeletedイベントを発行すること', (WidgetTester tester) async {
+      testWidgets('APIキー削除ボタンをタップするとGeminiApiKeyDeletedイベントを発行すること', (
+        WidgetTester tester,
+      ) async {
         // Arrange
         final state = const SettingsLoaded(geminiApiKey: testApiKey);
         when(() => mockSettingsBloc.state).thenReturn(state);
 
         // Act
         await tester.pumpWidget(createWidgetUnderTest());
-        
+
         // Trigger the BlocConsumer's listener
         mockSettingsBloc.emitState(state);
         await tester.pumpAndSettle();
@@ -168,17 +186,21 @@ void main() {
         await tester.pump();
 
         // Assert
-        verify(() => mockSettingsBloc.add(const GeminiApiKeyDeleted())).called(1);
+        verify(
+          () => mockSettingsBloc.add(const GeminiApiKeyDeleted()),
+        ).called(1);
       });
 
-      testWidgets('接続テストボタンをタップするとGeminiApiKeyTestedイベントを発行すること', (WidgetTester tester) async {
+      testWidgets('接続テストボタンをタップするとGeminiApiKeyTestedイベントを発行すること', (
+        WidgetTester tester,
+      ) async {
         // Arrange
         final state = const SettingsLoaded(geminiApiKey: testApiKey);
         when(() => mockSettingsBloc.state).thenReturn(state);
 
         // Act
         await tester.pumpWidget(createWidgetUnderTest());
-        
+
         // Trigger the BlocConsumer's listener
         mockSettingsBloc.emitState(state);
         await tester.pumpAndSettle();
@@ -188,17 +210,24 @@ void main() {
         await tester.pump();
 
         // Assert
-        verify(() => mockSettingsBloc.add(const GeminiApiKeyTested(apiKey: testApiKey))).called(1);
+        verify(
+          () => mockSettingsBloc.add(
+            const GeminiApiKeyTested(apiKey: testApiKey),
+          ),
+        ).called(1);
       });
 
       testWidgets('テスト中はローディングインジケータを表示すること', (WidgetTester tester) async {
         // Arrange
-        final state = const SettingsLoaded(geminiApiKey: testApiKey, isTesting: true);
+        final state = const SettingsLoaded(
+          geminiApiKey: testApiKey,
+          isTesting: true,
+        );
         when(() => mockSettingsBloc.state).thenReturn(state);
 
         // Act
         await tester.pumpWidget(createWidgetUnderTest());
-        
+
         // Trigger the BlocConsumer's listener
         mockSettingsBloc.emitState(state);
         await tester.pump(const Duration(milliseconds: 100));
@@ -220,7 +249,7 @@ void main() {
 
         // Act
         await tester.pumpWidget(createWidgetUnderTest());
-        
+
         // Trigger the BlocConsumer's listener
         mockSettingsBloc.emitState(state);
         await tester.pump(const Duration(milliseconds: 100));
@@ -242,7 +271,7 @@ void main() {
 
         // Act
         await tester.pumpWidget(createWidgetUnderTest());
-        
+
         // Trigger the BlocConsumer's listener
         mockSettingsBloc.emitState(state);
         await tester.pump(const Duration(milliseconds: 100));
