@@ -1,8 +1,10 @@
-// Simple logger using print. Consider using a dedicated logging package for production.
+import 'package:flutter/foundation.dart';
+
+// シンプルなロガー。本番環境では専用のロギングパッケージの使用を検討してください。
 enum LogLevel { debug, info, warning, error }
 
 class Logger {
-  static LogLevel currentLevel = LogLevel.debug; // Or load from config
+  static LogLevel currentLevel = LogLevel.debug; // または設定から読み込む
 
   static void log(
     LogLevel level,
@@ -12,12 +14,13 @@ class Logger {
   ]) {
     if (level.index >= currentLevel.index) {
       final timestamp = DateTime.now();
-      print('[$timestamp] [${level.name.toUpperCase()}] $message');
+      // debugPrintはリリースビルドでは何もしないため、開発中にのみログが出力される
+      debugPrint('[$timestamp] [${level.name.toUpperCase()}] $message');
       if (error != null) {
-        print('  Error: $error');
+        debugPrint('  Error: $error');
       }
       if (stackTrace != null) {
-        print('  StackTrace: $stackTrace');
+        debugPrint('  StackTrace: $stackTrace');
       }
     }
   }
