@@ -13,8 +13,11 @@ class GeminiApiClient extends BaseApiClient {
   static const String baseUrl =
       'https://generativelanguage.googleapis.com/v1beta/models';
 
-  GeminiApiClient(HttpClient httpClient, AppConfig config, this._secureStorage)
-    : super(httpClient, config);
+  GeminiApiClient(
+    HttpClient httpClient, 
+    @Named('dev') AppConfig config, 
+    this._secureStorage,
+  ) : super(httpClient, config);
 
   /// APIキーを取得してURLに付加
   Future<String> _getUrlWithApiKey(String endpoint) async {
