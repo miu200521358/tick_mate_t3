@@ -1,15 +1,15 @@
+import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/data/datasources/local/local_storage_datasource.dart';
 import 'package:tick_mate_t3/data/models/character_model.dart';
 import 'package:tick_mate_t3/domain/entities/character_entity.dart';
 import 'package:tick_mate_t3/domain/repositories/character_repository.dart';
 
 /// キャラクターリポジトリの実装
+@LazySingleton(as: CharacterRepository)
 class CharacterRepositoryImpl implements CharacterRepository {
   final LocalStorageDataSource _localStorageDataSource;
 
-  CharacterRepositoryImpl({LocalStorageDataSource? localStorageDataSource})
-    : _localStorageDataSource =
-          localStorageDataSource ?? LocalStorageDataSource();
+  CharacterRepositoryImpl(this._localStorageDataSource);
 
   @override
   Future<List<CharacterEntity>> getAllCharacters() async {

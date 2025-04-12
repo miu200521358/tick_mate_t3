@@ -1,3 +1,5 @@
+import 'package:injectable/injectable.dart';
+
 abstract class AppConfig {
   String get baseUrl;
   bool get isDebugMode;

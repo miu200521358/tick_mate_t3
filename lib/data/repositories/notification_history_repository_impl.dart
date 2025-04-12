@@ -1,17 +1,16 @@
+import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/data/datasources/local/local_storage_datasource.dart';
 import 'package:tick_mate_t3/data/models/notification_history_model.dart';
 import 'package:tick_mate_t3/domain/entities/notification_history_entity.dart';
 import 'package:tick_mate_t3/domain/repositories/notification_history_repository.dart';
 
 /// 通知履歴リポジトリの実装
+@LazySingleton(as: NotificationHistoryRepository)
 class NotificationHistoryRepositoryImpl
     implements NotificationHistoryRepository {
   final LocalStorageDataSource _localStorageDataSource;
 
-  NotificationHistoryRepositoryImpl({
-    LocalStorageDataSource? localStorageDataSource,
-  }) : _localStorageDataSource =
-           localStorageDataSource ?? LocalStorageDataSource();
+  NotificationHistoryRepositoryImpl(this._localStorageDataSource);
 
   @override
   Future<List<NotificationHistoryEntity>> getAllNotificationHistory() async {

@@ -1,14 +1,15 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:injectable/injectable.dart';
 
 /// セキュアストレージデータソース
+@lazySingleton
 class SecureStorageDataSource {
   final FlutterSecureStorage _secureStorage;
 
   /// セキュアストレージキー
   static const String geminiApiKey = 'gemini_api_key';
 
-  SecureStorageDataSource({FlutterSecureStorage? secureStorage})
-    : _secureStorage = secureStorage ?? const FlutterSecureStorage();
+  SecureStorageDataSource(this._secureStorage);
 
   /// Gemini APIキーを保存
   Future<void> saveGeminiApiKey(String apiKey) async {

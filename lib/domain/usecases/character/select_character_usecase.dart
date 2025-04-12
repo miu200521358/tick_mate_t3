@@ -1,15 +1,16 @@
 import 'dart:math';
 
+import 'package:injectable/injectable.dart';
 import '../../entities/character_entity.dart';
 import '../../repositories/character_repository.dart';
 
 /// キャラクター選出ユースケース
+@injectable
 class SelectCharacterUseCase {
   final CharacterRepository _characterRepository;
   final Random _random;
 
-  SelectCharacterUseCase(this._characterRepository, {Random? random})
-    : _random = random ?? Random();
+  SelectCharacterUseCase(this._characterRepository, this._random);
 
   /// タイマー用のキャラクターをランダムに1人選出
   Future<CharacterEntity> execute(List<String> characterIds) async {

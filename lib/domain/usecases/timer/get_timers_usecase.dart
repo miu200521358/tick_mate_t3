@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import '../../entities/timer_entity.dart';
 import '../../repositories/timer_repository.dart';
 
 /// タイマー取得ユースケース
+@injectable
 class GetTimersUseCase {
   final TimerRepository _timerRepository;
 

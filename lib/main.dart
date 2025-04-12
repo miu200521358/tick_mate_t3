@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get_it/get_it.dart';
 import 'package:tick_mate_t3/config/app_config.dart';
 import 'package:tick_mate_t3/config/config_dev.dart';
 import 'package:tick_mate_t3/config/config_prod.dart';
 import 'package:tick_mate_t3/config/config_stg.dart';
 import 'package:tick_mate_t3/core/constants/app_constants.dart';
-import 'package:tick_mate_t3/data/repositories/timer_repository_impl.dart';
+import 'package:tick_mate_t3/di/injection.dart';
 import 'package:tick_mate_t3/domain/usecases/timer/create_timer_usecase.dart';
 import 'package:tick_mate_t3/domain/usecases/timer/get_timers_usecase.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_bloc.dart';
@@ -16,14 +15,15 @@ import 'package:tick_mate_t3/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate_t3/presentation/screens/home/home_screen.dart';
 
-final getIt = GetIt.instance;
-
 void main() async {
   // Flutter Widgetの初期化を確実に
   WidgetsFlutterBinding.ensureInitialized();
 
   // .envファイルの読み込み
   await dotenv.load(fileName: '.env');
+
+  // 依存性注入の設定
+  configureDependencies();
 
   // 環境設定の読み込みと登録
   _setupConfig();
@@ -58,13 +58,6 @@ void _setupConfig() {
 
   // get_it にシングルトンとして登録
   getIt.registerSingleton<AppConfig>(config);
-
-  // リポジトリの登録
-  getIt.registerFactory(() => TimerRepositoryImpl());
-
-  // ユースケースの登録
-  getIt.registerFactory(() => GetTimersUseCase(getIt<TimerRepositoryImpl>()));
-  getIt.registerFactory(() => CreateTimerUseCase(getIt<TimerRepositoryImpl>()));
 
   // ignore: avoid_print
   print(
