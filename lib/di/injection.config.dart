@@ -76,6 +76,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final appModule = _$AppModule();
     final settingsModule = _$SettingsModule();
+    gh.factory<_i458.RetryInterceptor>(() => _i458.RetryInterceptor());
     gh.factory<_i818.LoggingInterceptor>(() => _i818.LoggingInterceptor());
     gh.lazySingleton<_i570.LocalStorageDataSource>(
         () => _i570.LocalStorageDataSource());
@@ -84,10 +85,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i407.Random>(() => appModule.random);
     gh.lazySingleton<_i60.SubscriptionRepository>(
         () => _i181.SubscriptionRepositoryImpl());
-    gh.factory<_i458.RetryInterceptor>(() => _i458.RetryInterceptor(
-          maxRetries: gh<int>(),
-          retryDelay: gh<Duration>(),
-        ));
     gh.lazySingleton<_i777.AppConfig>(
       () => _i760.DevConfig(),
       instanceName: 'dev',
