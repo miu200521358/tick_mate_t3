@@ -7,8 +7,13 @@ import 'package:tick_mate_t3/config/config_dev.dart';
 import 'package:tick_mate_t3/config/config_prod.dart';
 import 'package:tick_mate_t3/config/config_stg.dart';
 import 'package:tick_mate_t3/core/constants/app_constants.dart';
+import 'package:tick_mate_t3/data/repositories/timer_repository_impl.dart';
+import 'package:tick_mate_t3/domain/usecases/timer/create_timer_usecase.dart';
+import 'package:tick_mate_t3/domain/usecases/timer/get_timers_usecase.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/app/app_event.dart';
+import 'package:tick_mate_t3/presentation/bloc/timer/timer_bloc.dart';
+import 'package:tick_mate_t3/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate_t3/presentation/screens/home/home_screen.dart';
 
 final getIt = GetIt.instance;
@@ -54,6 +59,13 @@ void _setupConfig() {
   // get_it にシングルトンとして登録
   getIt.registerSingleton<AppConfig>(config);
 
+  // リポジトリの登録
+  getIt.registerFactory(() => TimerRepositoryImpl());
+
+  // ユースケースの登録
+  getIt.registerFactory(() => GetTimersUseCase(getIt<TimerRepositoryImpl>()));
+  getIt.registerFactory(() => CreateTimerUseCase(getIt<TimerRepositoryImpl>()));
+
   // ignore: avoid_print
   print(
     'Initialized with environment: $environment, baseUrl: ${config.baseUrl}, '
@@ -67,26 +79,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppBloc()..add(const AppStarted()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AppBloc()..add(const AppStarted())),
+        BlocProvider(
+          create:
+              (context) => TimerBloc(
+                getTimersUseCase: getIt<GetTimersUseCase>(),
+                createTimerUseCase: getIt<CreateTimerUseCase>(),
+              )..add(const TimersLoaded()),
+        ),
+      ],
       child: MaterialApp(
         title: 'Tick Mate',
         theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // TRY THIS: Try running your application with "flutter run". You'll see
-          // the application has a purple toolbar. Then, without quitting the app,
-          // try changing the seedColor in the colorScheme below to Colors.green
-          // and then invoke "hot reload" (save your changes or press the "hot
-          // reload" button in a Flutter-supported IDE, or press "r" if you used
-          // the command line to start the app).
-          //
-          // Notice that the counter didn't reset back to zero; the application
-          // state is not lost during the reload. To reset the state, use hot
-          // restart instead.
-          //
-          // This works for code too, not just values: Most code changes can be
-          // tested with just a hot reload.
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
         home: const HomeScreen(),

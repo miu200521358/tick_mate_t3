@@ -58,7 +58,7 @@ void main() {
     test('Logger respects log level based on debug mode', () {
       // Set debug mode to false to change log level to info
       mockConfig.isDebugMode = false;
-      
+
       // We can't easily assert print output, but we can check no exceptions are thrown
       expect(() => Logger.d('This should not be printed'), returnsNormally);
       expect(() => Logger.i('This should be printed'), returnsNormally);
