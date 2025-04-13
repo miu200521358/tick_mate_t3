@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:tick_mate_t3/config/app_config.dart';
 import 'package:tick_mate_t3/config/config_dev.dart';
 import 'package:tick_mate_t3/config/config_prod.dart';
@@ -18,6 +20,7 @@ import 'package:tick_mate_t3/presentation/bloc/settings/settings_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate_t3/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate_t3/presentation/screens/home/home_screen.dart';
+import 'package:tick_mate_t3/firebase_options.dart';
 // Settings screen is imported in home_screen.dart
 
 void main() async {
@@ -26,6 +29,12 @@ void main() async {
 
   // .envファイルの読み込み
   await dotenv.load(fileName: '.env');
+
+  // Firebaseの初期化
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Firebase Analyticsの初期化
+  FirebaseAnalytics.instance; // インスタンスを初期化
 
   // Hiveの初期化
   await HiveInit.initialize();

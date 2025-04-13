@@ -15,4 +15,10 @@ class AppConstants {
   static const String NOTIFICATION_CHANNEL_NAME = 'タイマー通知';
   static const String NOTIFICATION_CHANNEL_DESCRIPTION = 'TickMateのタイマー通知チャンネル';
   static const String NOTIFICATION_ICON = '@mipmap/ic_launcher';
+
+  // Firebase Analytics イベント名
+  static const String NOTIFICATION_EVENT = 'notification_sent';
+  static const String PARAM_NOTIFICATION_TIME = 'notification_time';
+  static const String PARAM_CHARACTER_NAME = 'character_name';
+  static const String PARAM_MESSAGE = 'message';
 }

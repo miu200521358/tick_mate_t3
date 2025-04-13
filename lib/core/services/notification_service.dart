@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/core/constants/app_constants.dart';
@@ -16,6 +18,7 @@ class NotificationService {
   final CreateNotificationUseCase _createNotificationUseCase;
   final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
   bool _isInitialized = false;
 
   /// 通知サービスを初期化する
@@ -86,6 +89,7 @@ class NotificationService {
     required String title,
     required String message,
     String? payload,
+    String? characterName,
   }) async {
     if (!_isInitialized) {
       await initialize();
@@ -120,6 +124,13 @@ class NotificationService {
       payload: payload,
     );
 
+    // Firebase Analyticsに通知イベントを送信
+    await logNotificationEvent(
+      characterName: characterName ?? characterId,
+      message: message,
+      notificationTime: now,
+    );
+
     // 通知履歴を保存
     return _createNotificationUseCase.execute(
       timerId: timerId,
@@ -137,6 +148,7 @@ class NotificationService {
     required String message,
     required DateTime scheduledTime,
     String? payload,
+    String? characterName,
   }) async {
     if (!_isInitialized) {
       await initialize();
@@ -182,6 +194,13 @@ class NotificationService {
       payload: payload,
     );
 
+    // Firebase Analyticsに通知イベントを送信
+    await logNotificationEvent(
+      characterName: characterName ?? characterId,
+      message: message,
+      notificationTime: scheduledTime,
+    );
+
     // 通知履歴を保存
     return _createNotificationUseCase.execute(
       timerId: timerId,
@@ -199,6 +218,7 @@ class NotificationService {
     required String message,
     required String imagePath,
     String? payload,
+    String? characterName,
   }) async {
     if (!_isInitialized) {
       await initialize();
@@ -212,6 +232,7 @@ class NotificationService {
         title: title,
         message: message,
         payload: payload,
+        characterName: characterName,
       );
     }
 
@@ -250,6 +271,13 @@ class NotificationService {
       payload: payload,
     );
 
+    // Firebase Analyticsに通知イベントを送信
+    await logNotificationEvent(
+      characterName: characterName ?? characterId,
+      message: message,
+      notificationTime: now,
+    );
+
     // 通知履歴を保存
     return _createNotificationUseCase.execute(
       timerId: timerId,
@@ -267,5 +295,34 @@ class NotificationService {
   /// すべての通知をキャンセルする
   Future<void> cancelAllNotifications() async {
     await _notificationsPlugin.cancelAll();
+  }
+
+  /// Firebase Analyticsに通知イベントを送信する
+  ///
+  /// [characterName] キャラクター名
+  /// [message] 通知メッセージ
+  /// [notificationTime] 通知時刻
+  Future<void> logNotificationEvent({
+    required String characterName,
+    required String message,
+    required DateTime notificationTime,
+  }) async {
+    try {
+      // メッセージは最大100文字に制限（Firebase Analyticsの制限に合わせる）
+      final truncatedMessage =
+          message.length > 100 ? '${message.substring(0, 97)}...' : message;
+
+      await _analytics.logEvent(
+        name: AppConstants.NOTIFICATION_EVENT,
+        parameters: {
+          AppConstants.PARAM_NOTIFICATION_TIME:
+              notificationTime.toIso8601String(),
+          AppConstants.PARAM_CHARACTER_NAME: characterName,
+          AppConstants.PARAM_MESSAGE: truncatedMessage,
+        },
+      );
+    } catch (e) {
+      debugPrint('通知イベント送信エラー: $e');
+    }
   }
 }

@@ -50,6 +50,8 @@ dependencies:
   flutter_dotenv: ^5.2.1
   flutter_local_notifications: ^19.0.0
   timezone: ^0.10.0
+  firebase_core: ^2.27.0
+  firebase_analytics: ^10.8.0
 
 dev_dependencies:
   flutter_test:
