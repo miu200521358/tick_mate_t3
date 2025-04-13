@@ -3,6 +3,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart'; // Add this line
+// Use package import for generated file (synthetic package)
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -233,7 +237,18 @@ class MyApp extends StatelessWidget {
       ],
       // BlocBuilder removed as theme is now handled by system setting
       child: MaterialApp(
-        title: 'Tick Mate',
+        title: 'Tick Mate', // This will be localized later where needed
+        // Add localization settings
+        localizationsDelegates: [
+          // Removed const
+          AppLocalizations.delegate, // Generated delegate
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales:
+            AppLocalizations.supportedLocales, // Generated supported locales
+        // End localization settings
         theme: ThemeData(
           useMaterial3: true, // Enable Material 3
           colorScheme: ColorScheme.fromSeed(
