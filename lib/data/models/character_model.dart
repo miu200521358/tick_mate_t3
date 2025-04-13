@@ -14,6 +14,7 @@ class CharacterModel extends HiveObject {
     required this.parameters,
     required this.createdAt,
     required this.updatedAt,
+    this.imagePath, // Renamed from imageUrl
   });
 
   /// エンティティからモデルに変換
@@ -26,6 +27,7 @@ class CharacterModel extends HiveObject {
       parameters: entity.parameters,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+      imagePath: entity.imagePath, // Renamed from imageUrl
     );
   }
 
@@ -50,6 +52,9 @@ class CharacterModel extends HiveObject {
   @HiveField(6)
   final DateTime updatedAt;
 
+  @HiveField(7) // Incremented index
+  final String? imagePath; // Renamed from imageUrl
+
   /// モデルからエンティティに変換
   CharacterEntity toEntity() {
     return CharacterEntity(
@@ -60,6 +65,7 @@ class CharacterModel extends HiveObject {
       parameters: parameters,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      imagePath: imagePath, // Renamed from imageUrl
     );
   }
 }

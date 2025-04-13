@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate/presentation/bloc/app/app_state.dart';
+import 'package:tick_mate/presentation/screens/work/work_list_screen.dart'; // Import WorkListScreen
+
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
@@ -66,7 +68,17 @@ class HomeScreen extends StatelessWidget {
               BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
             ],
             onTap: (index) {
-              if (index == 3) {
+              // TODO: Implement navigation for other tabs (index 1: Notifications)
+              if (index == 2) {
+                // Navigate to WorkListScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WorkListScreen(),
+                  ),
+                );
+              } else if (index == 3) {
+                // Navigate to SettingsScreen
                 Navigator.push(
                   context,
                   MaterialPageRoute(

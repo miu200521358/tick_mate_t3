@@ -13,7 +13,9 @@ import 'dart:math' as _i407;
 import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:image_picker/image_picker.dart' as _i183;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:uuid/uuid.dart' as _i706;
 
 import '../config/app_config.dart' as _i650;
 import '../config/config_default.dart' as _i792;
@@ -46,7 +48,11 @@ import '../domain/usecases/notification/create_notification_usecase.dart'
     as _i797;
 import '../domain/usecases/timer/create_timer_usecase.dart' as _i890;
 import '../domain/usecases/timer/get_timers_usecase.dart' as _i563;
+import '../presentation/bloc/character_detail/character_detail_bloc.dart'
+    as _i974;
 import '../presentation/bloc/settings/settings_bloc.dart' as _i366;
+import '../presentation/bloc/work_detail/work_detail_bloc.dart' as _i478;
+import '../presentation/bloc/work_list/work_list_bloc.dart' as _i701;
 import 'app_module.dart' as _i460;
 import 'settings_module.dart' as _i971;
 
@@ -96,6 +102,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i357.CharacterRepository>(
       () => _i286.CharacterRepositoryImpl(gh<_i462.LocalStorageDataSource>()),
     );
+    gh.factory<_i478.WorkDetailBloc>(
+      () => _i478.WorkDetailBloc(
+        gh<_i47.WorkRepository>(),
+        gh<_i357.CharacterRepository>(),
+      ),
+    );
     gh.factory<_i797.CreateNotificationUseCase>(
       () => _i797.CreateNotificationUseCase(
         gh<_i695.NotificationHistoryRepository>(),
@@ -110,6 +122,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i848.SecureStorageDataSource>(
       () => _i848.SecureStorageDataSource(gh<_i558.FlutterSecureStorage>()),
     );
+    gh.factory<_i701.WorkListBloc>(
+      () => _i701.WorkListBloc(gh<_i47.WorkRepository>()),
+    );
     gh.factory<_i125.HttpClient>(
       () => appModule.provideHttpClient(
         gh<_i361.Dio>(),
@@ -121,6 +136,13 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i814.SelectCharacterUseCase(
         gh<_i357.CharacterRepository>(),
         gh<_i407.Random>(),
+      ),
+    );
+    gh.factory<_i974.CharacterDetailBloc>(
+      () => _i974.CharacterDetailBloc(
+        gh<_i357.CharacterRepository>(),
+        gh<_i183.ImagePicker>(),
+        gh<_i706.Uuid>(),
       ),
     );
     gh.factory<_i890.CreateTimerUseCase>(

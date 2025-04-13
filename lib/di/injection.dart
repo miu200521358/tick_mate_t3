@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:image_picker/image_picker.dart'; // Moved import
+import 'package:uuid/uuid.dart'; // Moved import
 
 import 'injection.config.dart';
 
@@ -25,7 +27,16 @@ Future<void> configureDependencies([String? environment]) async {
   // 環境未指定の場合は開発環境をデフォルトとする
   final env = environment ?? (kReleaseMode ? Env.prod : Env.dev);
 
-  // DIコンテナを初期化
+  // DIコンテナを初期化 (Generated code)
   getIt.init(environment: env);
+
   debugPrint('DI初期化完了: 環境[$env]');
+
+  // Register external packages manually AFTER getIt.init()
+  if (!getIt.isRegistered<ImagePicker>()) {
+    getIt.registerLazySingleton<ImagePicker>(() => ImagePicker());
+  }
+  if (!getIt.isRegistered<Uuid>()) {
+    getIt.registerLazySingleton<Uuid>(() => const Uuid());
+  }
 }
