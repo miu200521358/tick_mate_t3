@@ -7,6 +7,7 @@ import 'package:tick_mate/config/app_config.dart';
 import 'package:tick_mate/data/datasources/local/secure_storage_datasource.dart';
 import 'package:tick_mate/data/datasources/remote/gemini_api_client.dart';
 import 'package:tick_mate/data/datasources/remote/http_client.dart';
+import 'package:tick_mate/core/services/error_handler_service.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/logging_interceptor.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/retry_interceptor.dart';
 
@@ -39,6 +40,10 @@ abstract class AppModule {
     AppConfig config, // 環境に応じた適切なAppConfigが注入される
     SecureStorageDataSource secureStorage,
   ) => GeminiApiClient(httpClient, config, secureStorage);
+
+  /// ErrorHandlerServiceを提供
+  @lazySingleton
+  ErrorHandlerService provideErrorHandlerService() => ErrorHandlerService();
 
   // 注:NotificationServiceは手動でmain.dartで登録するため、ここからは削除しました
 }

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/domain/usecases/timer/create_timer_usecase.dart';
 import 'package:tick_mate/domain/usecases/timer/get_timers_usecase.dart';
+import 'package:tick_mate/presentation/bloc/common/bloc_error_handler.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 
@@ -27,12 +28,17 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     Emitter<TimerState> emit,
   ) async {
     emit(const TimerLoading());
-    try {
-      final timers = await _getTimersUseCase.execute();
-      emit(TimerLoaded(timers: timers));
-    } catch (e) {
-      emit(TimerError(message: e.toString()));
-    }
+    await BlocErrorHandler.handle<List<TimerEntity>, TimerBloc, TimerState>(
+      bloc: this,
+      emit: emit,
+      errorStateBuilder: (message) => TimerError(message: message),
+      function: () async => _getTimersUseCase.execute(),
+      message: 'タイマーの読み込み中にエラーが発生しました',
+    ).then((timers) {
+      if (timers != null) {
+        emit(TimerLoaded(timers: timers));
+      }
+    });
   }
 
   /// タイマー作成イベントの処理
@@ -41,32 +47,37 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     Emitter<TimerState> emit,
   ) async {
     emit(const TimerLoading());
-    try {
-      final timer = await _createTimerUseCase.execute(
-        title: event.title,
-        dateTime: event.dateTime,
-        timeRange: event.timeRange,
-        timerType: event.timerType,
-        repeatType: event.repeatType,
-        characterIds: event.characterIds,
-        notificationSound: event.notificationSound,
-        location: event.location,
-        useCurrentLocation: event.useCurrentLocation,
-      );
-
-      // 現在の状態がTimerLoadedの場合、新しいタイマーを追加
-      if (state is TimerLoaded) {
-        final currentState = state as TimerLoaded;
-        final updatedTimers = List<TimerEntity>.from(currentState.timers)
-          ..add(timer);
-        emit(currentState.copyWith(timers: updatedTimers));
-      } else {
-        // それ以外の場合は、1つのタイマーだけを含む新しいリストを作成
-        emit(TimerLoaded(timers: [timer]));
+    await BlocErrorHandler.handle<TimerEntity, TimerBloc, TimerState>(
+      bloc: this,
+      emit: emit,
+      errorStateBuilder: (message) => TimerError(message: message),
+      function:
+          () async => _createTimerUseCase.execute(
+            title: event.title,
+            dateTime: event.dateTime,
+            timeRange: event.timeRange,
+            timerType: event.timerType,
+            repeatType: event.repeatType,
+            characterIds: event.characterIds,
+            notificationSound: event.notificationSound,
+            location: event.location,
+            useCurrentLocation: event.useCurrentLocation,
+          ),
+      message: 'タイマーの作成中にエラーが発生しました',
+    ).then((timer) {
+      if (timer != null) {
+        // 現在の状態がTimerLoadedの場合、新しいタイマーを追加
+        if (state is TimerLoaded) {
+          final currentState = state as TimerLoaded;
+          final updatedTimers = List<TimerEntity>.from(currentState.timers)
+            ..add(timer);
+          emit(currentState.copyWith(timers: updatedTimers));
+        } else {
+          // それ以外の場合は、1つのタイマーだけを含む新しいリストを作成
+          emit(TimerLoaded(timers: [timer]));
+        }
       }
-    } catch (e) {
-      emit(TimerError(message: e.toString()));
-    }
+    });
   }
 
   /// タイマー削除イベントの処理

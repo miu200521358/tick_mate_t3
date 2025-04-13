@@ -27,4 +27,8 @@ class AppConstants {
   // Firebase Crashlytics関連
   static const String CRASHLYTICS_KEY_EXCEPTION_TYPE = 'exception_type';
   static const String CRASHLYTICS_KEY_MESSAGE = 'error_message';
+
+  // エラーハンドリング関連
+  static const int ERROR_SNACKBAR_DURATION_SECONDS = 4;
+  static const String ERROR_DEFAULT_MESSAGE = 'エラーが発生しました。';
 }
