@@ -120,7 +120,7 @@ Future<void> _initializeCrashlytics() async {
   try {
     // AppConfigが登録されているか確認
     if (!getIt.isRegistered<AppConfig>()) {
-      throw Exception('AppConfigが登録されていません。先に_setupConfig()を実行してください。');
+      throw Exception(AppConstants.ERROR_APPCONFIG_NOT_REGISTERED);
     }
 
     // Crashlyticsの初期化
