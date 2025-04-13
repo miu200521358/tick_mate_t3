@@ -60,6 +60,7 @@ dependencies:
 
   image_picker: ^1.1.2 # Add this line
   firebase_crashlytics: ^3.5.7
+  google_fonts: ^6.2.1 # Add Japanese font support
 
 dev_dependencies:
   flutter_test:
