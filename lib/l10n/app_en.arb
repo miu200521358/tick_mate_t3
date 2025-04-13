@@ -64,5 +64,22 @@
     }
   },
   
-  "apiKeyNotSet": "Gemini API key is not set"
+  "apiKeyNotSet": "Gemini API key is not set",
+  
+  "timerTab": "Timer",
+  "notificationTab": "Notifications",
+  "characterTab": "Character",
+  "settingsTab": "Settings",
+  
+  "workList": "Work List",
+  "noWorks": "No works available.",
+  "workListScreen": "Work List Screen",
+  
+  "workInfo": "Work Information:",
+  "characterList": "Character List:",
+  "noCharactersInWork": "No characters in this work.",
+  "workDetailScreen": "Work Detail Screen",
+  
+  "promptLabel": "Prompt:",
+  "sampleTimer": "Sample Timer"
 }

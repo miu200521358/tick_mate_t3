@@ -15,7 +15,7 @@ class WorkListScreen extends StatelessWidget {
       create: (context) => getIt<WorkListBloc>()..add(LoadWorkList()),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('作品リスト'), // 作品リストは翻訳対象外
+          title: Text(AppLocalizations.of(context)!.workList),
           // TODO: 作品追加ボタン
         ),
         body: BlocBuilder<WorkListBloc, WorkListState>(
@@ -24,7 +24,9 @@ class WorkListScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             } else if (state is WorkListLoaded) {
               if (state.works.isEmpty) {
-                return const Center(child: Text('作品がありません。'));
+                return Center(
+                  child: Text(AppLocalizations.of(context)!.noWorks),
+                );
               }
               return ListView.builder(
                 itemCount: state.works.length,
@@ -58,7 +60,9 @@ class WorkListScreen extends StatelessWidget {
                 ),
               );
             }
-            return const Center(child: Text('作品リスト画面')); // 初期状態など
+            return Center(
+              child: Text(AppLocalizations.of(context)!.workListScreen),
+            ); // 初期状態など
           },
         ),
       ),

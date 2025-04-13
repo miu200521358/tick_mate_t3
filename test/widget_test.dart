@@ -102,11 +102,24 @@ void main() {
     expect(find.text('TickMate'), findsOneWidget);
 
     // ボトムナビゲーションバーのアイテムを確認
-    // Note: These are not localized in the app yet, so we keep the hardcoded text
-    expect(find.text('タイマー'), findsOneWidget);
-    expect(find.text('通知履歴'), findsOneWidget);
-    expect(find.text('キャラクター'), findsOneWidget);
-    expect(find.text('設定'), findsOneWidget);
+    // ボトムナビゲーションバーのアイテムを確認 - ローカライズされたテキストを使用
+    // テスト時には日本語ロケールを使用しているため、日本語のテキストを期待する
+    expect(
+      find.text('タイマー'),
+      findsOneWidget,
+    ); // AppLocalizations.of(context)!.timerTab
+    expect(
+      find.text('通知履歴'),
+      findsOneWidget,
+    ); // AppLocalizations.of(context)!.notificationTab
+    expect(
+      find.text('キャラクター'),
+      findsOneWidget,
+    ); // AppLocalizations.of(context)!.characterTab
+    expect(
+      find.text('設定'),
+      findsOneWidget,
+    ); // AppLocalizations.of(context)!.settingsTab
 
     // 追加ボタンが存在することを確認
     expect(find.byIcon(Icons.add), findsOneWidget);
