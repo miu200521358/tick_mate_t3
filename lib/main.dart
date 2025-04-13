@@ -12,7 +12,9 @@ import 'package:tick_mate/config/app_config.dart';
 import 'package:tick_mate/config/config_dev.dart';
 import 'package:tick_mate/config/config_prod.dart';
 import 'package:tick_mate/config/config_stg.dart';
-import 'package:tick_mate/core/constants/app_constants.dart';
+import 'package:tick_mate/core/constants/app_constants.dart'; // Moved up
+import 'package:tick_mate/core/error/exceptions.dart';
+import 'package:tick_mate/core/services/migration_service.dart';
 import 'package:tick_mate/core/services/notification_service.dart';
 import 'package:tick_mate/core/utils/dummy_data_utils.dart';
 import 'package:tick_mate/data/hive_init.dart';
@@ -98,6 +100,30 @@ void main() async {
 
   // 通知サービスの手動登録
   if (!getIt.isRegistered<NotificationService>()) {
+    // --- マイグレーションチェックの実行 --- (追加)
+    try {
+      // DIコンテナからMigrationServiceを取得する前に、登録されているか確認
+      if (getIt.isRegistered<MigrationService>()) {
+        final migrationService = getIt<MigrationService>();
+        await migrationService.runMigrations();
+        debugPrint('データベースマイグレーションチェックが完了しました');
+      } else {
+        debugPrint('MigrationServiceがDIコンテナに登録されていません。スキップします。');
+        // 必要であれば、ここでエラーを記録または通知
+      }
+    } catch (e, stackTrace) {
+      debugPrint('データベースマイグレーション中にエラーが発生しました: $e');
+      debugPrint('StackTrace: $stackTrace');
+      // マイグレーション失敗時のエラーハンドリング（必要に応じて）
+      // 例えば、アプリを起動せずにエラー表示するなど
+      // ここではログ出力とCrashlyticsへの記録
+      final exception = CacheException('データベースマイグレーション失敗: $e', stackTrace);
+      await exception.recordToCrashlytics(fatal: true); // マイグレーション失敗は致命的とする場合
+      // アプリの起動を中止するなどの処理が必要な場合もある
+      // return; // 例: ここでmain関数を終了させる
+    }
+    // --- マイグレーションチェックここまで ---
+
     getIt.registerLazySingleton<NotificationService>(
       () => NotificationService(getIt<CreateNotificationUseCase>()),
     );

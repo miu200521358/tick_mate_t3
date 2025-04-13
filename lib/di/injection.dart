@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
+
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
+import 'package:tick_mate/core/services/migration_service.dart';
 import 'package:tick_mate/core/utils/dummy_data_utils.dart';
 import 'package:tick_mate/data/datasources/local/hive_boxes.dart';
+import 'package:tick_mate/data/models/migration_info_model.dart';
 import 'package:tick_mate/domain/repositories/character_repository.dart';
 import 'package:tick_mate/domain/repositories/work_repository.dart';
 import 'package:uuid/uuid.dart';
@@ -68,6 +71,7 @@ Future<void> configureDependencies([String? environment]) async {
 
   // Hiveボックスを登録（既に開かれていることを前提）
   _registerHiveBoxes();
+  _registerMigrationService(); // 追加
 }
 
 /// Hiveボックスを依存性注入コンテナに登録
@@ -111,10 +115,44 @@ void _registerHiveBoxes() {
       instanceName: HiveBoxes.subscriptionBox,
     );
 
+    // マイグレーション情報ボックス (追加)
+    getIt.registerSingleton<Box<MigrationInfoModel>>(
+      Hive.box<MigrationInfoModel>(HiveBoxes.migrationInfoBox),
+      instanceName: HiveBoxes.migrationInfoBox,
+    );
+
     debugPrint('Hiveボックスの登録が完了しました');
   } catch (e, stackTrace) {
     debugPrint('Hiveボックスの登録に失敗しました: $e');
     debugPrint('StackTrace: $stackTrace');
     // アプリの起動に致命的ではないため、例外を再スローしない
+  }
+}
+
+/// MigrationServiceを依存性注入コンテナに登録 (追加)
+void _registerMigrationService() {
+  try {
+    // MigrationInfoBoxが登録されていることを確認
+    // Box<dynamic>ではなく、具体的な型で確認
+    if (getIt.isRegistered<Box<MigrationInfoModel>>(
+      instanceName: HiveBoxes.migrationInfoBox,
+    )) {
+      getIt.registerLazySingleton<MigrationService>(
+        () => MigrationService(
+          getIt<Box<MigrationInfoModel>>(
+            instanceName: HiveBoxes.migrationInfoBox,
+          ),
+        ),
+      );
+      debugPrint('MigrationServiceの登録が完了しました');
+    } else {
+      // エラーログをより詳細に
+      debugPrint(
+        'MigrationService登録失敗: MigrationInfoBox<MigrationInfoModel> がDIコンテナに登録されていません。HiveInit.initialize()が先に呼ばれているか、ボックスのオープンに失敗した可能性があります。',
+      );
+    }
+  } catch (e, stackTrace) {
+    debugPrint('MigrationServiceの登録中に予期せぬエラーが発生しました: $e');
+    debugPrint('StackTrace: $stackTrace');
   }
 }

@@ -1,12 +1,15 @@
 import 'package:flutter/foundation.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+
 import 'package:tick_mate/core/error/exceptions.dart';
 import 'package:tick_mate/data/datasources/local/hive_boxes.dart';
-import 'package:tick_mate/data/models/character_model.dart';
-import 'package:tick_mate/data/models/notification_history_model.dart';
-import 'package:tick_mate/data/models/subscription_model.dart';
-import 'package:tick_mate/data/models/timer_model.dart';
+import 'package:tick_mate/data/models/character_model.dart'; // Added
+import 'package:tick_mate/data/models/migration_info_model.dart';
+import 'package:tick_mate/data/models/notification_history_model.dart'; // Added
+import 'package:tick_mate/data/models/subscription_model.dart'; // Added
+import 'package:tick_mate/data/models/timer_model.dart'; // Added
 import 'package:tick_mate/data/models/user_setting_model.dart';
 import 'package:tick_mate/data/models/work_model.dart';
 
@@ -84,6 +87,11 @@ class HiveInit {
         Hive.registerAdapter(SubscriptionModelAdapter());
       }
 
+      // マイグレーション情報アダプターの登録 (追加)
+      if (!Hive.isAdapterRegistered(HiveBoxes.migrationInfoTypeId)) {
+        Hive.registerAdapter(MigrationInfoModelAdapter());
+      }
+
       debugPrint('Hive: すべてのアダプターを登録しました');
     } catch (e, stackTrace) {
       final errorMsg = 'Hiveアダプターの登録に失敗しました: $e';
@@ -114,6 +122,10 @@ class HiveInit {
 
       // サブスクリプションボックスのオープン
       await Hive.openBox<SubscriptionModel>(HiveBoxes.subscriptionBox);
+
+      // マイグレーション情報ボックスのオープン (追加)
+      // 注意: このボックスはマイグレーションチェック前に開く必要がある
+      await Hive.openBox<MigrationInfoModel>(HiveBoxes.migrationInfoBox);
 
       debugPrint('Hive: すべてのボックスを開きました');
     } catch (e, stackTrace) {
