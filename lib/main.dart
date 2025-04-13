@@ -74,8 +74,15 @@ void main() async {
   // 依存性注入の設定
   configureDependencies();
 
-  // 環境設定の読み込みと登録
+  // 環境設定の読み込みと登録 - Crashlyticsの初期化前に必須
   _setupConfig();
+
+  // AppConfigが確実に登録されていることを確認
+  if (!getIt.isRegistered<AppConfig>()) {
+    debugPrint('[ERROR] AppConfigが登録されていません。Crashlyticsの初期化に失敗する可能性があります。');
+    // デフォルト設定を登録して続行を試みる
+    getIt.registerSingleton<AppConfig>(DevConfig());
+  }
 
   // Firebase Crashlyticsの初期化と設定
   await _initializeCrashlytics();
@@ -111,12 +118,17 @@ void main() async {
 // Crashlytics初期化用の関数
 Future<void> _initializeCrashlytics() async {
   try {
+    // AppConfigが登録されているか確認
+    if (!getIt.isRegistered<AppConfig>()) {
+      throw Exception('AppConfigが登録されていません。先に_setupConfig()を実行してください。');
+    }
+
     // Crashlyticsの初期化
     final crashlytics = FirebaseCrashlytics.instance;
+    final config = getIt<AppConfig>();
 
     // 環境変数を取得して、devフレーバーの場合でもCrashlyticsを有効にする
     const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
-    final config = getIt<AppConfig>();
 
     // devフレーバーでも常にCrashlyticsを有効にする
     if (flavor == 'dev') {
@@ -141,8 +153,10 @@ Future<void> _initializeCrashlytics() async {
     };
 
     debugPrint('Crashlytics初期化完了');
-  } catch (e) {
-    debugPrint('Crashlytics初期化エラー: $e');
+  } catch (e, stack) {
+    // エラーレベルでログを出力
+    debugPrint('[ERROR] Crashlytics初期化エラー: $e');
+    debugPrint('  StackTrace: $stack');
   }
 }
 
