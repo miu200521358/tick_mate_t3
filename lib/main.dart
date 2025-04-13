@@ -6,7 +6,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:tick_mate/l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tick_mate/config/app_config.dart';
@@ -22,6 +21,7 @@ import 'package:tick_mate/domain/usecases/notification/create_notification_useca
 import 'package:tick_mate/domain/usecases/timer/create_timer_usecase.dart';
 import 'package:tick_mate/domain/usecases/timer/get_timers_usecase.dart';
 import 'package:tick_mate/firebase_options.dart';
+import 'package:tick_mate/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate/presentation/bloc/app/app_event.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
