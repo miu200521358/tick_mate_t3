@@ -43,6 +43,16 @@ Future<void> configureDependencies([String? environment]) async {
     getIt.registerLazySingleton<Uuid>(() => const Uuid());
   }
 
+  // RetryInterceptor用の依存関係を登録
+  if (!getIt.isRegistered<int>()) {
+    getIt.registerFactory<int>(() => 3); // maxRetries用のデフォルト値
+  }
+  if (!getIt.isRegistered<Duration>()) {
+    getIt.registerFactory<Duration>(
+      () => const Duration(seconds: 1),
+    ); // retryDelay用のデフォルト値
+  }
+
   // DummyDataUtilsの登録（ダミーデータ用）
   if (!getIt.isRegistered<DummyDataUtils>()) {
     getIt.registerFactory<DummyDataUtils>(
