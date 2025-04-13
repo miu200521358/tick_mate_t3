@@ -64,7 +64,14 @@ void _setupConfig() {
   // flutter_secure_storageを使用することを推奨
 
   // get_it にシングルトンとして登録
-  getIt.registerSingleton<AppConfig>(config);
+  // AppConfigが既に登録されているかチェック
+  if (!getIt.isRegistered<AppConfig>()) {
+    getIt.registerSingleton<AppConfig>(config);
+  } else {
+    // 既存の登録を上書き
+    getIt.unregister<AppConfig>();
+    getIt.registerSingleton<AppConfig>(config);
+  }
 
   // ignore: avoid_print
   print(
