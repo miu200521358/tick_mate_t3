@@ -8,6 +8,7 @@ class GeminiApiDataSource {
   GeminiApiDataSource(this._apiClient, this._secureStorage);
 
   final GeminiApiClient _apiClient;
+  // ignore: unused_field
   final SecureStorageDataSource _secureStorage;
 
   /// メッセージを生成
