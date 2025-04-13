@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tick_mate/core/utils/dummy_data_utils.dart';
+import 'package:tick_mate/data/datasources/local/hive_boxes.dart';
 import 'package:tick_mate/domain/repositories/character_repository.dart';
 import 'package:tick_mate/domain/repositories/work_repository.dart';
 import 'package:uuid/uuid.dart';
@@ -62,5 +64,57 @@ Future<void> configureDependencies([String? environment]) async {
         getIt<Uuid>(),
       ),
     );
+  }
+
+  // Hiveボックスを登録（既に開かれていることを前提）
+  _registerHiveBoxes();
+}
+
+/// Hiveボックスを依存性注入コンテナに登録
+void _registerHiveBoxes() {
+  try {
+    // タイプ名を付けた登録を行い、同じ型の複数のボックスを区別できるようにする
+
+    // タイマーボックス
+    getIt.registerSingleton<Box<dynamic>>(
+      Hive.box(HiveBoxes.timerBox),
+      instanceName: HiveBoxes.timerBox,
+    );
+
+    // キャラクターボックス
+    getIt.registerSingleton<Box<dynamic>>(
+      Hive.box(HiveBoxes.characterBox),
+      instanceName: HiveBoxes.characterBox,
+    );
+
+    // 作品ボックス
+    getIt.registerSingleton<Box<dynamic>>(
+      Hive.box(HiveBoxes.workBox),
+      instanceName: HiveBoxes.workBox,
+    );
+
+    // 通知履歴ボックス
+    getIt.registerSingleton<Box<dynamic>>(
+      Hive.box(HiveBoxes.notificationHistoryBox),
+      instanceName: HiveBoxes.notificationHistoryBox,
+    );
+
+    // ユーザー設定ボックス
+    getIt.registerSingleton<Box<dynamic>>(
+      Hive.box(HiveBoxes.userSettingBox),
+      instanceName: HiveBoxes.userSettingBox,
+    );
+
+    // サブスクリプションボックス
+    getIt.registerSingleton<Box<dynamic>>(
+      Hive.box(HiveBoxes.subscriptionBox),
+      instanceName: HiveBoxes.subscriptionBox,
+    );
+
+    debugPrint('Hiveボックスの登録が完了しました');
+  } catch (e, stackTrace) {
+    debugPrint('Hiveボックスの登録に失敗しました: $e');
+    debugPrint('StackTrace: $stackTrace');
+    // アプリの起動に致命的ではないため、例外を再スローしない
   }
 }

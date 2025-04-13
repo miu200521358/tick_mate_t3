@@ -88,7 +88,13 @@ void main() async {
   await _initializeCrashlytics();
 
   // Hiveの初期化
-  await HiveInit.initialize();
+  try {
+    await HiveInit.initialize();
+    debugPrint('Hive初期化処理が完了しました');
+  } catch (e) {
+    debugPrint('Hive初期化中にエラーが発生しました: $e');
+    // アプリケーションの継続は可能とする（重大なエラーではない）
+  }
 
   // 通知サービスの手動登録
   if (!getIt.isRegistered<NotificationService>()) {
