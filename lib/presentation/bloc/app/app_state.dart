@@ -17,20 +17,21 @@ class AppInitial extends AppState {
 /// アプリ準備完了状態
 class AppReady extends AppState {
   const AppReady({
-    this.isDarkMode = false,
+    // isDarkMode removed
     this.locale = const Locale('ja', 'JP'),
   });
 
-  final bool isDarkMode;
+  // isDarkMode removed
   final Locale locale;
 
-  AppReady copyWith({bool? isDarkMode, Locale? locale}) {
+  AppReady copyWith({/* bool? isDarkMode, */ Locale? locale}) {
+    // isDarkMode parameter removed
     return AppReady(
-      isDarkMode: isDarkMode ?? this.isDarkMode,
+      // isDarkMode removed
       locale: locale ?? this.locale,
     );
   }
 
   @override
-  List<Object?> get props => [isDarkMode, locale];
+  List<Object?> get props => [locale]; // isDarkMode removed from props
 }

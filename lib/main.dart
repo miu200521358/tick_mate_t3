@@ -21,7 +21,6 @@ import 'package:tick_mate/domain/usecases/timer/get_timers_usecase.dart';
 import 'package:tick_mate/firebase_options.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate/presentation/bloc/app/app_event.dart';
-import 'package:tick_mate/presentation/bloc/app/app_state.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
@@ -223,20 +222,53 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => SettingsBloc(getIt(), getIt())),
       ],
-      child: BlocBuilder<AppBloc, AppState>(
-        builder: (context, state) {
-          return MaterialApp(
-            title: 'Tick Mate',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              fontFamily: GoogleFonts.notoSansJp().fontFamily,
-              textTheme: GoogleFonts.notoSansJpTextTheme(
-                Theme.of(context).textTheme,
-              ),
-            ),
-            home: const HomeScreen(),
-          );
-        },
+      // BlocBuilder removed as theme is now handled by system setting
+      child: MaterialApp(
+        title: 'Tick Mate',
+        theme: ThemeData(
+          useMaterial3: true, // Enable Material 3
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.cyan,
+            brightness: Brightness.light, // Explicitly light
+          ),
+          fontFamily: GoogleFonts.notoSansJp().fontFamily,
+          textTheme: GoogleFonts.notoSansJpTextTheme(
+            ThemeData(
+              brightness: Brightness.light,
+            ).textTheme, // Base light text theme
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.white, // Example dark background
+            selectedItemColor:
+                Colors.grey[800], // Example selected icon/text color
+            unselectedItemColor:
+                Colors.grey[400], // Example unselected icon/text color
+            type: BottomNavigationBarType.fixed, // Ensure type is set if needed
+          ),
+        ),
+        darkTheme: ThemeData(
+          useMaterial3: true, // Enable Material 3
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.cyan,
+            brightness: Brightness.dark, // Explicitly dark
+          ),
+          fontFamily: GoogleFonts.notoSansJp().fontFamily,
+          textTheme: GoogleFonts.notoSansJpTextTheme(
+            ThemeData(
+              brightness: Brightness.dark,
+            ).textTheme, // Base dark text theme
+          ),
+          // Add specific theme for BottomNavigationBar in dark mode
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey[900], // Example dark background
+            selectedItemColor: Colors.white, // Example selected icon/text color
+            unselectedItemColor:
+                Colors.grey[400], // Example unselected icon/text color
+            type: BottomNavigationBarType.fixed, // Ensure type is set if needed
+          ),
+        ),
+        themeMode: ThemeMode.system, // Follow system setting
+        home: const HomeScreen(),
       ),
     );
   }
