@@ -228,7 +228,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true, // Enable Material 3
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
+            seedColor: Colors.cyan,
             brightness: Brightness.light, // Explicitly light
           ),
           fontFamily: GoogleFonts.notoSansJp().fontFamily,
@@ -237,11 +237,19 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.light,
             ).textTheme, // Base light text theme
           ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.white, // Example dark background
+            selectedItemColor:
+                Colors.grey[800], // Example selected icon/text color
+            unselectedItemColor:
+                Colors.grey[400], // Example unselected icon/text color
+            type: BottomNavigationBarType.fixed, // Ensure type is set if needed
+          ),
         ),
         darkTheme: ThemeData(
           useMaterial3: true, // Enable Material 3
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
+            seedColor: Colors.cyan,
             brightness: Brightness.dark, // Explicitly dark
           ),
           fontFamily: GoogleFonts.notoSansJp().fontFamily,
