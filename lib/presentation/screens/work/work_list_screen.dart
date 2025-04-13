@@ -12,7 +12,7 @@ class WorkListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<WorkListBloc>()..add(LoadWorkList()),
+      create: (context) => getIt<WorkListBloc>()..add(const LoadWorkList()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.workList),

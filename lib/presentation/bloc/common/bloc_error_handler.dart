@@ -31,17 +31,15 @@ class BlocErrorHandler {
     bool silent = false,
     bool recordToCrashlytics = true,
   }) async {
+    // 非同期操作前にBuildContextから必要な情報をすべて取得
+    String? localizedMessage;
+    if (context != null && messageKey != null) {
+      localizedMessage = _getLocalizedMessage(context, messageKey);
+    }
+
     try {
       return await function();
     } catch (e, stackTrace) {
-      // コンテキストがある場合は多言語対応したメッセージを使用
-      String? localizedMessage;
-      if (context != null && messageKey != null) {
-        // コンテキストを使用する前に、メッセージキーに基づいて処理
-        // これにより、非同期ギャップ後のBuildContextの使用を回避
-        localizedMessage = _getLocalizedMessage(context, messageKey);
-      }
-
       final errorMessage = await _errorHandler.handleError(
         e,
         stackTrace: stackTrace,
@@ -55,18 +53,17 @@ class BlocErrorHandler {
       return null;
     }
   }
-  
+
   /// メッセージキーに基づいてローカライズされたメッセージを取得
-  /// 
+  ///
   /// [context] BuildContext
   /// [messageKey] メッセージキー
-  /// 
+  ///
   /// 注意: このメソッドは非同期ギャップの前に呼び出す必要があります
   static String? _getLocalizedMessage(BuildContext context, String messageKey) {
-    // ignore: use_build_context_synchronously
     final l10n = AppLocalizations.of(context);
     if (l10n == null) return null;
-    
+
     switch (messageKey) {
       case 'errorLoadingTimers':
         return l10n.errorLoadingTimers;
