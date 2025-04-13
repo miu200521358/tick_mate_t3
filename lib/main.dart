@@ -71,17 +71,17 @@ void main() async {
   // Firebase Analyticsの初期化
   FirebaseAnalytics.instance; // インスタンスを初期化
 
-  // Firebase Crashlyticsの初期化と設定
-  await _initializeCrashlytics();
-
-  // Hiveの初期化
-  await HiveInit.initialize();
-
   // 依存性注入の設定
   configureDependencies();
 
   // 環境設定の読み込みと登録
   _setupConfig();
+
+  // Firebase Crashlyticsの初期化と設定
+  await _initializeCrashlytics();
+
+  // Hiveの初期化
+  await HiveInit.initialize();
 
   // 通知サービスの手動登録
   if (!getIt.isRegistered<NotificationService>()) {
@@ -100,7 +100,7 @@ void main() async {
   // WidgetsFlutterBinding.ensureInitializedと同じゾーンでrunAppを実行するために
   // 同期的に実行する
   runApp(const MyApp());
-  
+
   // 非同期エラーのキャッチは別途設定
   FlutterError.onError = (FlutterErrorDetails details) {
     debugPrint('FlutterError: ${details.exception}');
