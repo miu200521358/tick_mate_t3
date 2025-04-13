@@ -23,6 +23,11 @@ class CharacterDetailBloc
     on<PickAndSaveCharacterImage>(_onPickAndSaveCharacterImage);
   }
 
+  final CharacterRepository _characterRepository;
+  final ImagePicker _imagePicker;
+  final Uuid _uuid;
+
+
 
   // Keep track of the current character ID
   String? _currentCharacterId;
