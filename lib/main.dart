@@ -119,7 +119,7 @@ Future<void> _initializeCrashlytics() async {
     // 環境変数を取得して、devフレーバーの場合でもCrashlyticsを有効にする
     const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
     final config = getIt<AppConfig>();
-    
+
     // devフレーバーでも常にCrashlyticsを有効にする
     if (flavor == 'dev') {
       await crashlytics.setCrashlyticsCollectionEnabled(true);
