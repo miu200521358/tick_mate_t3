@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
+import 'package:tick_mate/core/utils/dummy_data_utils.dart';
 
 import 'injection.config.dart';
 
@@ -39,4 +40,7 @@ Future<void> configureDependencies([String? environment]) async {
   if (!getIt.isRegistered<Uuid>()) {
     getIt.registerLazySingleton<Uuid>(() => const Uuid());
   }
+
+  // DummyDataUtilsの登録（ダミーデータ用）
+  await getIt.getAsync<DummyDataUtils>();
 }

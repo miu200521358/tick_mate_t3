@@ -11,6 +11,7 @@ import 'package:tick_mate/config/config_prod.dart';
 import 'package:tick_mate/config/config_stg.dart';
 import 'package:tick_mate/core/constants/app_constants.dart';
 import 'package:tick_mate/core/services/notification_service.dart';
+import 'package:tick_mate/core/utils/dummy_data_utils.dart';
 import 'package:tick_mate/data/hive_init.dart';
 import 'package:tick_mate/di/injection.dart';
 import 'package:tick_mate/domain/usecases/notification/create_notification_usecase.dart';
@@ -89,6 +90,9 @@ void main() async {
   // 通知サービスの初期化
   await _initializeNotifications();
 
+  // ダミーデータの作成
+  await _createDummyData();
+
   // アプリをrunZonedGuardedでラップして、非同期エラーもキャッチする
   runZonedGuarded<Future<void>>(
     () async {
@@ -144,6 +148,17 @@ Future<void> _initializeNotifications() async {
     debugPrint('通知サービス初期化完了');
   } catch (e) {
     debugPrint('通知サービス初期化エラー: $e');
+  }
+}
+
+// ダミーデータ作成用の関数
+Future<void> _createDummyData() async {
+  try {
+    final dummyDataUtils = getIt<DummyDataUtils>();
+    await dummyDataUtils.createDummyData();
+    debugPrint('ダミーデータ作成完了');
+  } catch (e) {
+    debugPrint('ダミーデータ作成エラー: $e');
   }
 }
 
