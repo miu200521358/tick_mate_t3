@@ -14,6 +14,9 @@ import 'package:tick_mate/data/models/work_model.dart';
 
 /// テスト用Hive環境ヘルパークラス
 class HiveTestHelper {
+  /// 内部コンストラクタ
+  HiveTestHelper._internal();
+
   /// シングルトンインスタンス
   static final HiveTestHelper _instance = HiveTestHelper._internal();
 
@@ -21,9 +24,6 @@ class HiveTestHelper {
   factory HiveTestHelper() {
     return _instance;
   }
-
-  /// 内部コンストラクタ
-  HiveTestHelper._internal();
 
   /// 一時ディレクトリパス
   Directory? _tempDir;
