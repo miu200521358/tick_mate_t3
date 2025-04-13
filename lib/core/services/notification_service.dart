@@ -40,7 +40,7 @@ class NotificationService {
     );
 
     // 初期化設定
-    final initSettings = InitializationSettings(
+    final initSettings = const InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
     );
