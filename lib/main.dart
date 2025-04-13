@@ -116,9 +116,18 @@ Future<void> _initializeCrashlytics() async {
     // Crashlyticsの初期化
     final crashlytics = FirebaseCrashlytics.instance;
 
-    // デバッグモードではCrashlyticsに送信しない設定も可能
+    // 環境変数を取得して、devフレーバーの場合でもCrashlyticsを有効にする
+    const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
     final config = getIt<AppConfig>();
-    await crashlytics.setCrashlyticsCollectionEnabled(!config.isDebugMode);
+    
+    // devフレーバーでも常にCrashlyticsを有効にする
+    if (flavor == 'dev') {
+      await crashlytics.setCrashlyticsCollectionEnabled(true);
+      debugPrint('Dev環境: Crashlyticsを常に有効化しました');
+    } else {
+      // 他の環境では従来通りdebugModeに基づいて制御
+      await crashlytics.setCrashlyticsCollectionEnabled(!config.isDebugMode);
+    }
 
     // Flutterフレームワークのエラーをキャッチして報告
     FlutterError.onError = (FlutterErrorDetails details) {
