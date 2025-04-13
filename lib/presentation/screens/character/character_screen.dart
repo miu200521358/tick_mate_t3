@@ -74,7 +74,9 @@ class CharacterScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     // TODO: Display other character details (prompt, parameters etc.)
-                    Text('Prompt: ${character.promptText}'), // Example
+                    Text(
+                      '${AppLocalizations.of(context)!.promptLabel} ${character.promptText}',
+                    ), // Example
                     const SizedBox(height: 8),
                     Text(
                       AppLocalizations.of(

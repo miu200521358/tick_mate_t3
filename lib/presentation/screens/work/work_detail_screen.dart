@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tick_mate/di/injection.dart';
 import 'package:tick_mate/presentation/bloc/work_detail/work_detail_bloc.dart';
 import 'package:tick_mate/presentation/screens/character/character_screen.dart'; // Ensure CharacterScreen is imported
@@ -39,16 +40,24 @@ class WorkDetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '作品情報:',
+                            AppLocalizations.of(context)!.workInfo,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           // TODO: 作品の詳細情報を表示 (例: 用語集)
                           const SizedBox(height: 8),
-                          Text('作成日: ${state.work.createdAt}'), // TODO: フォーマット
-                          Text('更新日: ${state.work.updatedAt}'), // TODO: フォーマット
+                          Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.createdAt(state.work.createdAt.toString()),
+                          ), // TODO: フォーマット
+                          Text(
+                            AppLocalizations.of(
+                              context,
+                            )!.updatedAt(state.work.updatedAt.toString()),
+                          ), // TODO: フォーマット
                           const Divider(height: 32),
                           Text(
-                            'キャラクターリスト:',
+                            AppLocalizations.of(context)!.characterList,
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           // TODO: キャラクター追加ボタン
@@ -57,11 +66,13 @@ class WorkDetailScreen extends StatelessWidget {
                     ),
                   ),
                   if (state.characters.isEmpty)
-                    const SliverToBoxAdapter(
+                    SliverToBoxAdapter(
                       child: Center(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 32.0),
-                          child: Text('この作品にはキャラクターがいません。'),
+                          padding: const EdgeInsets.symmetric(vertical: 32.0),
+                          child: Text(
+                            AppLocalizations.of(context)!.noCharactersInWork,
+                          ),
                         ),
                       ),
                     )
@@ -91,9 +102,13 @@ class WorkDetailScreen extends StatelessWidget {
                 ],
               );
             } else if (state is WorkDetailError) {
-              return Center(child: Text('エラー: ${state.message}'));
+              return Center(
+                child: Text(AppLocalizations.of(context)!.error(state.message)),
+              );
             }
-            return const Center(child: Text('作品詳細画面')); // 初期状態など
+            return Center(
+              child: Text(AppLocalizations.of(context)!.workDetailScreen),
+            ); // 初期状態など
           },
         ),
       ),

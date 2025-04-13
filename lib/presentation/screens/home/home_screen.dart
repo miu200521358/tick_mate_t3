@@ -62,17 +62,23 @@ class HomeScreen extends StatelessWidget {
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: 0,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.timer), label: 'タイマー'),
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
-                label: '通知履歴',
+                icon: const Icon(Icons.timer),
+                label: AppLocalizations.of(context)!.timerTab,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'キャラクター',
+                icon: const Icon(Icons.notifications),
+                label: AppLocalizations.of(context)!.notificationTab,
               ),
-              BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.person),
+                label: AppLocalizations.of(context)!.characterTab,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.settings),
+                label: AppLocalizations.of(context)!.settingsTab,
+              ),
             ],
             onTap: (index) {
               // TODO: Implement navigation for other tabs (index 1: Notifications)
@@ -99,8 +105,8 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               // サンプルとしてタイマー作成イベントを発火
               context.read<TimerBloc>().add(
-                const TimerCreated(
-                  title: 'サンプルタイマー',
+                TimerCreated(
+                  title: AppLocalizations.of(context)!.sampleTimer,
                   timerType: TimerType.schedule,
                   repeatType: RepeatType.none,
                   characterIds: ['sample_character_id'],
