@@ -97,20 +97,15 @@ void main() async {
   await _createDummyData();
 
   // アプリをrunZonedGuardedでラップして、非同期エラーもキャッチする
-  runZonedGuarded<Future<void>>(
-    () async {
-      runApp(const MyApp());
-    },
-    (error, stackTrace) async {
-      debugPrint('ZoneError: $error');
-      await FirebaseCrashlytics.instance.recordError(
-        error,
-        stackTrace,
-        reason: 'アプリケーション実行時の非同期エラー',
-        fatal: true,
-      );
-    },
-  );
+  // WidgetsFlutterBinding.ensureInitializedと同じゾーンでrunAppを実行するために
+  // 同期的に実行する
+  runApp(const MyApp());
+  
+  // 非同期エラーのキャッチは別途設定
+  FlutterError.onError = (FlutterErrorDetails details) {
+    debugPrint('FlutterError: ${details.exception}');
+    FirebaseCrashlytics.instance.recordFlutterError(details);
+  };
 }
 
 // Crashlytics初期化用の関数
