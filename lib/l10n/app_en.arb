@@ -25,6 +25,7 @@
   
   "errorLoadingTimers": "An error occurred while loading timers",
   "errorCreatingTimer": "An error occurred while creating timer",
+  "errorDeletingTimer": "An error occurred while deleting timer",
   "loading": "Loading...",
   "loadingCharacter": "Loading character information...",
   

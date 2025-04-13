@@ -69,6 +69,8 @@ class BlocErrorHandler {
         return l10n.errorLoadingTimers;
       case 'errorCreatingTimer':
         return l10n.errorCreatingTimer;
+      case 'errorDeletingTimer':
+        return l10n.errorDeletingTimer;
       case 'errorLoadingWorkList':
         return l10n.errorLoadingWorkList('');
       default:

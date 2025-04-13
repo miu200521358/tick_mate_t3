@@ -50,6 +50,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get errorCreatingTimer => 'タイマーの作成中にエラーが発生しました';
 
   @override
+  String get errorDeletingTimer => 'タイマーの削除中にエラーが発生しました';
+
+  @override
   String get loading => '読み込み中...';
 
   @override

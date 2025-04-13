@@ -87,7 +87,31 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     TimerDeleted event,
     Emitter<TimerState> emit,
   ) async {
-    // 実装は後のIssueで追加
-    // TODO: タイマー削除機能の実装
+    // 現在の状態がTimerLoadedの場合のみ処理を実行
+    if (state is TimerLoaded) {
+      final currentState = state as TimerLoaded;
+      emit(const TimerLoading());
+
+      // 実際の削除処理は後のIssueで実装するため、ここではエラーハンドリングの例として実装
+      await BlocErrorHandler.handle<bool, TimerBloc, TimerState>(
+        bloc: this,
+        emit: emit,
+        errorStateBuilder: (message) => TimerError(message: message),
+        function: () async {
+          // 実際の削除処理は後のIssueで実装
+          // 現時点では成功したと仮定して、タイマーリストから該当IDのタイマーを除外
+          final updatedTimers =
+              currentState.timers
+                  .where((timer) => timer.id != event.id)
+                  .toList();
+
+          // 更新されたタイマーリストで状態を更新
+          emit(TimerLoaded(timers: updatedTimers));
+          return true;
+        },
+        context: event.context,
+        messageKey: 'errorDeletingTimer',
+      );
+    }
   }
 }

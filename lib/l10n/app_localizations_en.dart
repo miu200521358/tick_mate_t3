@@ -26,13 +26,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ok => 'OK';
 
   @override
-  String get errorServerMessage => 'An error occurred while communicating with the server.';
+  String get errorServerMessage =>
+      'An error occurred while communicating with the server.';
 
   @override
-  String get errorNetworkMessage => 'There is a problem with the network connection. Please check your internet connection.';
+  String get errorNetworkMessage =>
+      'There is a problem with the network connection. Please check your internet connection.';
 
   @override
-  String get errorTimeoutMessage => 'No response from the server. Please try again later.';
+  String get errorTimeoutMessage =>
+      'No response from the server. Please try again later.';
 
   @override
   String get errorCacheMessage => 'Failed to load data.';
@@ -48,6 +51,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorCreatingTimer => 'An error occurred while creating timer';
+
+  @override
+  String get errorDeletingTimer => 'An error occurred while deleting timer';
 
   @override
   String get loading => 'Loading...';

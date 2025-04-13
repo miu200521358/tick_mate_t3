@@ -121,60 +121,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get retry;
-  
+
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
-  
+
   /// No description provided for @errorServerMessage.
   ///
   /// In en, this message translates to:
   /// **'An error occurred while communicating with the server.'**
   String get errorServerMessage;
-  
+
   /// No description provided for @errorNetworkMessage.
   ///
   /// In en, this message translates to:
   /// **'There is a problem with the network connection. Please check your internet connection.'**
   String get errorNetworkMessage;
-  
+
   /// No description provided for @errorTimeoutMessage.
   ///
   /// In en, this message translates to:
   /// **'No response from the server. Please try again later.'**
   String get errorTimeoutMessage;
-  
+
   /// No description provided for @errorCacheMessage.
   ///
   /// In en, this message translates to:
   /// **'Failed to load data.'**
   String get errorCacheMessage;
-  
+
   /// No description provided for @errorAuthMessage.
   ///
   /// In en, this message translates to:
   /// **'Authentication failed. Please log in again.'**
   String get errorAuthMessage;
-  
+
   /// No description provided for @errorDefaultMessage.
   ///
   /// In en, this message translates to:
   /// **'An unexpected error occurred.'**
   String get errorDefaultMessage;
-  
+
   /// No description provided for @errorLoadingTimers.
   ///
   /// In en, this message translates to:
   /// **'An error occurred while loading timers'**
   String get errorLoadingTimers;
-  
+
   /// No description provided for @errorCreatingTimer.
   ///
   /// In en, this message translates to:
   /// **'An error occurred while creating timer'**
   String get errorCreatingTimer;
+
+  /// No description provided for @errorDeletingTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting timer'**
+  String get errorDeletingTimer;
 
   /// No description provided for @loading.
   ///
