@@ -64,5 +64,22 @@
     }
   },
   
-  "apiKeyNotSet": "Gemini APIキーが設定されていません"
+  "apiKeyNotSet": "Gemini APIキーが設定されていません",
+  
+  "timerTab": "タイマー",
+  "notificationTab": "通知履歴",
+  "characterTab": "キャラクター",
+  "settingsTab": "設定",
+  
+  "workList": "作品リスト",
+  "noWorks": "作品がありません。",
+  "workListScreen": "作品リスト画面",
+  
+  "workInfo": "作品情報:",
+  "characterList": "キャラクターリスト:",
+  "noCharactersInWork": "この作品にはキャラクターがいません。",
+  "workDetailScreen": "作品詳細画面",
+  
+  "promptLabel": "Prompt:",
+  "sampleTimer": "サンプルタイマー"
 }
