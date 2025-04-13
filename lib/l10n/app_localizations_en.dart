@@ -41,8 +41,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get geminiApiKeySettings => 'Gemini API Key Settings';
 
   @override
-  String get geminiApiKeyDescription =>
-      'Please enter your Google Gemini API key. The API key will be stored in the device\'s secure storage and will only be used within the app.';
+  String get geminiApiKeyDescription => 'Please enter your Google Gemini API key. The API key will be stored in the device\'s secure storage and will only be used within the app.';
 
   @override
   String get geminiApiKey => 'Gemini API key';
