@@ -6,6 +6,7 @@ import 'package:tick_mate_t3/config/config_dev.dart';
 import 'package:tick_mate_t3/config/config_prod.dart';
 import 'package:tick_mate_t3/config/config_stg.dart';
 import 'package:tick_mate_t3/core/constants/app_constants.dart';
+import 'package:tick_mate_t3/core/services/notification_service.dart';
 import 'package:tick_mate_t3/data/hive_init.dart';
 import 'package:tick_mate_t3/di/injection.dart';
 import 'package:tick_mate_t3/domain/usecases/timer/create_timer_usecase.dart';
@@ -35,7 +36,22 @@ void main() async {
   // 環境設定の読み込みと登録
   _setupConfig();
 
+  // 通知サービスの初期化
+  await _initializeNotifications();
+
   runApp(const MyApp());
+}
+
+// 通知初期化用の関数
+Future<void> _initializeNotifications() async {
+  try {
+    final notificationService = getIt<NotificationService>();
+    await notificationService.initialize();
+    await notificationService.requestPermission();
+    debugPrint('通知サービス初期化完了');
+  } catch (e) {
+    debugPrint('通知サービス初期化エラー: $e');
+  }
 }
 
 // 設定登録用の関数を更新

@@ -45,5 +45,14 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- 通知に必要な権限の説明 -->
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>タイマーの通知のために許可が必要です</string>
+	<!-- フォアグラウンド通知の設定 -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>
