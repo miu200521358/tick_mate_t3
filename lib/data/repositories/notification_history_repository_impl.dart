@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:tick_mate_t3/data/datasources/local/local_storage_datasource.dart';
-import 'package:tick_mate_t3/data/models/notification_history_model.dart';
-import 'package:tick_mate_t3/domain/entities/notification_history_entity.dart';
-import 'package:tick_mate_t3/domain/repositories/notification_history_repository.dart';
+import 'package:tick_mate/data/datasources/local/local_storage_datasource.dart';
+import 'package:tick_mate/data/models/notification_history_model.dart';
+import 'package:tick_mate/domain/entities/notification_history_entity.dart';
+import 'package:tick_mate/domain/repositories/notification_history_repository.dart';
 
 /// 通知履歴リポジトリの実装
 @LazySingleton(as: NotificationHistoryRepository)

@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:tick_mate_t3/data/datasources/local/local_storage_datasource.dart';
-import 'package:tick_mate_t3/data/models/timer_model.dart';
-import 'package:tick_mate_t3/domain/entities/timer_entity.dart';
-import 'package:tick_mate_t3/domain/repositories/timer_repository.dart';
+import 'package:tick_mate/data/datasources/local/local_storage_datasource.dart';
+import 'package:tick_mate/data/models/timer_model.dart';
+import 'package:tick_mate/domain/entities/timer_entity.dart';
+import 'package:tick_mate/domain/repositories/timer_repository.dart';
 
 /// タイマーリポジトリの実装
 @LazySingleton(as: TimerRepository)

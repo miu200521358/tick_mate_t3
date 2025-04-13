@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_bloc.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_event.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_state.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_event.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_state.dart';
 
 /// 設定画面
 class SettingsScreen extends StatefulWidget {

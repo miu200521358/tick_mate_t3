@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:tick_mate_t3/core/error/exceptions.dart';
-import 'package:tick_mate_t3/data/datasources/remote/interceptors/logging_interceptor.dart';
-import 'package:tick_mate_t3/data/datasources/remote/interceptors/retry_interceptor.dart';
+import 'package:tick_mate/core/error/exceptions.dart';
+import 'package:tick_mate/data/datasources/remote/interceptors/logging_interceptor.dart';
+import 'package:tick_mate/data/datasources/remote/interceptors/retry_interceptor.dart';
 
 /// DioをラップするカスタムHTTPクライアント
 class HttpClient {

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tick_mate_t3/config/app_config.dart';
-import 'package:tick_mate_t3/core/log/logger.dart';
+import 'package:tick_mate/config/app_config.dart';
+import 'package:tick_mate/core/log/logger.dart';
 
 // AppConfigのモック
 class MockAppConfig implements AppConfig {

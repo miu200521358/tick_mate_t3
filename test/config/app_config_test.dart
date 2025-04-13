@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tick_mate_t3/config/app_config.dart';
-import 'package:tick_mate_t3/config/config_dev.dart';
-import 'package:tick_mate_t3/config/config_prod.dart';
-import 'package:tick_mate_t3/config/config_stg.dart';
+import 'package:tick_mate/config/app_config.dart';
+import 'package:tick_mate/config/config_dev.dart';
+import 'package:tick_mate/config/config_prod.dart';
+import 'package:tick_mate/config/config_stg.dart';
 // Note: We cannot directly import main.dart as it calls runApp.
 // We need to extract or make _setupConfig accessible.
 // For now, let's redefine a similar function for testing.

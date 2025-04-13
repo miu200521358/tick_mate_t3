@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tick_mate_t3/domain/entities/work_entity.dart';
+import 'package:tick_mate/domain/entities/work_entity.dart';
 
 part 'work_model.g.dart';
 

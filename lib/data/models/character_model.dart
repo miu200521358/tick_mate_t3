@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tick_mate_t3/domain/entities/character_entity.dart';
+import 'package:tick_mate/domain/entities/character_entity.dart';
 
 part 'character_model.g.dart';
 

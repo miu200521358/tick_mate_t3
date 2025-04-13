@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:tick_mate_t3/data/datasources/local/local_storage_datasource.dart';
-import 'package:tick_mate_t3/data/models/character_model.dart';
-import 'package:tick_mate_t3/domain/entities/character_entity.dart';
-import 'package:tick_mate_t3/domain/repositories/character_repository.dart';
+import 'package:tick_mate/data/datasources/local/local_storage_datasource.dart';
+import 'package:tick_mate/data/models/character_model.dart';
+import 'package:tick_mate/domain/entities/character_entity.dart';
+import 'package:tick_mate/domain/repositories/character_repository.dart';
 
 /// キャラクターリポジトリの実装
 @LazySingleton(as: CharacterRepository)

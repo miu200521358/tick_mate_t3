@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tick_mate_t3/presentation/bloc/app/app_event.dart';
-import 'package:tick_mate_t3/presentation/bloc/app/app_state.dart';
+import 'package:tick_mate/presentation/bloc/app/app_event.dart';
+import 'package:tick_mate/presentation/bloc/app/app_state.dart';
 
 /// アプリ全体の状態を管理するBLoC
 class AppBloc extends Bloc<AppEvent, AppState> {

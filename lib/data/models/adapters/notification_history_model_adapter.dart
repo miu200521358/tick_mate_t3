@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:tick_mate_t3/data/datasources/local/hive_boxes.dart';
-import 'package:tick_mate_t3/data/models/notification_history_model.dart';
+import 'package:tick_mate/data/datasources/local/hive_boxes.dart';
+import 'package:tick_mate/data/models/notification_history_model.dart';
 
 class NotificationHistoryModelAdapter
     extends TypeAdapter<NotificationHistoryModel> {

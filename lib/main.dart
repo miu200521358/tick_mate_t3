@@ -1,26 +1,26 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:tick_mate_t3/config/app_config.dart';
-import 'package:tick_mate_t3/config/config_dev.dart';
-import 'package:tick_mate_t3/config/config_prod.dart';
-import 'package:tick_mate_t3/config/config_stg.dart';
-import 'package:tick_mate_t3/core/constants/app_constants.dart';
-import 'package:tick_mate_t3/core/services/notification_service.dart';
-import 'package:tick_mate_t3/data/hive_init.dart';
-import 'package:tick_mate_t3/di/injection.dart';
-import 'package:tick_mate_t3/domain/usecases/timer/create_timer_usecase.dart';
-import 'package:tick_mate_t3/domain/usecases/timer/get_timers_usecase.dart';
-import 'package:tick_mate_t3/presentation/bloc/app/app_bloc.dart';
-import 'package:tick_mate_t3/presentation/bloc/app/app_event.dart';
-import 'package:tick_mate_t3/presentation/bloc/app/app_state.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_bloc.dart';
-import 'package:tick_mate_t3/presentation/bloc/timer/timer_bloc.dart';
-import 'package:tick_mate_t3/presentation/bloc/timer/timer_event.dart';
-import 'package:tick_mate_t3/presentation/screens/home/home_screen.dart';
-import 'package:tick_mate_t3/firebase_options.dart';
+import 'package:tick_mate/config/app_config.dart';
+import 'package:tick_mate/config/config_dev.dart';
+import 'package:tick_mate/config/config_prod.dart';
+import 'package:tick_mate/config/config_stg.dart';
+import 'package:tick_mate/core/constants/app_constants.dart';
+import 'package:tick_mate/core/services/notification_service.dart';
+import 'package:tick_mate/data/hive_init.dart';
+import 'package:tick_mate/di/injection.dart';
+import 'package:tick_mate/domain/usecases/timer/create_timer_usecase.dart';
+import 'package:tick_mate/domain/usecases/timer/get_timers_usecase.dart';
+import 'package:tick_mate/firebase_options.dart';
+import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
+import 'package:tick_mate/presentation/bloc/app/app_event.dart';
+import 'package:tick_mate/presentation/bloc/app/app_state.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
+import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
+import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
+import 'package:tick_mate/presentation/screens/home/home_screen.dart';
 // Settings screen is imported in home_screen.dart
 
 void main() async {

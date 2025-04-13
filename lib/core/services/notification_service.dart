@@ -3,9 +3,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
-import 'package:tick_mate_t3/core/constants/app_constants.dart';
-import 'package:tick_mate_t3/domain/entities/notification_history_entity.dart';
-import 'package:tick_mate_t3/domain/usecases/notification/create_notification_usecase.dart';
+import 'package:tick_mate/core/constants/app_constants.dart';
+import 'package:tick_mate/domain/entities/notification_history_entity.dart';
+import 'package:tick_mate/domain/usecases/notification/create_notification_usecase.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 

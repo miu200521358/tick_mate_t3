@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tick_mate_t3/data/datasources/local/hive_boxes.dart';
-import 'package:tick_mate_t3/data/models/character_model.dart';
-import 'package:tick_mate_t3/data/models/notification_history_model.dart';
-import 'package:tick_mate_t3/data/models/subscription_model.dart';
-import 'package:tick_mate_t3/data/models/timer_model.dart';
-import 'package:tick_mate_t3/data/models/work_model.dart';
+import 'package:tick_mate/data/datasources/local/hive_boxes.dart';
+import 'package:tick_mate/data/models/character_model.dart';
+import 'package:tick_mate/data/models/notification_history_model.dart';
+import 'package:tick_mate/data/models/subscription_model.dart';
+import 'package:tick_mate/data/models/timer_model.dart';
+import 'package:tick_mate/data/models/work_model.dart';
 
 /// Hiveの初期化
 class HiveInit {

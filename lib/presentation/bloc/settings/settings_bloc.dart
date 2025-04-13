@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 // No injectable needed
-import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart';
-import 'package:tick_mate_t3/data/datasources/remote/gemini_api_datasource.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_event.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_state.dart';
+import 'package:tick_mate/data/datasources/local/secure_storage_datasource.dart';
+import 'package:tick_mate/data/datasources/remote/gemini_api_datasource.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_event.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_state.dart';
 
 /// 設定画面のBLoC
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {

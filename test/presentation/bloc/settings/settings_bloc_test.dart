@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart';
-import 'package:tick_mate_t3/data/datasources/remote/gemini_api_datasource.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_bloc.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_event.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_state.dart';
+import 'package:tick_mate/data/datasources/local/secure_storage_datasource.dart';
+import 'package:tick_mate/data/datasources/remote/gemini_api_datasource.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_event.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_state.dart';
 
 // Mock classes
 class MockSecureStorageDataSource extends Mock

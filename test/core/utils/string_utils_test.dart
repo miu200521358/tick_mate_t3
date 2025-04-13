@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tick_mate_t3/core/utils/string_utils.dart';
+import 'package:tick_mate/core/utils/string_utils.dart';
 
 void main() {
   group('StringUtils', () {

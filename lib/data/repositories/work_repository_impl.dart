@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
-import 'package:tick_mate_t3/data/datasources/local/local_storage_datasource.dart';
-import 'package:tick_mate_t3/data/models/work_model.dart';
-import 'package:tick_mate_t3/domain/entities/work_entity.dart';
-import 'package:tick_mate_t3/domain/repositories/work_repository.dart';
+import 'package:tick_mate/data/datasources/local/local_storage_datasource.dart';
+import 'package:tick_mate/data/models/work_model.dart';
+import 'package:tick_mate/domain/entities/work_entity.dart';
+import 'package:tick_mate/domain/repositories/work_repository.dart';
 
 /// 作品リポジトリの実装
 @LazySingleton(as: WorkRepository)

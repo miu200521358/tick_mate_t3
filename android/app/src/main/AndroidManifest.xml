@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="tick_mate_t3"
+        android:label="tick_mate"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,5 +1,5 @@
-import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart';
-import 'package:tick_mate_t3/data/datasources/remote/base_api_client.dart';
+import 'package:tick_mate/data/datasources/local/secure_storage_datasource.dart';
+import 'package:tick_mate/data/datasources/remote/base_api_client.dart';
 
 /// Gemini API用クライアント
 class GeminiApiClient extends BaseApiClient {

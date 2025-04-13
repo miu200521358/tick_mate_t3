@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tick_mate_t3/domain/entities/timer_entity.dart';
-import 'package:tick_mate_t3/domain/usecases/timer/create_timer_usecase.dart';
-import 'package:tick_mate_t3/domain/usecases/timer/get_timers_usecase.dart';
-import 'package:tick_mate_t3/presentation/bloc/timer/timer_event.dart';
-import 'package:tick_mate_t3/presentation/bloc/timer/timer_state.dart';
+import 'package:tick_mate/domain/entities/timer_entity.dart';
+import 'package:tick_mate/domain/usecases/timer/create_timer_usecase.dart';
+import 'package:tick_mate/domain/usecases/timer/get_timers_usecase.dart';
+import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
+import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 
 /// タイマー状態を管理するBLoC
 class TimerBloc extends Bloc<TimerEvent, TimerState> {

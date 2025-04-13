@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tick_mate_t3/domain/entities/timer_entity.dart';
+import 'package:tick_mate/domain/entities/timer_entity.dart';
 
 /// タイマーBLoCの状態基底クラス
 abstract class TimerState extends Equatable {

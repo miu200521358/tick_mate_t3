@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "tick_mate_t3",
+            "name": "tick_mate",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "tick_mate_t3 (profile mode)",
+            "name": "tick_mate (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "tick_mate_t3 (release mode)",
+            "name": "tick_mate (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

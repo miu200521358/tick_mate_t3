@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tick_mate_t3/core/error/exceptions.dart';
+import 'package:tick_mate/core/error/exceptions.dart';
 
 void main() {
   group('AppException', () {

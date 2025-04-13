@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_bloc.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_event.dart';
-import 'package:tick_mate_t3/presentation/bloc/settings/settings_state.dart';
-import 'package:tick_mate_t3/presentation/screens/settings/settings_screen.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_event.dart';
+import 'package:tick_mate/presentation/bloc/settings/settings_state.dart';
+import 'package:tick_mate/presentation/screens/settings/settings_screen.dart';
 
 // Mock class
 class MockSettingsBloc extends Mock implements SettingsBloc {

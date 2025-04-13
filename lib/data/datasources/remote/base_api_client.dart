@@ -1,5 +1,5 @@
-import 'package:tick_mate_t3/config/app_config.dart';
-import 'package:tick_mate_t3/data/datasources/remote/http_client.dart';
+import 'package:tick_mate/config/app_config.dart';
+import 'package:tick_mate/data/datasources/remote/http_client.dart';
 
 /// API通信の基本クラス
 abstract class BaseApiClient {

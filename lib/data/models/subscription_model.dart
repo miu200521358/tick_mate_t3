@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tick_mate_t3/domain/entities/subscription_entity.dart';
+import 'package:tick_mate/domain/entities/subscription_entity.dart';
 
 part 'subscription_model.g.dart';
 

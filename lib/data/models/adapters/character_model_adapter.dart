@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:tick_mate_t3/data/datasources/local/hive_boxes.dart';
-import 'package:tick_mate_t3/data/models/character_model.dart';
+import 'package:tick_mate/data/datasources/local/hive_boxes.dart';
+import 'package:tick_mate/data/models/character_model.dart';
 
 class CharacterModelAdapter extends TypeAdapter<CharacterModel> {
   @override

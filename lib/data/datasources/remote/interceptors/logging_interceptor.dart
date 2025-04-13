@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:tick_mate_t3/core/log/logger.dart';
+import 'package:tick_mate/core/log/logger.dart';
 
 /// APIリクエスト/レスポンスのログを出力するインターセプター
 @injectable

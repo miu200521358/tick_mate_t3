@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tick_mate_t3/domain/entities/notification_history_entity.dart';
+import 'package:tick_mate/domain/entities/notification_history_entity.dart';
 
 part 'notification_history_model.g.dart';
 

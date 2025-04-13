@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
-import 'package:tick_mate_t3/data/datasources/local/secure_storage_datasource.dart';
-import 'package:tick_mate_t3/data/datasources/remote/gemini_api_client.dart';
+import 'package:tick_mate/data/datasources/local/secure_storage_datasource.dart';
+import 'package:tick_mate/data/datasources/remote/gemini_api_client.dart';
 
 /// Gemini API データソース
 @lazySingleton

@@ -1,4 +1,4 @@
-package com.miu200521358.tick_mate_t3
+package com.miu200521358.tick_mate
 
 import io.flutter.embedding.android.FlutterActivity
 

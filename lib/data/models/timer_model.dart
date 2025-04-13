@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tick_mate_t3/domain/entities/timer_entity.dart';
+import 'package:tick_mate/domain/entities/timer_entity.dart';
 
 part 'timer_model.g.dart';
 
