@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -65,6 +67,9 @@ void main() async {
   // Firebase Analyticsの初期化
   FirebaseAnalytics.instance; // インスタンスを初期化
 
+  // Firebase Crashlyticsの初期化と設定
+  await _initializeCrashlytics();
+
   // Hiveの初期化
   await HiveInit.initialize();
 
@@ -84,7 +89,50 @@ void main() async {
   // 通知サービスの初期化
   await _initializeNotifications();
 
-  runApp(const MyApp());
+  // アプリをrunZonedGuardedでラップして、非同期エラーもキャッチする
+  runZonedGuarded<Future<void>>(
+    () async {
+      runApp(const MyApp());
+    },
+    (error, stackTrace) async {
+      debugPrint('ZoneError: $error');
+      await FirebaseCrashlytics.instance.recordError(
+        error,
+        stackTrace,
+        reason: 'アプリケーション実行時の非同期エラー',
+        fatal: true,
+      );
+    },
+  );
+}
+
+// Crashlytics初期化用の関数
+Future<void> _initializeCrashlytics() async {
+  try {
+    // Crashlyticsの初期化
+    final crashlytics = FirebaseCrashlytics.instance;
+
+    // デバッグモードではCrashlyticsに送信しない設定も可能
+    final config = getIt<AppConfig>();
+    await crashlytics.setCrashlyticsCollectionEnabled(!config.isDebugMode);
+
+    // Flutterフレームワークのエラーをキャッチして報告
+    FlutterError.onError = (FlutterErrorDetails details) {
+      debugPrint('FlutterError: ${details.exception}');
+      crashlytics.recordFlutterError(details);
+    };
+
+    // Platformチャネルのエラーをキャッチして報告
+    WidgetsBinding.instance.platformDispatcher.onError = (error, stack) {
+      debugPrint('PlatformDispatcher Error: $error');
+      crashlytics.recordError(error, stack, fatal: true);
+      return true;
+    };
+
+    debugPrint('Crashlytics初期化完了');
+  } catch (e) {
+    debugPrint('Crashlytics初期化エラー: $e');
+  }
 }
 
 // 通知初期化用の関数
