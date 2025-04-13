@@ -59,6 +59,7 @@ dependencies:
   firebase_analytics: ^10.8.0
 
   image_picker: ^1.1.2 # Add this line
+  firebase_crashlytics: ^3.5.7
 
 dev_dependencies:
   flutter_test:

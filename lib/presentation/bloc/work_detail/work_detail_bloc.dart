@@ -12,7 +12,7 @@ part 'work_detail_state.dart';
 @injectable
 class WorkDetailBloc extends Bloc<WorkDetailEvent, WorkDetailState> {
   WorkDetailBloc(this._workRepository, this._characterRepository)
-      : super(WorkDetailInitial()) {
+    : super(WorkDetailInitial()) {
     on<LoadWorkDetail>(_onLoadWorkDetail);
   }
 

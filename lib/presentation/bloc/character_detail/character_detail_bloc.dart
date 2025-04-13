@@ -18,7 +18,7 @@ part 'character_detail_state.dart';
 class CharacterDetailBloc
     extends Bloc<CharacterDetailEvent, CharacterDetailState> {
   CharacterDetailBloc(this._characterRepository, this._imagePicker, this._uuid)
-      : super(CharacterDetailInitial()) {
+    : super(CharacterDetailInitial()) {
     on<LoadCharacterDetail>(_onLoadCharacterDetail);
     on<PickAndSaveCharacterImage>(_onPickAndSaveCharacterImage);
   }
@@ -26,8 +26,6 @@ class CharacterDetailBloc
   final CharacterRepository _characterRepository;
   final ImagePicker _imagePicker;
   final Uuid _uuid;
-
-
 
   // Keep track of the current character ID
   String? _currentCharacterId;
