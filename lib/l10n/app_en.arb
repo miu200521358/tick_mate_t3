@@ -66,6 +66,8 @@
   
   "apiKeyNotSet": "Gemini API key is not set",
   
+  "errorAppConfigNotRegistered": "AppConfig is not registered. Please run _setupConfig() first.",
+  
   "timerTab": "Timer",
   "notificationTab": "Notifications",
   "characterTab": "Character",

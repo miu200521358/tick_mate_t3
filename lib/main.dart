@@ -28,6 +28,7 @@ import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/screens/home/home_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart' as l10n;
 // Settings screen is imported in home_screen.dart
 
 void main() async {
@@ -120,7 +121,13 @@ Future<void> _initializeCrashlytics() async {
   try {
     // AppConfigが登録されているか確認
     if (!getIt.isRegistered<AppConfig>()) {
-      throw Exception(AppConstants.ERROR_APPCONFIG_NOT_REGISTERED);
+      // 多言語対応のエラーメッセージを使用
+      throw Exception(
+        l10n.AppLocalizations.of(
+              WidgetsBinding.instance.platformDispatcher.locale,
+            )?.errorAppConfigNotRegistered ??
+            'AppConfig is not registered',
+      );
     }
 
     // Crashlyticsの初期化

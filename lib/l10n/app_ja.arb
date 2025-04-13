@@ -66,6 +66,8 @@
   
   "apiKeyNotSet": "Gemini APIキーが設定されていません",
   
+  "errorAppConfigNotRegistered": "AppConfigが登録されていません。先に_setupConfig()を実行してください。",
+  
   "timerTab": "タイマー",
   "notificationTab": "通知履歴",
   "characterTab": "キャラクター",
