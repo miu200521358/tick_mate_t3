@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tick_mate_t3/core/constants/app_constants.dart';
@@ -34,7 +33,7 @@ class NotificationService {
     );
 
     // iOS設定
-    final iosSettings = DarwinInitializationSettings(
+    const iosSettings = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
@@ -55,15 +54,7 @@ class NotificationService {
     _isInitialized = true;
   }
 
-  /// iOS用：通知受信時のハンドラー（古いiOSバージョン用）
-  void _onDidReceiveLocalNotification(
-    int id,
-    String? title,
-    String? body,
-    String? payload,
-  ) {
-    // 必要に応じてiOS固有の処理をここに実装
-  }
+  // iOS用の通知ハンドラーは最新バージョンでは不要
 
   /// 通知タップ時のハンドラー
   void _onNotificationTapped(NotificationResponse response) {
@@ -187,6 +178,7 @@ class NotificationService {
       message,
       scheduledDate,
       generalDetails,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       payload: payload,
     );
 
