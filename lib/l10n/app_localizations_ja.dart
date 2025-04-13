@@ -23,6 +23,33 @@ class AppLocalizationsJa extends AppLocalizations {
   String get retry => '再試行';
 
   @override
+  String get ok => 'OK';
+
+  @override
+  String get errorServerMessage => 'サーバーとの通信中にエラーが発生しました。';
+
+  @override
+  String get errorNetworkMessage => 'ネットワーク接続に問題があります。インターネット接続を確認してください。';
+
+  @override
+  String get errorTimeoutMessage => 'サーバーからの応答がありません。時間をおいて再度お試しください。';
+
+  @override
+  String get errorCacheMessage => 'データの読み込みに失敗しました。';
+
+  @override
+  String get errorAuthMessage => '認証に失敗しました。再度ログインしてください。';
+
+  @override
+  String get errorDefaultMessage => '予期せぬエラーが発生しました。';
+
+  @override
+  String get errorLoadingTimers => 'タイマーの読み込み中にエラーが発生しました';
+
+  @override
+  String get errorCreatingTimer => 'タイマーの作成中にエラーが発生しました';
+
+  @override
   String get loading => '読み込み中...';
 
   @override

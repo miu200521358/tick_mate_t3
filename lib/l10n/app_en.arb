@@ -14,6 +14,17 @@
   },
   "unknown": "Unknown state",
   "retry": "Retry",
+  "ok": "OK",
+  
+  "errorServerMessage": "An error occurred while communicating with the server.",
+  "errorNetworkMessage": "There is a problem with the network connection. Please check your internet connection.",
+  "errorTimeoutMessage": "No response from the server. Please try again later.",
+  "errorCacheMessage": "Failed to load data.",
+  "errorAuthMessage": "Authentication failed. Please log in again.",
+  "errorDefaultMessage": "An unexpected error occurred.",
+  
+  "errorLoadingTimers": "An error occurred while loading timers",
+  "errorCreatingTimer": "An error occurred while creating timer",
   "loading": "Loading...",
   "loadingCharacter": "Loading character information...",
   

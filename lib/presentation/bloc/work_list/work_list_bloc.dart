@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tick_mate/domain/entities/work_entity.dart';
 import 'package:tick_mate/domain/repositories/work_repository.dart';
@@ -31,7 +32,8 @@ class WorkListBloc extends Bloc<WorkListEvent, WorkListState> {
       errorStateBuilder:
           (message) => WorkListError('errorLoadingWorkList', message),
       function: () async => _workRepository.getAllWorks(),
-      message: '作品リストの読み込み中にエラーが発生しました',
+      context: event.context,
+      messageKey: 'errorLoadingWorkList',
     ).then((works) {
       if (works != null) {
         emit(WorkListLoaded(works));

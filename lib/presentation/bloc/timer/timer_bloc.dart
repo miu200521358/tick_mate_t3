@@ -33,7 +33,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       emit: emit,
       errorStateBuilder: (message) => TimerError(message: message),
       function: () async => _getTimersUseCase.execute(),
-      message: 'タイマーの読み込み中にエラーが発生しました',
+      context: event.context,
+      messageKey: 'errorLoadingTimers',
     ).then((timers) {
       if (timers != null) {
         emit(TimerLoaded(timers: timers));
@@ -63,7 +64,8 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
             location: event.location,
             useCurrentLocation: event.useCurrentLocation,
           ),
-      message: 'タイマーの作成中にエラーが発生しました',
+      context: event.context,
+      messageKey: 'errorCreatingTimer',
     ).then((timer) {
       if (timer != null) {
         // 現在の状態がTimerLoadedの場合、新しいタイマーを追加

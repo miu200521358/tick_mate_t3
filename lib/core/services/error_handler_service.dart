@@ -87,17 +87,19 @@ class ErrorHandlerService {
   /// [message] 表示するメッセージ
   /// [duration] 表示時間
   /// [action] SnackBarのアクション（オプション）
+  /// [onRetry] 再試行ボタン押下時のコールバック
   void showErrorSnackBar(
     BuildContext context,
     String message, {
     Duration duration = const Duration(seconds: 4),
     SnackBarAction? action,
+    VoidCallback? onRetry,
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
         duration: duration,
-        action: action ?? _createRetryAction(context),
+        action: action ?? _createRetryAction(context, onRetry),
         backgroundColor: Theme.of(context).colorScheme.error,
       ),
     );
@@ -118,15 +120,13 @@ class ErrorHandlerService {
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
+        final l10n = AppLocalizations.of(context)!;
         return AlertDialog(
-          title: Text(
-            title ?? AppLocalizations.of(context)!.error(''),
-            textAlign: TextAlign.center,
-          ),
+          title: Text(title ?? l10n.error(''), textAlign: TextAlign.center),
           content: Text(message),
           actions: [
             TextButton(
-              child: const Text('OK'),
+              child: Text(l10n.ok),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
                 if (onConfirm != null) {
@@ -161,29 +161,55 @@ class ErrorHandlerService {
   /// ユーザーフレンドリーなエラーメッセージを取得
   String _getUserFriendlyMessage(AppException exception) {
     // 例外の種類に応じたメッセージを返す
+    if (exception is ValidationException) {
+      return exception.message;
+    }
+
+    // BuildContextがないため、ここではハードコードされた文字列を返す
+    // 実際の表示時にはAppLocalizationsを使用して多言語対応する
+    return exception.message;
+  }
+
+  /// 例外の種類に応じたローカライズされたエラーメッセージを取得
+  String getLocalizedErrorMessage(
+    BuildContext context,
+    AppException exception,
+  ) {
+    final l10n = AppLocalizations.of(context)!;
+
+    // 例外の種類に応じたメッセージを返す
     if (exception is ServerException) {
-      return 'サーバーとの通信中にエラーが発生しました。';
+      return l10n.errorServerMessage;
     } else if (exception is NetworkException) {
-      return 'ネットワーク接続に問題があります。インターネット接続を確認してください。';
+      return l10n.errorNetworkMessage;
     } else if (exception is TimeoutException) {
-      return 'サーバーからの応答がありません。時間をおいて再度お試しください。';
+      return l10n.errorTimeoutMessage;
     } else if (exception is ValidationException) {
       return exception.message;
     } else if (exception is CacheException) {
-      return 'データの読み込みに失敗しました。';
+      return l10n.errorCacheMessage;
     } else if (exception is AuthenticationException) {
-      return '認証に失敗しました。再度ログインしてください。';
+      return l10n.errorAuthMessage;
     } else {
-      return '予期せぬエラーが発生しました。';
+      return l10n.errorDefaultMessage;
     }
   }
 
   /// 「再試行」アクションを作成
-  SnackBarAction? _createRetryAction(BuildContext context) {
+  ///
+  /// [context] BuildContext
+  /// [onRetry] 再試行ボタン押下時のコールバック
+  SnackBarAction? _createRetryAction(
+    BuildContext context,
+    VoidCallback? onRetry,
+  ) {
     return SnackBarAction(
       label: AppLocalizations.of(context)!.retry,
       onPressed: () {
-        // 再試行処理は呼び出し元で実装
+        // 再試行処理を実行
+        if (onRetry != null) {
+          onRetry();
+        }
       },
     );
   }
