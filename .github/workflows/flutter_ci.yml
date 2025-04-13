@@ -1,6 +1,7 @@
 name: Flutter CI
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ main ] # Adjust if your main branch has a different name (e.g., master)
 
