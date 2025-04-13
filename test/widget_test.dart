@@ -7,6 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tick_mate/domain/entities/timer_entity.dart';
@@ -75,6 +77,14 @@ void main() {
     // テストウィジェットを構築
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en'), Locale('ja')],
+        locale: const Locale('ja'), // Use Japanese for tests
         home: MultiBlocProvider(
           providers: [
             BlocProvider<AppBloc>.value(value: appBloc),
@@ -89,9 +99,10 @@ void main() {
     await tester.pumpAndSettle();
 
     // アプリタイトルが表示されていることを確認
-    expect(find.text('Tick Mate'), findsOneWidget);
+    expect(find.text('TickMate'), findsOneWidget);
 
     // ボトムナビゲーションバーのアイテムを確認
+    // Note: These are not localized in the app yet, so we keep the hardcoded text
     expect(find.text('タイマー'), findsOneWidget);
     expect(find.text('通知履歴'), findsOneWidget);
     expect(find.text('キャラクター'), findsOneWidget);
@@ -128,6 +139,14 @@ void main() {
     // テストウィジェットを構築
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('en'), Locale('ja')],
+        locale: const Locale('ja'), // Use Japanese for tests
         home: MultiBlocProvider(
           providers: [
             BlocProvider<AppBloc>.value(value: appBloc),

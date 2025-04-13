@@ -25,7 +25,7 @@ class WorkListBloc extends Bloc<WorkListEvent, WorkListState> {
       emit(WorkListLoaded(works));
     } catch (e) {
       // TODO: エラーハンドリングを改善
-      emit(WorkListError('作品リストの読み込みに失敗しました: $e'));
+      emit(WorkListError('errorLoadingWorkList', e.toString()));
     }
   }
 }
