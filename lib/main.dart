@@ -250,6 +250,14 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.dark,
             ).textTheme, // Base dark text theme
           ),
+          // Add specific theme for BottomNavigationBar in dark mode
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey[900], // Example dark background
+            selectedItemColor: Colors.white, // Example selected icon/text color
+            unselectedItemColor:
+                Colors.grey[400], // Example unselected icon/text color
+            type: BottomNavigationBarType.fixed, // Ensure type is set if needed
+          ),
         ),
         themeMode: ThemeMode.system, // Follow system setting
         home: const HomeScreen(),
