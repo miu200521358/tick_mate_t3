@@ -11,6 +11,7 @@ import 'package:tick_mate/core/constants/app_constants.dart';
 import 'package:tick_mate/core/services/notification_service.dart';
 import 'package:tick_mate/data/hive_init.dart';
 import 'package:tick_mate/di/injection.dart';
+import 'package:tick_mate/domain/usecases/notification/create_notification_usecase.dart';
 import 'package:tick_mate/domain/usecases/timer/create_timer_usecase.dart';
 import 'package:tick_mate/domain/usecases/timer/get_timers_usecase.dart';
 import 'package:tick_mate/firebase_options.dart';
@@ -27,8 +28,36 @@ void main() async {
   // Flutter Widgetの初期化を確実に
   WidgetsFlutterBinding.ensureInitialized();
 
-  // .envファイルの読み込み
-  await dotenv.load(fileName: '.env');
+  // 環境に応じた.envファイルの読み込み
+  String envFile = '.env';
+  // コマンドラインフラグからflavor/環境を取得（flutter run --flavor dev など）
+  const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
+
+  // flavorに応じた環境設定ファイルをロード
+  if (flavor.isNotEmpty) {
+    envFile = '.env.$flavor';
+  }
+
+  // 環境設定ファイルの読み込み
+  try {
+    await dotenv.load(fileName: envFile);
+    debugPrint('環境設定ファイルを読み込みました: $envFile');
+  } catch (e) {
+    debugPrint('環境設定ファイルの読み込みに失敗しました: $e');
+    debugPrint('環境: $flavor, ファイル: $envFile を読み込めませんでした');
+
+    // pubspec.yamlにアセットが正しく登録されているか確認するメッセージ
+    debugPrint('注意: pubspec.yamlのassetsセクションに "$envFile" が登録されていることを確認してください');
+
+    // フォールバックとして.envを試す
+    try {
+      await dotenv.load(fileName: '.env');
+      debugPrint('フォールバック設定ファイルを読み込みました: .env');
+    } catch (e) {
+      debugPrint('フォールバック設定ファイルの読み込みにも失敗しました: $e');
+      debugPrint('すべての環境設定ファイルの読み込みに失敗しました。デフォルト値を使用します。');
+    }
+  }
 
   // Firebaseの初期化
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -44,6 +73,13 @@ void main() async {
 
   // 環境設定の読み込みと登録
   _setupConfig();
+
+  // 通知サービスの手動登録
+  if (!getIt.isRegistered<NotificationService>()) {
+    getIt.registerLazySingleton<NotificationService>(
+      () => NotificationService(getIt<CreateNotificationUseCase>()),
+    );
+  }
 
   // 通知サービスの初期化
   await _initializeNotifications();

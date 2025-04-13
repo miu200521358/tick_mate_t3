@@ -7,19 +7,35 @@
         {
             "name": "tick_mate",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=FLAVOR=dev"
+            ]
         },
         {
             "name": "tick_mate (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=FLAVOR=dev"
+            ]
         },
         {
             "name": "tick_mate (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=FLAVOR=dev"
+            ]
         }
     ]
 }

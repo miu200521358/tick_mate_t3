@@ -42,11 +42,5 @@ abstract class AppModule {
     SecureStorageDataSource secureStorage,
   ) => GeminiApiClient(httpClient, config, secureStorage);
 
-  /// 通知サービスを提供
-  @lazySingleton
-  NotificationService provideNotificationService(
-    CreateNotificationUseCase createNotificationUseCase,
-  ) {
-    return NotificationService(createNotificationUseCase);
-  }
+  // 注:NotificationServiceは手動でmain.dartで登録するため、ここからは削除しました
 }
