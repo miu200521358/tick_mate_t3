@@ -131,16 +131,6 @@ class CharacterScreen extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.photo_camera),
-                title: const Text('カメラで撮影'),
-                onTap: () {
-                  context.read<CharacterDetailBloc>().add(
-                    const PickAndSaveCharacterImage(ImageSource.camera),
-                  );
-                  Navigator.of(context).pop();
-                },
-              ),
             ],
           ),
         );
