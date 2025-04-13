@@ -3,6 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
+import 'package:tick_mate/core/utils/dummy_data_utils.dart';
+import 'package:tick_mate/domain/repositories/work_repository.dart';
+import 'package:tick_mate/domain/repositories/character_repository.dart';
 
 import 'injection.config.dart';
 
@@ -38,5 +41,16 @@ Future<void> configureDependencies([String? environment]) async {
   }
   if (!getIt.isRegistered<Uuid>()) {
     getIt.registerLazySingleton<Uuid>(() => const Uuid());
+  }
+
+  // DummyDataUtilsの登録（ダミーデータ用）
+  if (!getIt.isRegistered<DummyDataUtils>()) {
+    getIt.registerFactory<DummyDataUtils>(
+      () => DummyDataUtils(
+        getIt<WorkRepository>(),
+        getIt<CharacterRepository>(),
+        getIt<Uuid>(),
+      ),
+    );
   }
 }
