@@ -16,9 +16,7 @@ class MigrationInfoModelAdapter extends TypeAdapter<MigrationInfoModel> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return MigrationInfoModel(
-      schemaVersion: fields[0] as int,
-    );
+    return MigrationInfoModel(schemaVersion: fields[0] as int);
   }
 
   @override

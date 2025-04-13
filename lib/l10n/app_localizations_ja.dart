@@ -41,7 +41,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get geminiApiKeySettings => 'Gemini APIキー設定';
 
   @override
-  String get geminiApiKeyDescription => 'Google Gemini APIキーを入力してください。APIキーはデバイスのセキュアストレージに保存され、アプリ内でのみ使用されます。';
+  String get geminiApiKeyDescription =>
+      'Google Gemini APIキーを入力してください。APIキーはデバイスのセキュアストレージに保存され、アプリ内でのみ使用されます。';
 
   @override
   String get geminiApiKey => 'Gemini APIキー';
