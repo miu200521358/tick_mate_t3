@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
@@ -321,8 +322,14 @@ class NotificationService {
           AppConstants.PARAM_MESSAGE: truncatedMessage,
         },
       );
-    } catch (e) {
+    } catch (e, stackTrace) {
       debugPrint('通知イベント送信エラー: $e');
+      // エラーをCrashlyticsに記録
+      await FirebaseCrashlytics.instance.recordError(
+        e,
+        stackTrace,
+        reason: '通知イベント送信エラー',
+      );
     }
   }
 }

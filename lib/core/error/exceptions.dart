@@ -1,4 +1,7 @@
+import 'package:tick_mate/core/log/logger.dart';
+
 /// Base class for all application-specific exceptions.
+
 class AppException implements Exception {
   const AppException(this.message, [this.stackTrace]);
 
@@ -7,6 +10,11 @@ class AppException implements Exception {
 
   @override
   String toString() => 'AppException: $message';
+
+  /// エラーをCrashlyticsに記録する
+  Future<void> recordToCrashlytics({bool fatal = false}) async {
+    await Logger.recordError(this, stackTrace, message: message, fatal: fatal);
+  }
 }
 
 /// Exception for server-related errors (e.g., API failures).

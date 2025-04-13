@@ -21,4 +21,8 @@ class AppConstants {
   static const String PARAM_NOTIFICATION_TIME = 'notification_time';
   static const String PARAM_CHARACTER_NAME = 'character_name';
   static const String PARAM_MESSAGE = 'message';
+
+  // Firebase Crashlytics関連
+  static const String CRASHLYTICS_KEY_EXCEPTION_TYPE = 'exception_type';
+  static const String CRASHLYTICS_KEY_MESSAGE = 'error_message';
 }
