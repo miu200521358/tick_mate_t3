@@ -38,11 +38,13 @@ import '../data/repositories/notification_history_repository_impl.dart'
     as _i279;
 import '../data/repositories/subscription_repository_impl.dart' as _i762;
 import '../data/repositories/timer_repository_impl.dart' as _i209;
+import '../data/repositories/user_setting_repository_impl.dart' as _i885;
 import '../data/repositories/work_repository_impl.dart' as _i895;
 import '../domain/repositories/character_repository.dart' as _i357;
 import '../domain/repositories/notification_history_repository.dart' as _i695;
 import '../domain/repositories/subscription_repository.dart' as _i804;
 import '../domain/repositories/timer_repository.dart' as _i973;
+import '../domain/repositories/user_setting_repository.dart' as _i44;
 import '../domain/repositories/work_repository.dart' as _i47;
 import '../domain/usecases/character/select_character_usecase.dart' as _i814;
 import '../domain/usecases/notification/create_notification_usecase.dart'
@@ -102,6 +104,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i357.CharacterRepository>(
       () => _i286.CharacterRepositoryImpl(gh<_i462.LocalStorageDataSource>()),
+    );
+    gh.lazySingleton<_i44.UserSettingRepository>(
+      () => _i885.UserSettingRepositoryImpl(),
     );
     gh.factory<_i478.WorkDetailBloc>(
       () => _i478.WorkDetailBloc(
