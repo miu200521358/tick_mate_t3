@@ -10,6 +10,7 @@ class CharacterEntity extends Equatable {
     required this.parameters,
     required this.createdAt,
     required this.updatedAt,
+    this.imagePath, // Renamed from imageUrl
   });
 
   @override
@@ -21,6 +22,7 @@ class CharacterEntity extends Equatable {
     parameters,
     createdAt,
     updatedAt,
+    imagePath, // Renamed from imageUrl
   ];
 
   final String id;
@@ -30,6 +32,7 @@ class CharacterEntity extends Equatable {
   final Map<String, dynamic> parameters;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final String? imagePath; // Renamed from imageUrl
 
   /// 新しいキャラクターエンティティを作成
   CharacterEntity copyWith({
@@ -40,6 +43,7 @@ class CharacterEntity extends Equatable {
     Map<String, dynamic>? parameters,
     DateTime? createdAt,
     DateTime? updatedAt,
+    String? imagePath, // Renamed from imageUrl
   }) {
     return CharacterEntity(
       id: id ?? this.id,
@@ -49,6 +53,7 @@ class CharacterEntity extends Equatable {
       parameters: parameters ?? this.parameters,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      imagePath: imagePath ?? this.imagePath, // Renamed from imageUrl
     );
   }
 }

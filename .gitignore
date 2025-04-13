@@ -29,5 +29,21 @@ build/
 web/
 .idea/
 
+# Android Studio files
+.idea/
+*.iml
+local.properties
+.gradle/
+
+# Android Studio files
+.idea/
+*.iml
+local.properties
+.gradle/
+
+# Ignore specific untracked files
+android/.project
+android/.settings/
+
 # Firebase configuration files
 google-services.json

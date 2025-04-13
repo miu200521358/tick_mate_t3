@@ -54,5 +54,9 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
+	<!-- Add these keys for image picker -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>キャラクター画像を選択するために写真ライブラリへのアクセスが必要です。</string>
+
 </dict>
 </plist>

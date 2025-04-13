@@ -15,6 +15,7 @@ jobs:
       - name: Setup .env for CI
         run: |
           cp .env.example .env
+          touch .env.dev .env.stg .env.prod
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
