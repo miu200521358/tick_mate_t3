@@ -1,12 +1,12 @@
 import 'dart:io'; // For File operations
-import 'package:flutter/foundation.dart'; // For debugPrint
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart'; // For debugPrint
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p; // For path manipulation
+import 'package:path_provider/path_provider.dart';
 import 'package:tick_mate/domain/entities/character_entity.dart';
 import 'package:tick_mate/domain/repositories/character_repository.dart';
 import 'package:uuid/uuid.dart'; // For unique filenames
@@ -17,18 +17,15 @@ part 'character_detail_state.dart';
 @injectable
 class CharacterDetailBloc
     extends Bloc<CharacterDetailEvent, CharacterDetailState> {
-  final CharacterRepository _characterRepository;
-  final ImagePicker _imagePicker;
-  final Uuid _uuid;
-
-  // Keep track of the current character ID
-  String? _currentCharacterId;
-
   CharacterDetailBloc(this._characterRepository, this._imagePicker, this._uuid)
-    : super(CharacterDetailInitial()) {
+      : super(CharacterDetailInitial()) {
     on<LoadCharacterDetail>(_onLoadCharacterDetail);
     on<PickAndSaveCharacterImage>(_onPickAndSaveCharacterImage);
   }
+
+
+  // Keep track of the current character ID
+  String? _currentCharacterId;
 
   Future<void> _onLoadCharacterDetail(
     LoadCharacterDetail event,

@@ -15,9 +15,9 @@ class WorkListLoading extends WorkListState {}
 
 /// 読み込み成功状態
 class WorkListLoaded extends WorkListState {
-  final List<WorkEntity> works;
-
   const WorkListLoaded(this.works);
+
+  final List<WorkEntity> works;
 
   @override
   List<Object> get props => [works];
@@ -25,9 +25,9 @@ class WorkListLoaded extends WorkListState {
 
 /// 読み込み失敗状態
 class WorkListError extends WorkListState {
-  final String message;
-
   const WorkListError(this.message);
+
+  final String message;
 
   @override
   List<Object> get props => [message];

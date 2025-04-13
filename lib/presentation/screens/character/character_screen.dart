@@ -7,9 +7,9 @@ import 'package:tick_mate/presentation/bloc/character_detail/character_detail_bl
 
 /// キャラクター詳細・編集画面
 class CharacterScreen extends StatelessWidget {
-  final String characterId;
-
   const CharacterScreen({super.key, required this.characterId});
+
+  final String characterId;
 
   @override
   Widget build(BuildContext context) {

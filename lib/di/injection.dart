@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:image_picker/image_picker.dart'; // Moved import
-import 'package:uuid/uuid.dart'; // Moved import
+import 'package:uuid/uuid.dart';
 
 import 'injection.config.dart';
 

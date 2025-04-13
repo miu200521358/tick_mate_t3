@@ -6,9 +6,9 @@ import 'package:tick_mate/presentation/screens/character/character_screen.dart';
 
 /// 作品詳細画面
 class WorkDetailScreen extends StatelessWidget {
-  final String workId;
-
   const WorkDetailScreen({super.key, required this.workId});
+
+  final String workId;
 
   @override
   Widget build(BuildContext context) {

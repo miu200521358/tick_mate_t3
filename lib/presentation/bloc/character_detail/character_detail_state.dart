@@ -15,9 +15,9 @@ class CharacterDetailLoading extends CharacterDetailState {}
 
 /// 読み込み成功状態
 class CharacterDetailLoaded extends CharacterDetailState {
-  final CharacterEntity character;
-
   const CharacterDetailLoaded(this.character);
+
+  final CharacterEntity character;
 
   @override
   List<Object?> get props => [character];
@@ -25,9 +25,9 @@ class CharacterDetailLoaded extends CharacterDetailState {
 
 /// 読み込み/保存失敗状態
 class CharacterDetailError extends CharacterDetailState {
-  final String message;
-
   const CharacterDetailError(this.message);
+
+  final String message;
 
   @override
   List<Object> get props => [message];

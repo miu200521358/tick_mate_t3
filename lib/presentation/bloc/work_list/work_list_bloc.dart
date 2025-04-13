@@ -9,11 +9,11 @@ part 'work_list_state.dart';
 
 @injectable
 class WorkListBloc extends Bloc<WorkListEvent, WorkListState> {
-  final WorkRepository _workRepository;
-
   WorkListBloc(this._workRepository) : super(WorkListInitial()) {
     on<LoadWorkList>(_onLoadWorkList);
   }
+
+  final WorkRepository _workRepository;
 
   Future<void> _onLoadWorkList(
     LoadWorkList event,
