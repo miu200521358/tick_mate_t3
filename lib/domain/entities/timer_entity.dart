@@ -41,19 +41,6 @@ enum RepeatType {
 
 /// タイマーエンティティ
 class TimerEntity extends Equatable {
-  final String id;
-  final String title;
-  final DateTime? dateTime;
-  final String? timeRange;
-  final TimerType timerType;
-  final RepeatType repeatType;
-  final List<String> characterIds;
-  final String? notificationSound;
-  final String? location;
-  final bool useCurrentLocation;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
   const TimerEntity({
     required this.id,
     required this.title,
@@ -68,6 +55,19 @@ class TimerEntity extends Equatable {
     required this.createdAt,
     required this.updatedAt,
   });
+
+  final String id;
+  final String title;
+  final DateTime? dateTime;
+  final String? timeRange;
+  final TimerType timerType;
+  final RepeatType repeatType;
+  final List<String> characterIds;
+  final String? notificationSound;
+  final String? location;
+  final bool useCurrentLocation;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   /// タイマーが有効かどうかをチェック
   bool get isValid {

@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 
 /// タイマー情報を表示するカードウィジェット
 class TimerCardWidget extends StatelessWidget {
-  final String title;
-  final DateTime? dateTime;
-  final String? timeRange;
-  final String timerType;
-  final List<String> characters;
-  final VoidCallback onTap;
-
   const TimerCardWidget({
     super.key,
     required this.title,
@@ -18,6 +11,13 @@ class TimerCardWidget extends StatelessWidget {
     required this.characters,
     required this.onTap,
   });
+
+  final String title;
+  final DateTime? dateTime;
+  final String? timeRange;
+  final String timerType;
+  final List<String> characters;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

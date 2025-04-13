@@ -2,14 +2,6 @@ import 'package:equatable/equatable.dart';
 
 /// キャラクターエンティティ
 class CharacterEntity extends Equatable {
-  final String id;
-  final String name;
-  final String workId;
-  final String promptText;
-  final Map<String, dynamic> parameters;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
   const CharacterEntity({
     required this.id,
     required this.name,
@@ -30,6 +22,14 @@ class CharacterEntity extends Equatable {
     createdAt,
     updatedAt,
   ];
+
+  final String id;
+  final String name;
+  final String workId;
+  final String promptText;
+  final Map<String, dynamic> parameters;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   /// 新しいキャラクターエンティティを作成
   CharacterEntity copyWith({

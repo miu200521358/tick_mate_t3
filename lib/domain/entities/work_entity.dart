@@ -2,12 +2,6 @@ import 'package:equatable/equatable.dart';
 
 /// 作品エンティティ
 class WorkEntity extends Equatable {
-  final String id;
-  final String title;
-  final Map<String, String> terms;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
   const WorkEntity({
     required this.id,
     required this.title,
@@ -15,6 +9,12 @@ class WorkEntity extends Equatable {
     required this.createdAt,
     required this.updatedAt,
   });
+
+  final String id;
+  final String title;
+  final Map<String, String> terms;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   @override
   List<Object?> get props => [id, title, terms, createdAt, updatedAt];

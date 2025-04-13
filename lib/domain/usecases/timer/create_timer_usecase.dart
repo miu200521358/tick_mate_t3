@@ -5,9 +5,9 @@ import '../../repositories/timer_repository.dart';
 /// タイマー作成ユースケース
 @injectable
 class CreateTimerUseCase {
-  final TimerRepository _timerRepository;
-
   CreateTimerUseCase(this._timerRepository);
+
+  final TimerRepository _timerRepository;
 
   /// タイマーを作成する
   Future<TimerEntity> execute({

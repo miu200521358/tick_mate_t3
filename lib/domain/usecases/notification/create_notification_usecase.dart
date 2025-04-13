@@ -5,9 +5,9 @@ import '../../repositories/notification_history_repository.dart';
 /// 通知作成ユースケース
 @injectable
 class CreateNotificationUseCase {
-  final NotificationHistoryRepository _notificationHistoryRepository;
-
   CreateNotificationUseCase(this._notificationHistoryRepository);
+
+  final NotificationHistoryRepository _notificationHistoryRepository;
 
   /// 通知を作成し、履歴に保存する
   Future<NotificationHistoryEntity> execute({

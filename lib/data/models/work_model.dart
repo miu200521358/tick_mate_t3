@@ -6,21 +6,6 @@ part 'work_model.g.dart';
 /// 作品モデル（Hive用）
 @HiveType(typeId: 3)
 class WorkModel extends HiveObject {
-  @HiveField(0)
-  final String id;
-
-  @HiveField(1)
-  final String title;
-
-  @HiveField(2)
-  final Map<String, String> terms;
-
-  @HiveField(3)
-  final DateTime createdAt;
-
-  @HiveField(4)
-  final DateTime updatedAt;
-
   WorkModel({
     required this.id,
     required this.title,
@@ -39,6 +24,21 @@ class WorkModel extends HiveObject {
       updatedAt: entity.updatedAt,
     );
   }
+
+  @HiveField(0)
+  final String id;
+
+  @HiveField(1)
+  final String title;
+
+  @HiveField(2)
+  final Map<String, String> terms;
+
+  @HiveField(3)
+  final DateTime createdAt;
+
+  @HiveField(4)
+  final DateTime updatedAt;
 
   /// モデルからエンティティに変換
   WorkEntity toEntity() {

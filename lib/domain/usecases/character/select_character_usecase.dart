@@ -7,10 +7,10 @@ import '../../repositories/character_repository.dart';
 /// キャラクター選出ユースケース
 @injectable
 class SelectCharacterUseCase {
+  SelectCharacterUseCase(this._characterRepository, this._random);
+
   final CharacterRepository _characterRepository;
   final Random _random;
-
-  SelectCharacterUseCase(this._characterRepository, this._random);
 
   /// タイマー用のキャラクターをランダムに1人選出
   Future<CharacterEntity> execute(List<String> characterIds) async {

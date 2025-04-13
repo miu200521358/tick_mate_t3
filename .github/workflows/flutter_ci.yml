@@ -1,6 +1,7 @@
 name: Flutter CI
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ main ] # Adjust if your main branch has a different name (e.g., master)
 
@@ -10,6 +11,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4 # Checks-out your repository under $GITHUB_WORKSPACE
+
+      - name: Setup .env for CI
+        run: |
+          cp .env.example .env
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2

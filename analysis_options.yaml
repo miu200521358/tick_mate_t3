@@ -43,8 +43,6 @@ analyzer:
   errors:
     invalid_annotation_target: ignore  # JSON関連のアノテーションで発生する可能性のあるエラーを無視
     deprecated_member_use: warning  # 非推奨のメンバー使用を警告レベルに設定
-    sort_constructors_first: info  # コンストラクタを最初に配置するルールを情報レベルに設定
-    prefer_const_constructors: info  # constコンストラクタを使用するルールを情報レベルに設定
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

@@ -6,27 +6,6 @@ part 'subscription_model.g.dart';
 /// サブスクリプションモデル（Hive用）
 @HiveType(typeId: 5)
 class SubscriptionModel extends HiveObject {
-  @HiveField(0)
-  final String id;
-
-  @HiveField(1)
-  final int planType;
-
-  @HiveField(2)
-  final int additionalTimerCount;
-
-  @HiveField(3)
-  final DateTime? expiryDate;
-
-  @HiveField(4)
-  final String userId;
-
-  @HiveField(5)
-  final DateTime createdAt;
-
-  @HiveField(6)
-  final DateTime updatedAt;
-
   SubscriptionModel({
     required this.id,
     required this.planType,
@@ -49,6 +28,27 @@ class SubscriptionModel extends HiveObject {
       updatedAt: entity.updatedAt,
     );
   }
+
+  @HiveField(0)
+  final String id;
+
+  @HiveField(1)
+  final int planType;
+
+  @HiveField(2)
+  final int additionalTimerCount;
+
+  @HiveField(3)
+  final DateTime? expiryDate;
+
+  @HiveField(4)
+  final String userId;
+
+  @HiveField(5)
+  final DateTime createdAt;
+
+  @HiveField(6)
+  final DateTime updatedAt;
 
   /// モデルからエンティティに変換
   SubscriptionEntity toEntity() {

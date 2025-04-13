@@ -16,13 +16,13 @@ class AppInitial extends AppState {
 
 /// アプリ準備完了状態
 class AppReady extends AppState {
-  final bool isDarkMode;
-  final Locale locale;
-
   const AppReady({
     this.isDarkMode = false,
     this.locale = const Locale('ja', 'JP'),
   });
+
+  final bool isDarkMode;
+  final Locale locale;
 
   AppReady copyWith({bool? isDarkMode, Locale? locale}) {
     return AppReady(

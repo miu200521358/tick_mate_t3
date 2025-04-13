@@ -7,9 +7,6 @@ import 'package:tick_mate_t3/presentation/bloc/settings/settings_state.dart';
 
 /// 設定画面のBLoC
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  final SecureStorageDataSource _secureStorage;
-  final GeminiApiDataSource _geminiApiDataSource;
-
   SettingsBloc(this._secureStorage, this._geminiApiDataSource)
     : super(const SettingsInitial()) {
     on<SettingsInitialized>(_onSettingsInitialized);
@@ -17,6 +14,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<GeminiApiKeyDeleted>(_onGeminiApiKeyDeleted);
     on<GeminiApiKeyTested>(_onGeminiApiKeyTested);
   }
+
+  final SecureStorageDataSource _secureStorage;
+  final GeminiApiDataSource _geminiApiDataSource;
 
   /// 設定画面初期化時のハンドラ
   Future<void> _onSettingsInitialized(
