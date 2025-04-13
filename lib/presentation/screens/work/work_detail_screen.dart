@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tick_mate/l10n/app_localizations.dart';
 import 'package:tick_mate/di/injection.dart';
 import 'package:tick_mate/presentation/bloc/work_detail/work_detail_bloc.dart';
 import 'package:tick_mate/presentation/screens/character/character_screen.dart'; // Ensure CharacterScreen is imported
