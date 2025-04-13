@@ -23,6 +23,36 @@ class AppLocalizationsJa extends AppLocalizations {
   String get retry => '再試行';
 
   @override
+  String get ok => 'OK';
+
+  @override
+  String get errorServerMessage => 'サーバーとの通信中にエラーが発生しました。';
+
+  @override
+  String get errorNetworkMessage => 'ネットワーク接続に問題があります。インターネット接続を確認してください。';
+
+  @override
+  String get errorTimeoutMessage => 'サーバーからの応答がありません。時間をおいて再度お試しください。';
+
+  @override
+  String get errorCacheMessage => 'データの読み込みに失敗しました。';
+
+  @override
+  String get errorAuthMessage => '認証に失敗しました。再度ログインしてください。';
+
+  @override
+  String get errorDefaultMessage => '予期せぬエラーが発生しました。';
+
+  @override
+  String get errorLoadingTimers => 'タイマーの読み込み中にエラーが発生しました';
+
+  @override
+  String get errorCreatingTimer => 'タイマーの作成中にエラーが発生しました';
+
+  @override
+  String get errorDeletingTimer => 'タイマーの削除中にエラーが発生しました';
+
+  @override
   String get loading => '読み込み中...';
 
   @override
@@ -41,7 +71,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get geminiApiKeySettings => 'Gemini APIキー設定';
 
   @override
-  String get geminiApiKeyDescription => 'Google Gemini APIキーを入力してください。APIキーはデバイスのセキュアストレージに保存され、アプリ内でのみ使用されます。';
+  String get geminiApiKeyDescription =>
+      'Google Gemini APIキーを入力してください。APIキーはデバイスのセキュアストレージに保存され、アプリ内でのみ使用されます。';
 
   @override
   String get geminiApiKey => 'Gemini APIキー';

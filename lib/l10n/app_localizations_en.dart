@@ -23,6 +23,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get retry => 'Retry';
 
   @override
+  String get ok => 'OK';
+
+  @override
+  String get errorServerMessage =>
+      'An error occurred while communicating with the server.';
+
+  @override
+  String get errorNetworkMessage =>
+      'There is a problem with the network connection. Please check your internet connection.';
+
+  @override
+  String get errorTimeoutMessage =>
+      'No response from the server. Please try again later.';
+
+  @override
+  String get errorCacheMessage => 'Failed to load data.';
+
+  @override
+  String get errorAuthMessage => 'Authentication failed. Please log in again.';
+
+  @override
+  String get errorDefaultMessage => 'An unexpected error occurred.';
+
+  @override
+  String get errorLoadingTimers => 'An error occurred while loading timers';
+
+  @override
+  String get errorCreatingTimer => 'An error occurred while creating timer';
+
+  @override
+  String get errorDeletingTimer => 'An error occurred while deleting timer';
+
+  @override
   String get loading => 'Loading...';
 
   @override
@@ -41,7 +74,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get geminiApiKeySettings => 'Gemini API Key Settings';
 
   @override
-  String get geminiApiKeyDescription => 'Please enter your Google Gemini API key. The API key will be stored in the device\'s secure storage and will only be used within the app.';
+  String get geminiApiKeyDescription =>
+      'Please enter your Google Gemini API key. The API key will be stored in the device\'s secure storage and will only be used within the app.';
 
   @override
   String get geminiApiKey => 'Gemini API key';

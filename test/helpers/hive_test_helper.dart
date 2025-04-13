@@ -27,7 +27,7 @@ class HiveTestHelper {
 
   /// 一時ディレクトリパス
   Directory? _tempDir;
-  
+
   /// 初期化済みフラグ
   bool _initialized = false;
 

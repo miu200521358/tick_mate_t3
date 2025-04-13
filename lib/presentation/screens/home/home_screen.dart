@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:tick_mate/core/services/error_handler_service.dart';
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
@@ -50,11 +52,14 @@ class HomeScreen extends StatelessWidget {
                       },
                     );
               } else if (timerState is TimerError) {
-                return Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.error(timerState.message),
-                  ),
-                );
+                // エラーハンドラーサービスを使用してエラーダイアログを表示
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  GetIt.instance<ErrorHandlerService>().showErrorDialog(
+                    context,
+                    timerState.message,
+                  );
+                });
+                return Center(child: Text(timerState.message));
               }
               return Center(child: Text(AppLocalizations.of(context)!.unknown));
             },

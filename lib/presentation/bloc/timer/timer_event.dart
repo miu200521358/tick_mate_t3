@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 
 /// タイマーBLoCのイベント基底クラス
@@ -11,7 +12,12 @@ abstract class TimerEvent extends Equatable {
 
 /// タイマー読み込みイベント
 class TimersLoaded extends TimerEvent {
-  const TimersLoaded();
+  const TimersLoaded({this.context});
+
+  final BuildContext? context;
+
+  @override
+  List<Object?> get props => [context];
 }
 
 /// タイマー作成イベント
@@ -26,6 +32,7 @@ class TimerCreated extends TimerEvent {
     this.notificationSound,
     this.location,
     this.useCurrentLocation = false,
+    this.context,
   });
 
   final String title;
@@ -37,6 +44,7 @@ class TimerCreated extends TimerEvent {
   final String? notificationSound;
   final String? location;
   final bool useCurrentLocation;
+  final BuildContext? context;
 
   @override
   List<Object?> get props => [
@@ -49,15 +57,17 @@ class TimerCreated extends TimerEvent {
     notificationSound,
     location,
     useCurrentLocation,
+    context,
   ];
 }
 
 /// タイマー削除イベント
 class TimerDeleted extends TimerEvent {
-  const TimerDeleted({required this.id});
+  const TimerDeleted({required this.id, this.context});
 
   final String id;
+  final BuildContext? context;
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, context];
 }

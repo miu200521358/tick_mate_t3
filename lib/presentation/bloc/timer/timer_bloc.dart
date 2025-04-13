@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/domain/usecases/timer/create_timer_usecase.dart';
 import 'package:tick_mate/domain/usecases/timer/get_timers_usecase.dart';
+import 'package:tick_mate/presentation/bloc/common/bloc_error_handler.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 
@@ -27,12 +28,18 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     Emitter<TimerState> emit,
   ) async {
     emit(const TimerLoading());
-    try {
-      final timers = await _getTimersUseCase.execute();
-      emit(TimerLoaded(timers: timers));
-    } catch (e) {
-      emit(TimerError(message: e.toString()));
-    }
+    await BlocErrorHandler.handle<List<TimerEntity>, TimerBloc, TimerState>(
+      bloc: this,
+      emit: emit,
+      errorStateBuilder: (message) => TimerError(message: message),
+      function: () async => _getTimersUseCase.execute(),
+      context: event.context,
+      messageKey: 'errorLoadingTimers',
+    ).then((timers) {
+      if (timers != null) {
+        emit(TimerLoaded(timers: timers));
+      }
+    });
   }
 
   /// タイマー作成イベントの処理
@@ -41,32 +48,38 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     Emitter<TimerState> emit,
   ) async {
     emit(const TimerLoading());
-    try {
-      final timer = await _createTimerUseCase.execute(
-        title: event.title,
-        dateTime: event.dateTime,
-        timeRange: event.timeRange,
-        timerType: event.timerType,
-        repeatType: event.repeatType,
-        characterIds: event.characterIds,
-        notificationSound: event.notificationSound,
-        location: event.location,
-        useCurrentLocation: event.useCurrentLocation,
-      );
-
-      // 現在の状態がTimerLoadedの場合、新しいタイマーを追加
-      if (state is TimerLoaded) {
-        final currentState = state as TimerLoaded;
-        final updatedTimers = List<TimerEntity>.from(currentState.timers)
-          ..add(timer);
-        emit(currentState.copyWith(timers: updatedTimers));
-      } else {
-        // それ以外の場合は、1つのタイマーだけを含む新しいリストを作成
-        emit(TimerLoaded(timers: [timer]));
+    await BlocErrorHandler.handle<TimerEntity, TimerBloc, TimerState>(
+      bloc: this,
+      emit: emit,
+      errorStateBuilder: (message) => TimerError(message: message),
+      function:
+          () async => _createTimerUseCase.execute(
+            title: event.title,
+            dateTime: event.dateTime,
+            timeRange: event.timeRange,
+            timerType: event.timerType,
+            repeatType: event.repeatType,
+            characterIds: event.characterIds,
+            notificationSound: event.notificationSound,
+            location: event.location,
+            useCurrentLocation: event.useCurrentLocation,
+          ),
+      context: event.context,
+      messageKey: 'errorCreatingTimer',
+    ).then((timer) {
+      if (timer != null) {
+        // 現在の状態がTimerLoadedの場合、新しいタイマーを追加
+        if (state is TimerLoaded) {
+          final currentState = state as TimerLoaded;
+          final updatedTimers = List<TimerEntity>.from(currentState.timers)
+            ..add(timer);
+          emit(currentState.copyWith(timers: updatedTimers));
+        } else {
+          // それ以外の場合は、1つのタイマーだけを含む新しいリストを作成
+          emit(TimerLoaded(timers: [timer]));
+        }
       }
-    } catch (e) {
-      emit(TimerError(message: e.toString()));
-    }
+    });
   }
 
   /// タイマー削除イベントの処理
@@ -74,7 +87,31 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
     TimerDeleted event,
     Emitter<TimerState> emit,
   ) async {
-    // 実装は後のIssueで追加
-    // TODO: タイマー削除機能の実装
+    // 現在の状態がTimerLoadedの場合のみ処理を実行
+    if (state is TimerLoaded) {
+      final currentState = state as TimerLoaded;
+      emit(const TimerLoading());
+
+      // 実際の削除処理は後のIssueで実装するため、ここではエラーハンドリングの例として実装
+      await BlocErrorHandler.handle<bool, TimerBloc, TimerState>(
+        bloc: this,
+        emit: emit,
+        errorStateBuilder: (message) => TimerError(message: message),
+        function: () async {
+          // 実際の削除処理は後のIssueで実装
+          // 現時点では成功したと仮定して、タイマーリストから該当IDのタイマーを除外
+          final updatedTimers =
+              currentState.timers
+                  .where((timer) => timer.id != event.id)
+                  .toList();
+
+          // 更新されたタイマーリストで状態を更新
+          emit(TimerLoaded(timers: updatedTimers));
+          return true;
+        },
+        context: event.context,
+        messageKey: 'errorDeletingTimer',
+      );
+    }
   }
 }

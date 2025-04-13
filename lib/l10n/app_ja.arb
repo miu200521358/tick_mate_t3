@@ -14,6 +14,18 @@
   },
   "unknown": "不明な状態です",
   "retry": "再試行",
+  "ok": "OK",
+  
+  "errorServerMessage": "サーバーとの通信中にエラーが発生しました。",
+  "errorNetworkMessage": "ネットワーク接続に問題があります。インターネット接続を確認してください。",
+  "errorTimeoutMessage": "サーバーからの応答がありません。時間をおいて再度お試しください。",
+  "errorCacheMessage": "データの読み込みに失敗しました。",
+  "errorAuthMessage": "認証に失敗しました。再度ログインしてください。",
+  "errorDefaultMessage": "予期せぬエラーが発生しました。",
+  
+  "errorLoadingTimers": "タイマーの読み込み中にエラーが発生しました",
+  "errorCreatingTimer": "タイマーの作成中にエラーが発生しました",
+  "errorDeletingTimer": "タイマーの削除中にエラーが発生しました",
   "loading": "読み込み中...",
   "loadingCharacter": "キャラクター情報を読み込んでいます...",
   

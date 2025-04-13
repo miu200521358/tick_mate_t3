@@ -62,7 +62,8 @@ import 'app_localizations_ja.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,17 +84,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('ja')
+    Locale('ja'),
   ];
 
   /// No description provided for @appTitle.
@@ -118,6 +121,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get retry;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @errorServerMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while communicating with the server.'**
+  String get errorServerMessage;
+
+  /// No description provided for @errorNetworkMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'There is a problem with the network connection. Please check your internet connection.'**
+  String get errorNetworkMessage;
+
+  /// No description provided for @errorTimeoutMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No response from the server. Please try again later.'**
+  String get errorTimeoutMessage;
+
+  /// No description provided for @errorCacheMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load data.'**
+  String get errorCacheMessage;
+
+  /// No description provided for @errorAuthMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication failed. Please log in again.'**
+  String get errorAuthMessage;
+
+  /// No description provided for @errorDefaultMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred.'**
+  String get errorDefaultMessage;
+
+  /// No description provided for @errorLoadingTimers.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while loading timers'**
+  String get errorLoadingTimers;
+
+  /// No description provided for @errorCreatingTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while creating timer'**
+  String get errorCreatingTimer;
+
+  /// No description provided for @errorDeletingTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while deleting timer'**
+  String get errorDeletingTimer;
 
   /// No description provided for @loading.
   ///
@@ -312,7 +375,8 @@ abstract class AppLocalizations {
   String get sampleTimer;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -321,25 +385,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'ja'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'ja'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'ja': return AppLocalizationsJa();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'ja':
+      return AppLocalizationsJa();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }
