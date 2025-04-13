@@ -14,16 +14,6 @@ class AppStarted extends AppEvent {
   const AppStarted();
 }
 
-/// テーマ変更イベント
-class ThemeChanged extends AppEvent {
-  const ThemeChanged({required this.isDarkMode});
-
-  final bool isDarkMode;
-
-  @override
-  List<Object?> get props => [isDarkMode];
-}
-
 /// 言語変更イベント
 class LanguageChanged extends AppEvent {
   const LanguageChanged({required this.locale});
