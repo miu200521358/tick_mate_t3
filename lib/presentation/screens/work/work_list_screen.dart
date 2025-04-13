@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tick_mate/l10n/app_localizations.dart';
 import 'package:tick_mate/di/injection.dart';
 import 'package:tick_mate/presentation/bloc/work_list/work_list_bloc.dart';
 import 'package:tick_mate/presentation/screens/work/work_detail_screen.dart'; // 仮インポート

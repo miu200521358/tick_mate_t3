@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tick_mate/l10n/app_localizations.dart';
 
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
