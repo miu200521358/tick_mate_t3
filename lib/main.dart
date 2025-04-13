@@ -5,6 +5,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tick_mate/config/app_config.dart';
 import 'package:tick_mate/config/config_dev.dart';
 import 'package:tick_mate/config/config_prod.dart';
@@ -228,6 +229,10 @@ class MyApp extends StatelessWidget {
             title: 'Tick Mate',
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              fontFamily: GoogleFonts.notoSansJp().fontFamily,
+              textTheme: GoogleFonts.notoSansJpTextTheme(
+                Theme.of(context).textTheme,
+              ),
             ),
             home: const HomeScreen(),
           );
