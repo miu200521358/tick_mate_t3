@@ -25,10 +25,11 @@ class WorkListLoaded extends WorkListState {
 
 /// 読み込み失敗状態
 class WorkListError extends WorkListState {
-  const WorkListError(this.message);
+  const WorkListError(this.messageKey, this.messageParam);
 
-  final String message;
+  final String messageKey;
+  final String messageParam;
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [messageKey, messageParam];
 }

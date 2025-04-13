@@ -1,6 +1,7 @@
 import 'dart:io'; // For FileImage
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart'; // For ImageSource
 import 'package:tick_mate/di/injection.dart';
 import 'package:tick_mate/presentation/bloc/character_detail/character_detail_bloc.dart';
@@ -75,8 +76,16 @@ class CharacterScreen extends StatelessWidget {
                     // TODO: Display other character details (prompt, parameters etc.)
                     Text('Prompt: ${character.promptText}'), // Example
                     const SizedBox(height: 8),
-                    Text('作成日: ${character.createdAt}'), // TODO: Format date
-                    Text('更新日: ${character.updatedAt}'), // TODO: Format date
+                    Text(
+                      AppLocalizations.of(
+                        context,
+                      )!.createdAt(character.createdAt.toString()),
+                    ),
+                    Text(
+                      AppLocalizations.of(
+                        context,
+                      )!.updatedAt(character.updatedAt.toString()),
+                    ),
                     // TODO: Add Edit/Save buttons if needed
                   ],
                 ),
@@ -87,7 +96,7 @@ class CharacterScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('エラー: ${state.message}'),
+                    Text(AppLocalizations.of(context)!.error(state.message)),
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
@@ -95,14 +104,16 @@ class CharacterScreen extends StatelessWidget {
                           LoadCharacterDetail(characterId),
                         );
                       },
-                      child: const Text('再試行'),
+                      child: Text(AppLocalizations.of(context)!.retry),
                     ),
                   ],
                 ),
               );
             }
             // Initial or unexpected state
-            return const Center(child: Text('キャラクター情報を読み込んでいます...'));
+            return Center(
+              child: Text(AppLocalizations.of(context)!.loadingCharacter),
+            );
           },
         ),
         // Set AppBar title dynamically based on state
@@ -123,7 +134,7 @@ class CharacterScreen extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('ギャラリーから選択'),
+                title: Text(AppLocalizations.of(context)!.selectFromGallery),
                 onTap: () {
                   context.read<CharacterDetailBloc>().add(
                     const PickAndSaveCharacterImage(ImageSource.gallery),

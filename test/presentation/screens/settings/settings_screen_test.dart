@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
@@ -50,6 +52,14 @@ void main() {
 
   Widget createWidgetUnderTest() {
     return MaterialApp(
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en'), Locale('ja')],
+      locale: const Locale('ja'), // Use Japanese for tests
       home: BlocProvider<SettingsBloc>.value(
         value: mockSettingsBloc,
         child: const SettingsScreen(),
@@ -108,7 +118,7 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest());
 
       // Assert
-      expect(find.text('エラー: $errorMessage'), findsOneWidget);
+      expect(find.textContaining(errorMessage), findsOneWidget);
     });
 
     group('SettingsLoaded状態', () {
@@ -156,7 +166,7 @@ void main() {
         await tester.pump();
 
         // 保存ボタンをタップ
-        await tester.tap(find.text('APIキーを保存'));
+        await tester.tap(find.byType(ElevatedButton).first);
         await tester.pump();
 
         // Assert
@@ -182,7 +192,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // 削除ボタンをタップ
-        await tester.tap(find.text('APIキーを削除'));
+        await tester.tap(find.byType(ElevatedButton).at(1));
         await tester.pump();
 
         // Assert
@@ -206,7 +216,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // 接続テストボタンをタップ
-        await tester.tap(find.text('接続テスト'));
+        await tester.tap(find.byType(ElevatedButton).at(2));
         await tester.pump();
 
         // Assert

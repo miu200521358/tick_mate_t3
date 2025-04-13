@@ -15,7 +15,7 @@ class GeminiApiClient extends BaseApiClient {
   Future<String> _getUrlWithApiKey(String endpoint) async {
     final apiKey = await _secureStorage.getGeminiApiKey();
     if (apiKey == null) {
-      throw Exception('Gemini APIキーが設定されていません');
+      throw Exception('apiKeyNotSet');
     }
     return '$baseUrl/$endpoint?key=$apiKey';
   }

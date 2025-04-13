@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tick_mate/di/injection.dart';
 import 'package:tick_mate/presentation/bloc/work_list/work_list_bloc.dart';
 import 'package:tick_mate/presentation/screens/work/work_detail_screen.dart'; // 仮インポート
@@ -14,7 +15,7 @@ class WorkListScreen extends StatelessWidget {
       create: (context) => getIt<WorkListBloc>()..add(LoadWorkList()),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('作品リスト'),
+          title: const Text('作品リスト'), // 作品リストは翻訳対象外
           // TODO: 作品追加ボタン
         ),
         body: BlocBuilder<WorkListBloc, WorkListState>(
@@ -49,7 +50,13 @@ class WorkListScreen extends StatelessWidget {
                 },
               );
             } else if (state is WorkListError) {
-              return Center(child: Text('エラー: ${state.message}'));
+              return Center(
+                child: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.errorLoadingWorkList(state.messageParam),
+                ),
+              );
             }
             return const Center(child: Text('作品リスト画面')); // 初期状態など
           },

@@ -1,1 +1,68 @@
-{ "@@locale": "ja", "appTitle": "TickMate" }
+{
+  "@@locale": "ja",
+  "appTitle": "TickMate",
+  
+  "error": "エラー: {message}",
+  "@error": {
+    "description": "エラーメッセージと詳細",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "データの読み込みに失敗しました"
+      }
+    }
+  },
+  "unknown": "不明な状態です",
+  "retry": "再試行",
+  "loading": "読み込み中...",
+  "loadingCharacter": "キャラクター情報を読み込んでいます...",
+  
+  "noTimers": "タイマーがありません。追加してください。",
+  "addTimer": "タイマーを追加",
+  
+  "settings": "設定",
+  "geminiApiKeySettings": "Gemini APIキー設定",
+  "geminiApiKeyDescription": "Google Gemini APIキーを入力してください。APIキーはデバイスのセキュアストレージに保存され、アプリ内でのみ使用されます。",
+  "geminiApiKey": "Gemini APIキー",
+  "enterApiKey": "APIキーを入力",
+  "saveApiKey": "APIキーを保存",
+  "deleteApiKey": "APIキーを削除",
+  "connectionTest": "接続テスト",
+  "testSuccess": "テスト成功",
+  "testFailure": "テスト失敗",
+  
+  "selectFromGallery": "ギャラリーから選択",
+  "createdAt": "作成日: {date}",
+  "@createdAt": {
+    "description": "作成日と値",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2023-01-01"
+      }
+    }
+  },
+  "updatedAt": "更新日: {date}",
+  "@updatedAt": {
+    "description": "更新日と値",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2023-01-01"
+      }
+    }
+  },
+  
+  "errorLoadingWorkList": "作品リストの読み込みに失敗しました: {message}",
+  "@errorLoadingWorkList": {
+    "description": "作品リスト読み込み時のエラーメッセージ",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "ネットワークエラー"
+      }
+    }
+  },
+  
+  "apiKeyNotSet": "Gemini APIキーが設定されていません"
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Tick Mate'),
+            title: Text(AppLocalizations.of(context)!.appTitle),
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           ),
           body: BlocBuilder<TimerBloc, TimerState>(
@@ -30,7 +31,9 @@ class HomeScreen extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               } else if (timerState is TimerLoaded) {
                 return timerState.timers.isEmpty
-                    ? const Center(child: Text('タイマーがありません。追加してください。'))
+                    ? Center(
+                      child: Text(AppLocalizations.of(context)!.noTimers),
+                    )
                     : ListView.builder(
                       itemCount: timerState.timers.length,
                       itemBuilder: (context, index) {
@@ -48,9 +51,13 @@ class HomeScreen extends StatelessWidget {
                       },
                     );
               } else if (timerState is TimerError) {
-                return Center(child: Text('エラー: ${timerState.message}'));
+                return Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.error(timerState.message),
+                  ),
+                );
               }
-              return const Center(child: Text('不明な状態です'));
+              return Center(child: Text(AppLocalizations.of(context)!.unknown));
             },
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -102,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             },
-            tooltip: 'タイマーを追加',
+            tooltip: AppLocalizations.of(context)!.addTimer,
             child: const Icon(Icons.add),
           ),
         );

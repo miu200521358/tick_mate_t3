@@ -1,1 +1,68 @@
-{ "@@locale": "en", "appTitle": "TickMate" }
+{
+  "@@locale": "en",
+  "appTitle": "TickMate",
+  
+  "error": "Error: {message}",
+  "@error": {
+    "description": "Error message with details",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Failed to load data"
+      }
+    }
+  },
+  "unknown": "Unknown state",
+  "retry": "Retry",
+  "loading": "Loading...",
+  "loadingCharacter": "Loading character information...",
+  
+  "noTimers": "No timers. Please add one.",
+  "addTimer": "Add timer",
+  
+  "settings": "Settings",
+  "geminiApiKeySettings": "Gemini API Key Settings",
+  "geminiApiKeyDescription": "Please enter your Google Gemini API key. The API key will be stored in the device's secure storage and will only be used within the app.",
+  "geminiApiKey": "Gemini API key",
+  "enterApiKey": "Enter API key",
+  "saveApiKey": "Save API key",
+  "deleteApiKey": "Delete API key",
+  "connectionTest": "Connection test",
+  "testSuccess": "Test successful",
+  "testFailure": "Test failed",
+  
+  "selectFromGallery": "Select from gallery",
+  "createdAt": "Created: {date}",
+  "@createdAt": {
+    "description": "Created date with value",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2023-01-01"
+      }
+    }
+  },
+  "updatedAt": "Updated: {date}",
+  "@updatedAt": {
+    "description": "Updated date with value",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2023-01-01"
+      }
+    }
+  },
+  
+  "errorLoadingWorkList": "Failed to load work list: {message}",
+  "@errorLoadingWorkList": {
+    "description": "Error message when loading work list",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  
+  "apiKeyNotSet": "Gemini API key is not set"
+}

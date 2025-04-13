@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_event.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_state.dart';
@@ -32,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('設定'),
+        title: Text(AppLocalizations.of(context)!.settings),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: BlocConsumer<SettingsBloc, SettingsState>(
@@ -47,9 +48,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
           } else if (state is SettingsLoaded) {
             return _buildSettingsForm(context, state);
           } else if (state is SettingsError) {
-            return Center(child: Text('エラー: ${state.message}'));
+            return Center(
+              child: Text(AppLocalizations.of(context)!.error(state.message)),
+            );
           }
-          return const Center(child: Text('不明な状態です'));
+          return Center(child: Text(AppLocalizations.of(context)!.unknown));
         },
       ),
     );
@@ -61,20 +64,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Gemini APIキー設定',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Text(
+            AppLocalizations.of(context)!.geminiApiKeySettings,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Google Gemini APIキーを入力してください。APIキーはデバイスのセキュアストレージに保存され、アプリ内でのみ使用されます。',
-          ),
+          Text(AppLocalizations.of(context)!.geminiApiKeyDescription),
           const SizedBox(height: 16),
           TextField(
             controller: _apiKeyController,
             decoration: InputDecoration(
-              labelText: 'Gemini APIキー',
-              hintText: 'APIキーを入力',
+              labelText: AppLocalizations.of(context)!.geminiApiKey,
+              hintText: AppLocalizations.of(context)!.enterApiKey,
               border: const OutlineInputBorder(),
               suffixIcon: IconButton(
                 icon: Icon(
@@ -102,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               GeminiApiKeySaved(apiKey: _apiKeyController.text),
                             );
                           },
-                  child: const Text('APIキーを保存'),
+                  child: Text(AppLocalizations.of(context)!.saveApiKey),
                 ),
               ),
               const SizedBox(width: 8),
@@ -121,7 +122,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     backgroundColor: Colors.red,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('APIキーを削除'),
+                  child: Text(AppLocalizations.of(context)!.deleteApiKey),
                 ),
               ),
             ],
@@ -150,7 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         strokeWidth: 2,
                       ),
                     )
-                    : const Text('接続テスト'),
+                    : Text(AppLocalizations.of(context)!.connectionTest),
           ),
           if (state.testResult != null) ...[
             const SizedBox(height: 16),
@@ -171,7 +172,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    state.testSuccess == true ? 'テスト成功' : 'テスト失敗',
+                    state.testSuccess == true
+                        ? AppLocalizations.of(context)!.testSuccess
+                        : AppLocalizations.of(context)!.testFailure,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color:
