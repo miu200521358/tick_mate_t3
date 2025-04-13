@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:tick_mate/config/app_config.dart';
 import 'package:tick_mate/data/datasources/local/local_storage_datasource.dart';
 import 'package:tick_mate/data/datasources/local/secure_storage_datasource.dart';
