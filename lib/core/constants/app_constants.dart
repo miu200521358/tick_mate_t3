@@ -25,6 +25,4 @@ class AppConstants {
   // Firebase Crashlytics関連
   static const String CRASHLYTICS_KEY_EXCEPTION_TYPE = 'exception_type';
   static const String CRASHLYTICS_KEY_MESSAGE = 'error_message';
-  static const String ERROR_APPCONFIG_NOT_REGISTERED =
-      'AppConfigが登録されていません。先に_setupConfig()を実行してください。';
 }
