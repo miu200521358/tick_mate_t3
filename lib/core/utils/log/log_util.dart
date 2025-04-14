@@ -1,11 +1,10 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:tick_mate/config/app_config.dart';
 import 'package:tick_mate/core/constants/app_constants.dart';
-
-// テスト環境かどうかを判定
-import 'dart:io' show Platform;
 
 // Firebase関連のインポートは条件付きで行う
 import 'firebase_imports.dart' if (dart.library.html) 'firebase_imports_web.dart';
@@ -15,27 +14,7 @@ import 'firebase_imports.dart' if (dart.library.html) 'firebase_imports_web.dart
 class LogUtil {
   // シングルトンインスタンス
   static final LogUtil _instance = LogUtil._internal();
-  factory LogUtil() => _instance;
-
-  // ロガーインスタンス
-  late final Logger _logger;
-
-  // Firebase Analyticsインスタンス
-  final dynamic _analytics;
-
-  // 環境設定
-  AppConfig? get _config => GetIt.instance.isRegistered<AppConfig>() ? GetIt.instance<AppConfig>() : null;
-
-  // 現在のログレベル
-  Level get _currentLevel {
-    return (_config?.isDebugMode ?? true) ? Level.debug : Level.info;
-  }
-
-  // テスト環境かどうかを判定
-  static bool get _isTestEnvironment {
-    return kDebugMode && const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false);
-  }
-
+  
   // プライベートコンストラクタ
   LogUtil._internal() : _analytics = _isTestEnvironment ? null : getFirebaseAnalytics() {
     // Loggerの初期化
@@ -68,6 +47,9 @@ class LogUtil {
       ),
     );
   }
+  
+  // テスト用コンストラクタ（内部使用）
+  LogUtil._test(this._logger) : _analytics = null;
 
   // シングルトンインスタンスを安全に取得
   static LogUtil get _safeInstance {
@@ -95,8 +77,26 @@ class LogUtil {
     return LogUtil._test(logger);
   }
   
-  // テスト用コンストラクタ（内部使用）
-  LogUtil._test(this._logger) : _analytics = null!;
+  // ロガーインスタンス
+  late final Logger _logger;
+
+  // Firebase Analyticsインスタンス
+  final dynamic _analytics;
+
+  // 環境設定
+  AppConfig? get _config => GetIt.instance.isRegistered<AppConfig>() ? GetIt.instance<AppConfig>() : null;
+
+  // 現在のログレベル
+  Level get _currentLevel {
+    return (_config?.isDebugMode ?? true) ? Level.debug : Level.info;
+  }
+
+  // テスト環境かどうかを判定
+  static bool get _isTestEnvironment {
+    return kDebugMode && const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false);
+  }
+  
+  factory LogUtil() => _instance;
 
   /// デバッグログを出力
   static void d(String message) {

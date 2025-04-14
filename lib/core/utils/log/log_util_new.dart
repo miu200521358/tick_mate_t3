@@ -9,24 +9,7 @@ import 'package:tick_mate/core/constants/app_constants.dart';
 class LogUtil {
   // シングルトンインスタンス
   static final LogUtil _instance = LogUtil._internal();
-  factory LogUtil() => _instance;
-
-  // ロガーインスタンス
-  late final Logger _logger;
-
-  // 環境設定
-  AppConfig? get _config => GetIt.instance.isRegistered<AppConfig>() ? GetIt.instance<AppConfig>() : null;
-
-  // 現在のログレベル
-  Level get _currentLevel {
-    return (_config?.isDebugMode ?? true) ? Level.debug : Level.info;
-  }
-
-  // テスト環境かどうかを判定
-  static bool get _isTestEnvironment {
-    return const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false);
-  }
-
+  
   // プライベートコンストラクタ
   LogUtil._internal() {
     // Loggerの初期化
@@ -42,6 +25,22 @@ class LogUtil {
       ),
       filter: ProductionFilter(),
     );
+  }
+  
+  // ロガーインスタンス
+  late final Logger _logger;
+  
+  // 環境設定
+  AppConfig? get _config => GetIt.instance.isRegistered<AppConfig>() ? GetIt.instance<AppConfig>() : null;
+  
+  // 現在のログレベル
+  Level get _currentLevel {
+    return (_config?.isDebugMode ?? true) ? Level.debug : Level.info;
+  }
+  
+  // テスト環境かどうかを判定
+  static bool get _isTestEnvironment {
+    return const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false);
   }
 
   /// デバッグログを出力
