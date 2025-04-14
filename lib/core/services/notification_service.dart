@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tick_mate/core/constants/app_constants.dart';
+import 'package:tick_mate/core/utils/log/log_util.dart';
 import 'package:tick_mate/domain/entities/notification_history_entity.dart';
 import 'package:tick_mate/domain/usecases/notification/create_notification_usecase.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -19,7 +17,6 @@ class NotificationService {
   final CreateNotificationUseCase _createNotificationUseCase;
   final FlutterLocalNotificationsPlugin _notificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
   bool _isInitialized = false;
 
   /// 通知サービスを初期化する
@@ -313,7 +310,7 @@ class NotificationService {
       final truncatedMessage =
           message.length > 100 ? '${message.substring(0, 97)}...' : message;
 
-      await _analytics.logEvent(
+      await LogUtil.logEvent(
         name: AppConstants.NOTIFICATION_EVENT,
         parameters: {
           AppConstants.PARAM_NOTIFICATION_TIME:
@@ -323,13 +320,7 @@ class NotificationService {
         },
       );
     } catch (e, stackTrace) {
-      debugPrint('通知イベント送信エラー: $e');
-      // エラーをCrashlyticsに記録
-      await FirebaseCrashlytics.instance.recordError(
-        e,
-        stackTrace,
-        reason: '通知イベント送信エラー',
-      );
+      await LogUtil.recordError(e, stackTrace, message: '通知イベント送信エラー');
     }
   }
 }
