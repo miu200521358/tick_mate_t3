@@ -3,9 +3,10 @@ import 'package:flutter/foundation.dart';
 /// テスト環境用のモックFirebaseクラス
 class MockFirebaseAnalytics {
   static final MockFirebaseAnalytics _instance = MockFirebaseAnalytics._();
-  static MockFirebaseAnalytics get instance => _instance;
-
+  
   MockFirebaseAnalytics._();
+  
+  static MockFirebaseAnalytics get instance => _instance;
 
   Future<void> logEvent({required String name, Map<String, dynamic>? parameters}) async {
     debugPrint('[MOCK] Analytics logEvent: $name, params: $parameters');
@@ -18,9 +19,10 @@ class MockFirebaseAnalytics {
 
 class MockFirebaseCrashlytics {
   static final MockFirebaseCrashlytics _instance = MockFirebaseCrashlytics._();
-  static MockFirebaseCrashlytics get instance => _instance;
-
+  
   MockFirebaseCrashlytics._();
+  
+  static MockFirebaseCrashlytics get instance => _instance;
 
   Future<void> recordError(
     dynamic exception,

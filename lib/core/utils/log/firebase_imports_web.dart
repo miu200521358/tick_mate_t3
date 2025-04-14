@@ -3,9 +3,10 @@ import 'package:flutter/foundation.dart';
 // モックの Firebase Analytics クラス
 class FirebaseAnalytics {
   static final FirebaseAnalytics _instance = FirebaseAnalytics._();
-  static FirebaseAnalytics get instance => _instance;
-
+  
   FirebaseAnalytics._();
+  
+  static FirebaseAnalytics get instance => _instance;
 
   Future<void> logEvent({required String name, Map<String, dynamic>? parameters}) async {
     debugPrint('Firebase Analytics logEvent: $name, params: $parameters');
