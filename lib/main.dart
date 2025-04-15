@@ -253,10 +253,14 @@ void _setupConfig() {
     getIt.registerSingleton<AppConfig>(config);
   }
 
-  // ignore: avoid_print
-  print(
-    'Initialized with environment: $environment, baseUrl: ${config.baseUrl}, '
-    'debug: ${config.isDebugMode}, betaBanner: ${config.showBetaBanner}',
+  // ログ出力を改善して、新しい設定項目も表示
+  debugPrint(
+    'Initialized with environment: $environment\n'
+    'baseUrl: ${config.baseUrl}\n'
+    'debug: ${config.isDebugMode}\n'
+    'betaBanner: ${config.showBetaBanner}\n'
+    'maxImageSize: ${config.maxImageSizeKB}KB\n'
+    'apiRateLimit: ${config.apiRateLimitPerMinute}/min',
   );
 }
 

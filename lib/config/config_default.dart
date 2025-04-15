@@ -16,4 +16,36 @@ class DefaultConfig implements AppConfig {
 
   @override
   String get apiVersion => 'v1';
+
+  // 画像関連の設定
+  @override
+  int get maxImageSizeKB => 2048;
+
+  @override
+  int get maxImageWidth => 1920;
+
+  @override
+  int get maxImageHeight => 1080;
+
+  // タイマー関連の設定
+  @override
+  int get defaultTimerDurationMinutes => 25;
+
+  @override
+  int get maxTimerDurationHours => 24;
+
+  // UI関連の設定
+  @override
+  double get cardBorderRadius => 12.0;
+
+  @override
+  double get defaultPadding => 16.0;
+
+  // アニメーション関連の設定
+  @override
+  Duration get defaultAnimationDuration => const Duration(milliseconds: 300);
+
+  // APIレート制限関連の設定
+  @override
+  int get apiRateLimitPerMinute => 100;
 }
