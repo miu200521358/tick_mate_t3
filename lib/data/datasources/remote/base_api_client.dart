@@ -12,7 +12,7 @@ abstract class BaseApiClient {
   /// HTTPクライアントを取得
   HttpClient get httpClient => _httpClient;
   final AppConfig _config;
-  
+
   /// 設定を取得
   AppConfig get config => _config;
 

@@ -57,7 +57,7 @@ class StgConfig implements AppConfig {
 
   @override
   Duration get defaultSendTimeout => const Duration(seconds: 10);
-  
+
   // Gemini API用のタイムアウト設定
   @override
   Duration get geminiConnectTimeout => const Duration(seconds: 5);

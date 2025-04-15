@@ -62,34 +62,34 @@ import 'app_module.dart' as _i460;
 import 'settings_module.dart' as _i971;
 
 extension GetItInjectableX on _i174.GetIt {
-// initializes the registration of main-scope dependencies inside of GetIt
+  // initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(
-      this,
-      environment,
-      environmentFilter,
-    );
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final appModule = _$AppModule();
     final settingsModule = _$SettingsModule();
     gh.factory<_i597.LoggingInterceptor>(() => _i597.LoggingInterceptor());
     gh.lazySingleton<_i462.LocalStorageDataSource>(
-        () => _i462.LocalStorageDataSource());
+      () => _i462.LocalStorageDataSource(),
+    );
     gh.lazySingleton<_i361.Dio>(() => appModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
     gh.lazySingleton<_i407.Random>(() => appModule.random);
     gh.lazySingleton<_i949.AuthInterceptor>(
-        () => appModule.provideAuthInterceptor());
+      () => appModule.provideAuthInterceptor(),
+    );
     gh.lazySingleton<_i453.ErrorHandlerService>(
-        () => _i453.ErrorHandlerService());
+      () => _i453.ErrorHandlerService(),
+    );
     gh.lazySingleton<_i650.AppConfig>(
       () => _i125.DevConfig(),
       instanceName: 'dev',
     );
     gh.lazySingleton<_i47.WorkRepository>(
-        () => _i895.WorkRepositoryImpl(gh<_i462.LocalStorageDataSource>()));
+      () => _i895.WorkRepositoryImpl(gh<_i462.LocalStorageDataSource>()),
+    );
     gh.lazySingleton<_i650.AppConfig>(
       () => _i277.StgConfig(),
       instanceName: 'stg',
@@ -98,74 +98,104 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i941.ProdConfig(),
       instanceName: 'prod',
     );
-    gh.factory<_i554.RetryInterceptor>(() => _i554.RetryInterceptor(
-          maxRetries: gh<int>(),
-          retryDelay: gh<Duration>(),
-        ));
+    gh.factory<_i554.RetryInterceptor>(
+      () => _i554.RetryInterceptor(
+        maxRetries: gh<int>(),
+        retryDelay: gh<Duration>(),
+      ),
+    );
     gh.lazySingleton<_i650.AppConfig>(() => _i792.DefaultConfig());
-    gh.lazySingleton<_i695.NotificationHistoryRepository>(() =>
-        _i279.NotificationHistoryRepositoryImpl(
-            gh<_i462.LocalStorageDataSource>()));
-    gh.lazySingleton<_i357.CharacterRepository>(() =>
-        _i286.CharacterRepositoryImpl(gh<_i462.LocalStorageDataSource>()));
+    gh.lazySingleton<_i695.NotificationHistoryRepository>(
+      () => _i279.NotificationHistoryRepositoryImpl(
+        gh<_i462.LocalStorageDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i357.CharacterRepository>(
+      () => _i286.CharacterRepositoryImpl(gh<_i462.LocalStorageDataSource>()),
+    );
     gh.lazySingleton<_i44.UserSettingRepository>(
-        () => _i885.UserSettingRepositoryImpl());
-    gh.factory<_i478.WorkDetailBloc>(() => _i478.WorkDetailBloc(
-          gh<_i47.WorkRepository>(),
-          gh<_i357.CharacterRepository>(),
-        ));
-    gh.factory<_i797.CreateNotificationUseCase>(() =>
-        _i797.CreateNotificationUseCase(
-            gh<_i695.NotificationHistoryRepository>()));
+      () => _i885.UserSettingRepositoryImpl(),
+    );
+    gh.factory<_i478.WorkDetailBloc>(
+      () => _i478.WorkDetailBloc(
+        gh<_i47.WorkRepository>(),
+        gh<_i357.CharacterRepository>(),
+      ),
+    );
+    gh.factory<_i797.CreateNotificationUseCase>(
+      () => _i797.CreateNotificationUseCase(
+        gh<_i695.NotificationHistoryRepository>(),
+      ),
+    );
     gh.lazySingleton<_i973.TimerRepository>(
-        () => _i209.TimerRepositoryImpl(gh<_i462.LocalStorageDataSource>()));
+      () => _i209.TimerRepositoryImpl(gh<_i462.LocalStorageDataSource>()),
+    );
     gh.lazySingleton<_i804.SubscriptionRepository>(
-        () => _i762.SubscriptionRepositoryImpl());
+      () => _i762.SubscriptionRepositoryImpl(),
+    );
     gh.lazySingleton<_i848.SecureStorageDataSource>(
-        () => _i848.SecureStorageDataSource(gh<_i558.FlutterSecureStorage>()));
+      () => _i848.SecureStorageDataSource(gh<_i558.FlutterSecureStorage>()),
+    );
     gh.factory<_i701.WorkListBloc>(
-        () => _i701.WorkListBloc(gh<_i47.WorkRepository>()));
-    gh.factory<_i814.SelectCharacterUseCase>(() => _i814.SelectCharacterUseCase(
-          gh<_i357.CharacterRepository>(),
-          gh<_i407.Random>(),
-        ));
-    gh.factory<_i974.CharacterDetailBloc>(() => _i974.CharacterDetailBloc(
-          gh<_i357.CharacterRepository>(),
-          gh<_i183.ImagePicker>(),
-          gh<_i706.Uuid>(),
-        ));
-    gh.lazySingleton<_i125.HttpClient>(() => appModule.provideHttpClient(
-          gh<_i361.Dio>(),
-          gh<_i597.LoggingInterceptor>(),
-          gh<_i554.RetryInterceptor>(),
-          gh<_i949.AuthInterceptor>(),
-          gh<_i650.AppConfig>(),
-        ));
-    gh.factory<_i182.DummyDataUtils>(() => _i182.DummyDataUtils(
-          gh<_i47.WorkRepository>(),
-          gh<_i357.CharacterRepository>(),
-          gh<_i706.Uuid>(),
-        ));
+      () => _i701.WorkListBloc(gh<_i47.WorkRepository>()),
+    );
+    gh.factory<_i814.SelectCharacterUseCase>(
+      () => _i814.SelectCharacterUseCase(
+        gh<_i357.CharacterRepository>(),
+        gh<_i407.Random>(),
+      ),
+    );
+    gh.factory<_i974.CharacterDetailBloc>(
+      () => _i974.CharacterDetailBloc(
+        gh<_i357.CharacterRepository>(),
+        gh<_i183.ImagePicker>(),
+        gh<_i706.Uuid>(),
+      ),
+    );
+    gh.lazySingleton<_i125.HttpClient>(
+      () => appModule.provideHttpClient(
+        gh<_i361.Dio>(),
+        gh<_i597.LoggingInterceptor>(),
+        gh<_i554.RetryInterceptor>(),
+        gh<_i949.AuthInterceptor>(),
+        gh<_i650.AppConfig>(),
+      ),
+    );
+    gh.factory<_i182.DummyDataUtils>(
+      () => _i182.DummyDataUtils(
+        gh<_i47.WorkRepository>(),
+        gh<_i357.CharacterRepository>(),
+        gh<_i706.Uuid>(),
+      ),
+    );
     gh.factory<_i890.CreateTimerUseCase>(
-        () => _i890.CreateTimerUseCase(gh<_i973.TimerRepository>()));
+      () => _i890.CreateTimerUseCase(gh<_i973.TimerRepository>()),
+    );
     gh.factory<_i563.GetTimersUseCase>(
-        () => _i563.GetTimersUseCase(gh<_i973.TimerRepository>()));
+      () => _i563.GetTimersUseCase(gh<_i973.TimerRepository>()),
+    );
     gh.lazySingleton<_i110.GeminiApiClient>(
-        () => appModule.provideGeminiApiClient(
-              gh<_i125.HttpClient>(),
-              gh<_i650.AppConfig>(),
-              gh<_i848.SecureStorageDataSource>(),
-            ));
+      () => appModule.provideGeminiApiClient(
+        gh<_i125.HttpClient>(),
+        gh<_i650.AppConfig>(),
+        gh<_i848.SecureStorageDataSource>(),
+      ),
+    );
     gh.lazySingleton<_i570.NotificationService>(
-        () => _i570.NotificationService(gh<_i797.CreateNotificationUseCase>()));
-    gh.lazySingleton<_i80.GeminiApiDataSource>(() => _i80.GeminiApiDataSource(
-          gh<_i110.GeminiApiClient>(),
-          gh<_i848.SecureStorageDataSource>(),
-        ));
-    gh.factory<_i366.SettingsBloc>(() => settingsModule.provideSettingsBloc(
-          gh<_i848.SecureStorageDataSource>(),
-          gh<_i80.GeminiApiDataSource>(),
-        ));
+      () => _i570.NotificationService(gh<_i797.CreateNotificationUseCase>()),
+    );
+    gh.lazySingleton<_i80.GeminiApiDataSource>(
+      () => _i80.GeminiApiDataSource(
+        gh<_i110.GeminiApiClient>(),
+        gh<_i848.SecureStorageDataSource>(),
+      ),
+    );
+    gh.factory<_i366.SettingsBloc>(
+      () => settingsModule.provideSettingsBloc(
+        gh<_i848.SecureStorageDataSource>(),
+        gh<_i80.GeminiApiDataSource>(),
+      ),
+    );
     return this;
   }
 }
