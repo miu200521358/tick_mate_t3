@@ -189,4 +189,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timePickerLabel => 'Time';
+
+  @override
+  String get timerCreatedSuccessfully => 'Timer created successfully';
 }

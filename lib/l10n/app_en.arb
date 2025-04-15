@@ -106,6 +106,7 @@
   "timeSpecTypeTimeRange": "Specific Time Range",
   "timePickerLabelFrom": "From",
   "timePickerLabelTo": "To",
-  "timePickerLabel": "Time"
+  "timePickerLabel": "Time",
+  "timerCreatedSuccessfully": "Timer created successfully"
 
 }
