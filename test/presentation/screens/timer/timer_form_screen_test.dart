@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
+
 import 'package:mocktail/mocktail.dart';
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/gen/l10n/app_localizations.dart';
@@ -12,6 +14,8 @@ import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 import 'package:tick_mate/presentation/screens/timer/timer_form_screen.dart';
 import 'package:tick_mate/presentation/widgets/date_time_picker_widget.dart';
+
+import 'package:tick_mate/core/services/error_handler_service.dart'; // Import real service
 
 // Mock class
 class MockTimerBloc extends Mock implements TimerBloc {
@@ -32,6 +36,9 @@ class MockTimerBloc extends Mock implements TimerBloc {
   }
 }
 
+// Mock ErrorHandlerService
+class MockErrorHandlerService extends Mock implements ErrorHandlerService {}
+
 void main() {
   late MockTimerBloc mockTimerBloc;
 
@@ -44,6 +51,15 @@ void main() {
         characterIds: ['test'],
       ),
     );
+    // Register mock ErrorHandlerService once for all tests in this file
+    GetIt.instance.registerSingleton<ErrorHandlerService>(
+      MockErrorHandlerService(),
+    );
+  });
+
+  tearDownAll(() {
+    // Unregister mock ErrorHandlerService once after all tests in this file
+    GetIt.instance.unregister<ErrorHandlerService>();
   });
 
   setUp(() {

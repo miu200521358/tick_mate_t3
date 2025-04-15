@@ -43,3 +43,8 @@ class TimerError extends TimerState {
   @override
   List<Object?> get props => [message];
 }
+
+/// タイマー作成成功状態 (ナビゲーション用)
+class TimerCreateSuccess extends TimerState {
+  const TimerCreateSuccess();
+}

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:tick_mate/core/services/error_handler_service.dart';
 import 'package:tick_mate/gen/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate/presentation/bloc/app/app_state.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
+
 import 'package:tick_mate/presentation/screens/settings/settings_screen.dart';
 import 'package:tick_mate/presentation/screens/timer/timer_form_screen.dart';
+
 import 'package:tick_mate/presentation/screens/work/work_list_screen.dart'; // Import WorkListScreen
 import 'package:tick_mate/presentation/widgets/timer_card_widget.dart';
 
@@ -50,17 +50,21 @@ class HomeScreen extends StatelessWidget {
                         );
                       },
                     );
-              } else if (timerState is TimerError) {
-                // エラーハンドラーサービスを使用してエラーダイアログを表示
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  GetIt.instance<ErrorHandlerService>().showErrorDialog(
-                    context,
-                    timerState.message,
-                  );
-                });
-                return Center(child: Text(timerState.message));
               }
-              return Center(child: Text(AppLocalizations.of(context)!.unknown));
+              // TimerError の処理は削除された
+              // TimerCreateSuccess は UI に影響を与えないのでここでは処理不要
+              // TimerLoaded 以外の予期せぬ状態の場合
+              else if (timerState is! TimerCreateSuccess) {
+                // Handle unexpected states gracefully
+                return Center(
+                  child: Text(AppLocalizations.of(context)!.unknown),
+                );
+              }
+              // If TimerCreateSuccess, the builder might run briefly before TimerLoaded updates.
+              // Return an empty container or the previous state's view if needed,
+              // but typically TimerLoaded will follow immediately.
+              // For simplicity, returning an empty container if not TimerLoaded or loading.
+              return const SizedBox.shrink();
             },
           ),
           bottomNavigationBar: BottomNavigationBar(

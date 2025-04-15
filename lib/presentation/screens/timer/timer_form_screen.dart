@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:tick_mate/core/services/error_handler_service.dart';
+
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/gen/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/widgets/date_time_picker_widget.dart';
+
+import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 
 /// タイマー作成画面
 class TimerFormScreen extends StatefulWidget {
@@ -64,66 +69,85 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
           characterIds: _characterIds,
         ),
       );
-      Navigator.pop(context);
+      // Navigator.pop は BlocListener で成功時に行う
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final errorHandler = GetIt.instance<ErrorHandlerService>(); // <<< 追加
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.addTimer),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // タイトル入力
-              TextFormField(
-                controller: _titleController,
-                decoration: InputDecoration(
-                  labelText: l10n.addTimer,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+    // <<< BlocListener で Scaffold をラップ >>>
+    return BlocListener<TimerBloc, TimerState>(
+      listener: (context, state) {
+        if (state is TimerError) {
+          // エラーダイアログを表示 (ナビゲーションはしない)
+          errorHandler.showErrorDialog(
+            context,
+            state.message,
+            title: l10n.error(''), // Use generic error title for now
+          );
+        } else if (state is TimerCreateSuccess) {
+          // 成功したら前の画面に戻る
+          Navigator.pop(context);
+        }
+      },
+      child: Scaffold(
+        // <<< 元の Scaffold は child になる >>>
+        appBar: AppBar(
+          title: Text(l10n.addTimer),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // タイトル入力
+                TextFormField(
+                  controller: _titleController,
+                  decoration: InputDecoration(
+                    labelText:
+                        l10n.addTimer, // Consider a more specific label like "Timer Title"
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'タイトルを入力してください'; // TODO: 多言語対応
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // 日時ピッカー
+                DateTimePickerWidget(
+                  initialDateTime: _selectedDateTime,
+                  onDateTimeSelected: (dateTime) {
+                    setState(() {
+                      _selectedDateTime = dateTime;
+                    });
+                  },
+                ),
+                const SizedBox(height: 32),
+
+                // 送信ボタン
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _submitForm,
+                    child: Text(l10n.dateTimePickerConfirm),
                   ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'タイトルを入力してください'; // TODO: 多言語対応
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-
-              // 日時ピッカー
-              DateTimePickerWidget(
-                initialDateTime: _selectedDateTime,
-                onDateTimeSelected: (dateTime) {
-                  setState(() {
-                    _selectedDateTime = dateTime;
-                  });
-                },
-              ),
-              const SizedBox(height: 32),
-
-              // 送信ボタン
-              Center(
-                child: ElevatedButton(
-                  onPressed: _submitForm,
-                  child: Text(l10n.dateTimePickerConfirm),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      ), // <<< Scaffold の終わり >>>
+    ); // <<< BlocListener の終わり >>>
   }
 }
