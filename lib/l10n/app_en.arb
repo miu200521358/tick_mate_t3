@@ -93,5 +93,11 @@
   "workDetailScreen": "Work Detail Screen",
   
   "promptLabel": "Prompt:",
-  "sampleTimer": "Sample Timer"
+  "sampleTimer": "Sample Timer",
+  
+  "selectDate": "Select Date",
+  "selectTime": "Select Time",
+  "dateTimePickerTitle": "Select Date and Time",
+  "dateTimePickerConfirm": "Confirm",
+  "dateTimePickerCancel": "Cancel"
 }
