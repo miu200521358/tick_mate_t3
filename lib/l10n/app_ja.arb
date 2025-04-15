@@ -93,5 +93,11 @@
   "workDetailScreen": "作品詳細画面",
   
   "promptLabel": "Prompt:",
-  "sampleTimer": "サンプルタイマー"
+  "sampleTimer": "サンプルタイマー",
+  
+  "selectDate": "日付を選択",
+  "selectTime": "時刻を選択",
+  "dateTimePickerTitle": "日時を選択",
+  "dateTimePickerConfirm": "確定",
+  "dateTimePickerCancel": "キャンセル"
 }

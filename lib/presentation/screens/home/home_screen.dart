@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tick_mate/core/services/error_handler_service.dart';
-import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/gen/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate/presentation/bloc/app/app_state.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
-import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 import 'package:tick_mate/presentation/screens/settings/settings_screen.dart';
+import 'package:tick_mate/presentation/screens/timer/timer_form_screen.dart';
 import 'package:tick_mate/presentation/screens/work/work_list_screen.dart'; // Import WorkListScreen
 import 'package:tick_mate/presentation/widgets/timer_card_widget.dart';
 
@@ -107,15 +106,11 @@ class HomeScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              // サンプルとしてタイマー作成イベントを発火
-              context.read<TimerBloc>().add(
-                TimerCreated(
-                  title: AppLocalizations.of(context)!.sampleTimer,
-                  timerType: TimerType.schedule,
-                  repeatType: RepeatType.none,
-                  characterIds: ['sample_character_id'],
-                  dateTime: null,
-                  timeRange: '9:00-10:00',
+              // タイマー作成画面に遷移
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TimerFormScreen(),
                 ),
               );
             },

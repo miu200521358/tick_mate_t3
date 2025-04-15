@@ -71,8 +71,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get geminiApiKeySettings => 'Gemini APIキー設定';
 
   @override
-  String get geminiApiKeyDescription =>
-      'Google Gemini APIキーを入力してください。APIキーはデバイスのセキュアストレージに保存され、アプリ内でのみ使用されます。';
+  String get geminiApiKeyDescription => 'Google Gemini APIキーを入力してください。APIキーはデバイスのセキュアストレージに保存され、アプリ内でのみ使用されます。';
 
   @override
   String get geminiApiKey => 'Gemini APIキー';
@@ -154,4 +153,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get sampleTimer => 'サンプルタイマー';
+
+  @override
+  String get selectDate => '日付を選択';
+
+  @override
+  String get selectTime => '時刻を選択';
+
+  @override
+  String get dateTimePickerTitle => '日時を選択';
+
+  @override
+  String get dateTimePickerConfirm => '確定';
+
+  @override
+  String get dateTimePickerCancel => 'キャンセル';
 }

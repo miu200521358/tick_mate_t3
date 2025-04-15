@@ -26,16 +26,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ok => 'OK';
 
   @override
-  String get errorServerMessage =>
-      'An error occurred while communicating with the server.';
+  String get errorServerMessage => 'An error occurred while communicating with the server.';
 
   @override
-  String get errorNetworkMessage =>
-      'There is a problem with the network connection. Please check your internet connection.';
+  String get errorNetworkMessage => 'There is a problem with the network connection. Please check your internet connection.';
 
   @override
-  String get errorTimeoutMessage =>
-      'No response from the server. Please try again later.';
+  String get errorTimeoutMessage => 'No response from the server. Please try again later.';
 
   @override
   String get errorCacheMessage => 'Failed to load data.';
@@ -74,8 +71,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get geminiApiKeySettings => 'Gemini API Key Settings';
 
   @override
-  String get geminiApiKeyDescription =>
-      'Please enter your Google Gemini API key. The API key will be stored in the device\'s secure storage and will only be used within the app.';
+  String get geminiApiKeyDescription => 'Please enter your Google Gemini API key. The API key will be stored in the device\'s secure storage and will only be used within the app.';
 
   @override
   String get geminiApiKey => 'Gemini API key';
@@ -157,4 +153,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sampleTimer => 'Sample Timer';
+
+  @override
+  String get selectDate => 'Select Date';
+
+  @override
+  String get selectTime => 'Select Time';
+
+  @override
+  String get dateTimePickerTitle => 'Select Date and Time';
+
+  @override
+  String get dateTimePickerConfirm => 'Confirm';
+
+  @override
+  String get dateTimePickerCancel => 'Cancel';
 }
