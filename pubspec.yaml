@@ -91,7 +91,6 @@ flutter_launcher_icons: # Corrected key
   adaptive_icon_background: "#29ABE2" # Android 8.0 以降向け（背景）
   adaptive_icon_foreground: "assets/icon/app_icon.png" # 同上（前景）
 
-
 flutter_native_splash:
   image: assets/icon/splash_icon.png # スプラッシュに表示するアイコン
   android: true
