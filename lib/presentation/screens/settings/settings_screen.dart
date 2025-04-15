@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tick_mate/l10n/app_localizations.dart';
+import 'package:tick_mate/gen/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_bloc.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_event.dart';
 import 'package:tick_mate/presentation/bloc/settings/settings_state.dart';

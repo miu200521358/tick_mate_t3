@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tick_mate/core/services/error_handler_service.dart';
-import 'package:tick_mate/l10n/app_localizations.dart';
+import 'package:tick_mate/gen/l10n/app_localizations.dart';
 
 /// BLoCエラーハンドラー
 /// BLoC内でのエラー処理を統一的に行うためのユーティリティ
