@@ -27,44 +27,51 @@ class HomeScreen extends StatelessWidget {
           ),
           body: BlocBuilder<TimerBloc, TimerState>(
             builder: (context, timerState) {
+              // ローディング状態
               if (timerState is TimerInitial || timerState is TimerLoading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (timerState is TimerLoaded) {
-                return timerState.timers.isEmpty
-                    ? Center(
-                      child: Text(AppLocalizations.of(context)!.noTimers),
-                    )
-                    : ListView.builder(
-                      itemCount: timerState.timers.length,
-                      itemBuilder: (context, index) {
-                        final timer = timerState.timers[index];
-                        return TimerCardWidget(
-                          title: timer.title,
-                          dateTime: timer.dateTime,
-                          timeRange: timer.timeRange,
-                          timerType: timer.timerType.toString().split('.').last,
-                          characters: timer.characterIds,
-                          onTap: () {
-                            // TODO: タイマー詳細画面への遷移を実装
-                          },
-                        );
-                      },
-                    );
               }
-              // TimerError の処理は削除された
-              // TimerCreateSuccess は UI に影響を与えないのでここでは処理不要
-              // TimerLoaded 以外の予期せぬ状態の場合
-              else if (timerState is! TimerCreateSuccess) {
-                // Handle unexpected states gracefully
+              // 読み込み完了状態
+              else if (timerState is TimerLoaded) {
+                // タイマーが0件の場合
+                if (timerState.timers.isEmpty) {
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.noTimers),
+                  );
+                }
+                // タイマーが1件以上ある場合
+                else {
+                  return ListView.builder(
+                    itemCount: timerState.timers.length,
+                    itemBuilder: (context, index) {
+                      final timer = timerState.timers[index];
+                      return TimerCardWidget(
+                        title: timer.title,
+                        dateTime: timer.dateTime,
+                        timeRange: timer.timeRange,
+                        timerType: timer.timerType.toString().split('.').last,
+                        characters: timer.characterIds,
+                        onTap: () {
+                          // TODO: タイマー詳細画面への遷移を実装
+                        },
+                      );
+                    },
+                  );
+                }
+              }
+              // TimerCreateSuccess や TimerError など、その他の状態の場合
+              // (通常、これらの状態は一時的であり、すぐに TimerLoaded に遷移するか、
+              //  エラーダイアログが表示されるため、ここでの表示はフォールバック)
+              // キャンセルで戻ってきた場合も、直前の TimerLoaded 状態が保持されているはずだが、
+              // 万が一、予期せぬ状態になった場合は「タイマーなし」表示にする
+              else {
+                // BlocProvider.of<TimerBloc>(context).state を確認して、
+                // 直前の TimerLoaded の状態があればそれを使うことも検討できるが、
+                // シンプルに「タイマーなし」を表示する
                 return Center(
-                  child: Text(AppLocalizations.of(context)!.unknown),
+                  child: Text(AppLocalizations.of(context)!.noTimers),
                 );
               }
-              // If TimerCreateSuccess, the builder might run briefly before TimerLoaded updates.
-              // Return an empty container or the previous state's view if needed,
-              // but typically TimerLoaded will follow immediately.
-              // For simplicity, returning an empty container if not TimerLoaded or loading.
-              return const SizedBox.shrink();
             },
           ),
           bottomNavigationBar: BottomNavigationBar(

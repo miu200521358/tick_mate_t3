@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:mocktail/mocktail.dart';
+import 'package:tick_mate/core/services/error_handler_service.dart'; // Import real service
 import 'package:tick_mate/domain/entities/timer_entity.dart';
 import 'package:tick_mate/gen/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
@@ -14,8 +15,6 @@ import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 import 'package:tick_mate/presentation/screens/timer/timer_form_screen.dart';
 import 'package:tick_mate/presentation/widgets/date_time_picker_widget.dart';
-
-import 'package:tick_mate/core/services/error_handler_service.dart'; // Import real service
 
 // Mock class
 class MockTimerBloc extends Mock implements TimerBloc {
