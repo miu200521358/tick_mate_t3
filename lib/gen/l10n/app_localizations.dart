@@ -442,6 +442,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Time'**
   String get timePickerLabel;
+
+  /// No description provided for @timerCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer created successfully'**
+  String get timerCreatedSuccessfully;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

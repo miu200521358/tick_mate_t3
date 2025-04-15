@@ -195,6 +195,12 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
             title: l10n.error(''),
           );
         } else if (state is TimerCreateSuccess) {
+          // 成功メッセージを表示
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.timerCreatedSuccessfully ?? 'タイマーが作成されました'),
+            ),
+          );
           Navigator.pop(context);
         }
       },
