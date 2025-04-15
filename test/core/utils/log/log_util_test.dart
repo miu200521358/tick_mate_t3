@@ -50,7 +50,7 @@ class MockAppConfig implements AppConfig {
   // APIレート制限関連の設定
   @override
   int get apiRateLimitPerMinute => 30;
-  
+
   // HTTP通信関連の設定
   @override
   Duration get defaultConnectTimeout => const Duration(seconds: 10);
@@ -60,7 +60,7 @@ class MockAppConfig implements AppConfig {
 
   @override
   Duration get defaultSendTimeout => const Duration(seconds: 10);
-  
+
   // Gemini API用のタイムアウト設定
   @override
   Duration get geminiConnectTimeout => const Duration(seconds: 5);

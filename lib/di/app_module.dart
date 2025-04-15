@@ -39,7 +39,13 @@ abstract class AppModule {
     RetryInterceptor retryInterceptor,
     AuthInterceptor authInterceptor,
     AppConfig config,
-  ) => HttpClient(dio, loggingInterceptor, retryInterceptor, authInterceptor, config);
+  ) => HttpClient(
+    dio,
+    loggingInterceptor,
+    retryInterceptor,
+    authInterceptor,
+    config,
+  );
 
   /// GeminiApiClientを環境に応じて提供
   @lazySingleton

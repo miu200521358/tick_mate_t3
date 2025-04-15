@@ -42,7 +42,8 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
   void _initializeFormValues() {
     if (widget.initialTimer != null) {
       _titleController.text = widget.initialTimer!.title;
-      _selectedDateTime = widget.initialTimer!.dateTime;
+      // Convert UTC DateTime from entity to local time for the picker
+      _selectedDateTime = widget.initialTimer!.dateTime?.toLocal();
       _timerType = widget.initialTimer!.timerType;
       _repeatType = widget.initialTimer!.repeatType;
       _characterIds.clear();

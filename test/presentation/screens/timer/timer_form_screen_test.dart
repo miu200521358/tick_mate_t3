@@ -104,14 +104,18 @@ void main() {
       );
 
       // Act
-      await tester.pumpWidget(createWidgetUnderTest(initialTimer: initialTimer));
+      await tester.pumpWidget(
+        createWidgetUnderTest(initialTimer: initialTimer),
+      );
       await tester.pumpAndSettle();
 
       // Assert
       expect(find.text('テストタイマー'), findsOneWidget);
     });
 
-    testWidgets('タイトルを入力して送信ボタンをタップするとTimerCreatedイベントが発行されること', (WidgetTester tester) async {
+    testWidgets('タイトルを入力して送信ボタンをタップするとTimerCreatedイベントが発行されること', (
+      WidgetTester tester,
+    ) async {
       // Arrange
       when(() => mockTimerBloc.state).thenReturn(const TimerInitial());
 
@@ -130,9 +134,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Assert
-      verify(
-        () => mockTimerBloc.add(any(that: isA<TimerCreated>())),
-      ).called(1);
+      verify(() => mockTimerBloc.add(any(that: isA<TimerCreated>()))).called(1);
     });
 
     testWidgets('タイトルが空の場合、バリデーションエラーが表示されること', (WidgetTester tester) async {

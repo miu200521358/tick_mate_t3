@@ -40,25 +40,28 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      
+
       // Assert
       expect(find.text('日時を選択'), findsOneWidget);
       expect(find.text('日付を選択'), findsOneWidget);
       expect(find.text('時刻を選択'), findsOneWidget);
-      
+
       // 現在の日付が表示されていることを確認
       final now = DateTime.now();
       final formattedDate = DateTimeUtils.formatDateTime(
         now,
         pattern: 'yyyy-MM-dd',
       );
-      expect(find.textContaining(formattedDate.substring(0, 7)), findsOneWidget);
+      expect(
+        find.textContaining(formattedDate.substring(0, 7)),
+        findsOneWidget,
+      );
     });
-    
+
     testWidgets('初期値ありで正しく表示されること', (WidgetTester tester) async {
       // Arrange
       final initialDateTime = DateTime(2025, 4, 15, 14, 30);
-      
+
       // Act
       await tester.pumpWidget(
         createWidgetUnderTest(
@@ -69,10 +72,10 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      
+
       // Assert
       expect(find.text('日時を選択'), findsOneWidget);
-      
+
       // 指定した日付と時刻が表示されていることを確認
       final formattedDate = DateTimeUtils.formatDateTime(
         initialDateTime,
@@ -81,7 +84,7 @@ void main() {
       expect(find.text(formattedDate), findsOneWidget);
       expect(find.text('14:30'), findsOneWidget);
     });
-    
+
     testWidgets('日付フィールドをタップすると日付ピッカーが表示されること', (WidgetTester tester) async {
       // Arrange
       // Act
@@ -93,18 +96,18 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      
+
       // 日付フィールドをタップ
       final dateFinder = find.ancestor(
         of: find.text('日付を選択'),
         matching: find.byType(InputDecorator),
       );
       expect(dateFinder, findsOneWidget);
-      
+
       // showDatePickerはモックできないため、タップ操作のみ検証
       expect(tester.takeException(), isNull);
     });
-    
+
     testWidgets('時刻フィールドをタップすると時刻ピッカーが表示されること', (WidgetTester tester) async {
       // Arrange
       // Act
@@ -116,14 +119,14 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      
+
       // 時刻フィールドをタップ
       final timeFinder = find.ancestor(
         of: find.text('時刻を選択'),
         matching: find.byType(InputDecorator),
       );
       expect(timeFinder, findsOneWidget);
-      
+
       // showTimePickerはモックできないため、タップ操作のみ検証
       expect(tester.takeException(), isNull);
     });

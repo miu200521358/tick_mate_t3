@@ -27,7 +27,7 @@ abstract class AppConfig {
   Duration get defaultConnectTimeout;
   Duration get defaultReceiveTimeout;
   Duration get defaultSendTimeout;
-  
+
   // Gemini API用のタイムアウト設定
   Duration get geminiConnectTimeout;
   Duration get geminiReceiveTimeout;
