@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tick_mate/core/error/exceptions.dart';
 import 'package:tick_mate/core/utils/log/log_util.dart';
-import 'package:tick_mate/l10n/app_localizations.dart';
+import 'package:tick_mate/gen/l10n/app_localizations.dart';
 
 /// エラーハンドラサービス
 /// アプリケーション全体でのエラー処理を統一的に行うためのサービス
