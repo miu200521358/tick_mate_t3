@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:tick_mate/core/services/error_handler_service.dart';
 import 'package:tick_mate/gen/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate/presentation/bloc/app/app_state.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
+
 import 'package:tick_mate/presentation/screens/settings/settings_screen.dart';
 import 'package:tick_mate/presentation/screens/timer/timer_form_screen.dart';
+
 import 'package:tick_mate/presentation/screens/work/work_list_screen.dart'; // Import WorkListScreen
 import 'package:tick_mate/presentation/widgets/timer_card_widget.dart';
 
@@ -27,40 +27,51 @@ class HomeScreen extends StatelessWidget {
           ),
           body: BlocBuilder<TimerBloc, TimerState>(
             builder: (context, timerState) {
+              // ローディング状態
               if (timerState is TimerInitial || timerState is TimerLoading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (timerState is TimerLoaded) {
-                return timerState.timers.isEmpty
-                    ? Center(
-                      child: Text(AppLocalizations.of(context)!.noTimers),
-                    )
-                    : ListView.builder(
-                      itemCount: timerState.timers.length,
-                      itemBuilder: (context, index) {
-                        final timer = timerState.timers[index];
-                        return TimerCardWidget(
-                          title: timer.title,
-                          dateTime: timer.dateTime,
-                          timeRange: timer.timeRange,
-                          timerType: timer.timerType.toString().split('.').last,
-                          characters: timer.characterIds,
-                          onTap: () {
-                            // TODO: タイマー詳細画面への遷移を実装
-                          },
-                        );
-                      },
-                    );
-              } else if (timerState is TimerError) {
-                // エラーハンドラーサービスを使用してエラーダイアログを表示
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  GetIt.instance<ErrorHandlerService>().showErrorDialog(
-                    context,
-                    timerState.message,
-                  );
-                });
-                return Center(child: Text(timerState.message));
               }
-              return Center(child: Text(AppLocalizations.of(context)!.unknown));
+              // 読み込み完了状態
+              else if (timerState is TimerLoaded) {
+                // タイマーが0件の場合
+                if (timerState.timers.isEmpty) {
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.noTimers),
+                  );
+                }
+                // タイマーが1件以上ある場合
+                else {
+                  return ListView.builder(
+                    itemCount: timerState.timers.length,
+                    itemBuilder: (context, index) {
+                      final timer = timerState.timers[index];
+                      return TimerCardWidget(
+                        title: timer.title,
+                        dateTime: timer.dateTime,
+                        timeRange: timer.timeRange,
+                        timerType: timer.timerType.toString().split('.').last,
+                        characters: timer.characterIds,
+                        onTap: () {
+                          // TODO: タイマー詳細画面への遷移を実装
+                        },
+                      );
+                    },
+                  );
+                }
+              }
+              // TimerCreateSuccess や TimerError など、その他の状態の場合
+              // (通常、これらの状態は一時的であり、すぐに TimerLoaded に遷移するか、
+              //  エラーダイアログが表示されるため、ここでの表示はフォールバック)
+              // キャンセルで戻ってきた場合も、直前の TimerLoaded 状態が保持されているはずだが、
+              // 万が一、予期せぬ状態になった場合は「タイマーなし」表示にする
+              else {
+                // BlocProvider.of<TimerBloc>(context).state を確認して、
+                // 直前の TimerLoaded の状態があればそれを使うことも検討できるが、
+                // シンプルに「タイマーなし」を表示する
+                return Center(
+                  child: Text(AppLocalizations.of(context)!.noTimers),
+                );
+              }
             },
           ),
           bottomNavigationBar: BottomNavigationBar(

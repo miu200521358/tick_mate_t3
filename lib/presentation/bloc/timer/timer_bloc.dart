@@ -68,17 +68,28 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       messageKey: 'errorCreatingTimer',
     ).then((timer) {
       if (timer != null) {
+        // ★★★ 追加: 成功状態をemitしてナビゲーションをトリガー ★★★
+        emit(const TimerCreateSuccess());
+        // ★★★ ここまで ★★★
+
         // 現在の状態がTimerLoadedの場合、新しいタイマーを追加
-        if (state is TimerLoaded) {
-          final currentState = state as TimerLoaded;
-          final updatedTimers = List<TimerEntity>.from(currentState.timers)
-            ..add(timer);
-          emit(currentState.copyWith(timers: updatedTimers));
+        // Note: Check state *before* emitting TimerCreateSuccess might be safer
+        // if state transitions matter, but for now, follow the plan.
+        // Re-checking state after emitting success state.
+        final currentStateSnapshot =
+            state; // Capture state before potential async gap
+        if (currentStateSnapshot is TimerLoaded) {
+          final updatedTimers = List<TimerEntity>.from(
+            currentStateSnapshot.timers,
+          )..add(timer);
+          emit(currentStateSnapshot.copyWith(timers: updatedTimers));
         } else {
-          // それ以外の場合は、1つのタイマーだけを含む新しいリストを作成
+          // If the state wasn't TimerLoaded (e.g., TimerInitial, TimerLoading, or even TimerError briefly),
+          // just load the single new timer.
           emit(TimerLoaded(timers: [timer]));
         }
       }
+      // エラー時は BlocErrorHandler が TimerError を emit する
     });
   }
 
