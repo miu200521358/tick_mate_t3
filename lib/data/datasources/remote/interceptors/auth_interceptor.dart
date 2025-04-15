@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:tick_mate/core/utils/log/log_util.dart';
 
 /// 認証トークンを付与するインターセプター
-@injectable
 class AuthInterceptor extends Interceptor {
   AuthInterceptor();
 
@@ -23,10 +21,7 @@ class AuthInterceptor extends Interceptor {
   }
 
   @override
-  void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     // トークンが設定されている場合は、ヘッダーに追加
     if (_authToken != null && _authToken!.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $_authToken';
@@ -34,7 +29,7 @@ class AuthInterceptor extends Interceptor {
 
     // リクエストに認証が必要かどうかのフラグを確認
     final requiresAuth = options.extra['requiresAuth'] as bool? ?? true;
-    
+
     // 認証が必要だが、トークンが設定されていない場合
     if (requiresAuth && (_authToken == null || _authToken!.isEmpty)) {
       LogUtil.w('認証が必要ですが、トークンが設定されていません: ${options.path}');

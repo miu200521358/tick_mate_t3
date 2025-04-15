@@ -22,6 +22,7 @@ import '../config/config_default.dart' as _i792;
 import '../config/config_dev.dart' as _i125;
 import '../config/config_prod.dart' as _i941;
 import '../config/config_stg.dart' as _i277;
+import '../core/services/error_handler_service.dart' as _i453;
 import '../core/services/notification_service.dart' as _i570;
 import '../core/utils/dummy_data_utils.dart' as _i182;
 import '../data/datasources/local/local_storage_datasource.dart' as _i462;
@@ -29,6 +30,7 @@ import '../data/datasources/local/secure_storage_datasource.dart' as _i848;
 import '../data/datasources/remote/gemini_api_client.dart' as _i110;
 import '../data/datasources/remote/gemini_api_datasource.dart' as _i80;
 import '../data/datasources/remote/http_client.dart' as _i125;
+import '../data/datasources/remote/interceptors/auth_interceptor.dart' as _i949;
 import '../data/datasources/remote/interceptors/logging_interceptor.dart'
     as _i597;
 import '../data/datasources/remote/interceptors/retry_interceptor.dart'
@@ -75,6 +77,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => appModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(() => appModule.secureStorage);
     gh.lazySingleton<_i407.Random>(() => appModule.random);
+    gh.lazySingleton<_i949.AuthInterceptor>(
+      () => appModule.provideAuthInterceptor(),
+    );
+    gh.lazySingleton<_i453.ErrorHandlerService>(
+      () => _i453.ErrorHandlerService(),
+    );
     gh.lazySingleton<_i650.AppConfig>(
       () => _i125.DevConfig(),
       instanceName: 'dev',
@@ -131,13 +139,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i701.WorkListBloc>(
       () => _i701.WorkListBloc(gh<_i47.WorkRepository>()),
     );
-    gh.factory<_i125.HttpClient>(
-      () => appModule.provideHttpClient(
-        gh<_i361.Dio>(),
-        gh<_i597.LoggingInterceptor>(),
-        gh<_i554.RetryInterceptor>(),
-      ),
-    );
     gh.factory<_i814.SelectCharacterUseCase>(
       () => _i814.SelectCharacterUseCase(
         gh<_i357.CharacterRepository>(),
@@ -149,6 +150,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i357.CharacterRepository>(),
         gh<_i183.ImagePicker>(),
         gh<_i706.Uuid>(),
+      ),
+    );
+    gh.lazySingleton<_i125.HttpClient>(
+      () => appModule.provideHttpClient(
+        gh<_i361.Dio>(),
+        gh<_i597.LoggingInterceptor>(),
+        gh<_i554.RetryInterceptor>(),
+        gh<_i949.AuthInterceptor>(),
       ),
     );
     gh.factory<_i182.DummyDataUtils>(

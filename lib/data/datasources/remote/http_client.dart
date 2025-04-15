@@ -4,6 +4,9 @@ import 'package:tick_mate/data/datasources/remote/interceptors/auth_interceptor.
 import 'package:tick_mate/data/datasources/remote/interceptors/logging_interceptor.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/retry_interceptor.dart';
 
+/// エラー通知コールバック型定義
+typedef OnErrorCallback = void Function(Exception error, String requestPath);
+
 /// DioをラップするカスタムHTTPクライアント
 class HttpClient {
   HttpClient(
@@ -29,14 +32,13 @@ class HttpClient {
   final RetryInterceptor _retryInterceptor;
   final AuthInterceptor _authInterceptor;
 
-  /// エラー通知コールバック型定義
-  typedef OnErrorCallback = void Function(Exception error, String requestPath);
-
   /// エラー通知コールバック
-  OnErrorCallback? _onErrorCallback;
+  void Function(Exception error, String requestPath)? _onErrorCallback;
 
   /// エラー通知コールバックを設定
-  void setOnErrorCallback(OnErrorCallback callback) {
+  void setOnErrorCallback(
+    void Function(Exception error, String requestPath) callback,
+  ) {
     _onErrorCallback = callback;
   }
 
@@ -47,7 +49,7 @@ class HttpClient {
     requestOptions.extra = {...requestOptions.extra ?? {}, 'dio': _dio};
     return requestOptions;
   }
-  
+
   /// APIごとの特別なタイムアウト設定を適用
   void setCustomTimeout({
     Duration? connectTimeout,
@@ -64,7 +66,7 @@ class HttpClient {
       _dio.options.sendTimeout = sendTimeout;
     }
   }
-  
+
   /// デフォルトのタイムアウト設定に戻す
   void resetToDefaultTimeout() {
     _dio.options.connectTimeout = const Duration(seconds: 10);
@@ -78,7 +80,7 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    OnErrorCallback? onError,
+    void Function(Exception error, String requestPath)? onError,
   }) async {
     try {
       final response = await _dio.get(
@@ -90,16 +92,16 @@ class HttpClient {
       return response.data;
     } on DioException catch (e) {
       final error = _handleError(e);
-      
+
       // ローカルのエラーコールバックがある場合は実行
       if (onError != null) {
         onError(error, url);
-      } 
+      }
       // グローバルのエラーコールバックがある場合は実行
       else if (_onErrorCallback != null) {
         _onErrorCallback!(error, url);
       }
-      
+
       throw error;
     }
   }
@@ -111,7 +113,7 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    OnErrorCallback? onError,
+    void Function(Exception error, String requestPath)? onError,
   }) async {
     try {
       final response = await _dio.post(
@@ -124,16 +126,16 @@ class HttpClient {
       return response.data;
     } on DioException catch (e) {
       final error = _handleError(e);
-      
+
       // ローカルのエラーコールバックがある場合は実行
       if (onError != null) {
         onError(error, url);
-      } 
+      }
       // グローバルのエラーコールバックがある場合は実行
       else if (_onErrorCallback != null) {
         _onErrorCallback!(error, url);
       }
-      
+
       throw error;
     }
   }
@@ -145,7 +147,7 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    OnErrorCallback? onError,
+    void Function(Exception error, String requestPath)? onError,
   }) async {
     try {
       final response = await _dio.put(
@@ -158,16 +160,16 @@ class HttpClient {
       return response.data;
     } on DioException catch (e) {
       final error = _handleError(e);
-      
+
       // ローカルのエラーコールバックがある場合は実行
       if (onError != null) {
         onError(error, url);
-      } 
+      }
       // グローバルのエラーコールバックがある場合は実行
       else if (_onErrorCallback != null) {
         _onErrorCallback!(error, url);
       }
-      
+
       throw error;
     }
   }
@@ -179,7 +181,7 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
-    OnErrorCallback? onError,
+    void Function(Exception error, String requestPath)? onError,
   }) async {
     try {
       final response = await _dio.delete(
@@ -192,16 +194,16 @@ class HttpClient {
       return response.data;
     } on DioException catch (e) {
       final error = _handleError(e);
-      
+
       // ローカルのエラーコールバックがある場合は実行
       if (onError != null) {
         onError(error, url);
-      } 
+      }
       // グローバルのエラーコールバックがある場合は実行
       else if (_onErrorCallback != null) {
         _onErrorCallback!(error, url);
       }
-      
+
       throw error;
     }
   }
