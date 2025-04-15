@@ -16,6 +16,18 @@
             ]
         },
         {
+            "name": "tick_mate (verbose)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=FLAVOR=dev",
+                "--verbose"
+            ]
+        },
+        {
             "name": "tick_mate (profile mode)",
             "request": "launch",
             "type": "dart",
