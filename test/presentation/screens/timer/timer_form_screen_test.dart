@@ -170,19 +170,17 @@ void main() {
       expect(find.text('タイトルを入力してください'), findsOneWidget);
     });
 
-    testWidgets('タイマー作成成功時にトーストメッセージが表示されること', (
-      WidgetTester tester,
-    ) async {
+    testWidgets('タイマー作成成功時にトーストメッセージが表示されること', (WidgetTester tester) async {
       // Arrange
       when(() => mockTimerBloc.state).thenReturn(const TimerInitial());
-      
+
       // Act
       await tester.pumpWidget(createWidgetUnderTest());
-      
+
       // TimerCreateSuccessステートをエミット
       mockTimerBloc.emitState(const TimerCreateSuccess());
       await tester.pump();
-      
+
       // Assert
       // スナックバーが表示されることを検証
       expect(find.byType(SnackBar), findsOneWidget);

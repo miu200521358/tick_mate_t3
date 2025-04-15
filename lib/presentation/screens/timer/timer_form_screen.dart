@@ -197,9 +197,7 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
         } else if (state is TimerCreateSuccess) {
           // 成功メッセージを表示
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(l10n.timerCreatedSuccessfully),
-            ),
+            SnackBar(content: Text(l10n.timerCreatedSuccessfully)),
           );
           Navigator.pop(context);
         }

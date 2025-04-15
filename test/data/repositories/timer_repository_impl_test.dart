@@ -59,11 +59,23 @@ void main() {
       expect(timers[0].timerType, testTimerEntity.timerType);
       expect(timers[0].repeatType, testTimerEntity.repeatType);
       expect(timers[0].characterIds, testTimerEntity.characterIds);
-      expect(timers[0].timeSpecificationType, testTimerEntity.timeSpecificationType);
-      expect(timers[0].startTimeOfDay?.hour, testTimerEntity.startTimeOfDay?.hour);
-      expect(timers[0].startTimeOfDay?.minute, testTimerEntity.startTimeOfDay?.minute);
+      expect(
+        timers[0].timeSpecificationType,
+        testTimerEntity.timeSpecificationType,
+      );
+      expect(
+        timers[0].startTimeOfDay?.hour,
+        testTimerEntity.startTimeOfDay?.hour,
+      );
+      expect(
+        timers[0].startTimeOfDay?.minute,
+        testTimerEntity.startTimeOfDay?.minute,
+      );
       expect(timers[0].endTimeOfDay?.hour, testTimerEntity.endTimeOfDay?.hour);
-      expect(timers[0].endTimeOfDay?.minute, testTimerEntity.endTimeOfDay?.minute);
+      expect(
+        timers[0].endTimeOfDay?.minute,
+        testTimerEntity.endTimeOfDay?.minute,
+      );
     });
 
     test('IDでタイマーを取得できること', () async {
