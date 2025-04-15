@@ -6,9 +6,8 @@ import 'package:tick_mate/config/app_config.dart';
 /// ログユーティリティクラス
 /// アプリケーション全体で統一されたログ出力方針を提供します
 class LogUtil {
-  // シングルトンインスタンス
-  static final LogUtil _instance = LogUtil._internal();
-  
+  factory LogUtil() => _instance;
+
   // プライベートコンストラクタ
   LogUtil._internal() {
     // Loggerの初期化
@@ -25,14 +24,18 @@ class LogUtil {
       filter: ProductionFilter(),
     );
   }
-  
-  factory LogUtil() => _instance;
-  
+
+  // シングルトンインスタンス
+  static final LogUtil _instance = LogUtil._internal();
+
   // ロガーインスタンス
   late final Logger _logger;
 
   // 環境設定
-  AppConfig? get _config => GetIt.instance.isRegistered<AppConfig>() ? GetIt.instance<AppConfig>() : null;
+  AppConfig? get _config =>
+      GetIt.instance.isRegistered<AppConfig>()
+          ? GetIt.instance<AppConfig>()
+          : null;
 
   // 現在のログレベル
   Level get _currentLevel {
@@ -121,7 +124,7 @@ class LogUtil {
         debugPrint('テスト環境のため、Analyticsへの記録をスキップします: $name');
         return;
       }
-      
+
       // 実行環境でのみFirebaseを使用
       // 注: このメソッドはテスト環境では呼び出されないため、
       // テスト時にFirebaseの依存関係がなくても問題ない
@@ -143,7 +146,7 @@ class LogUtil {
         debugPrint('テスト環境のため、画面アクセスログの記録をスキップします: $screenName');
         return;
       }
-      
+
       // 実行環境でのみFirebaseを使用
       // 注: このメソッドはテスト環境では呼び出されないため、
       // テスト時にFirebaseの依存関係がなくても問題ない

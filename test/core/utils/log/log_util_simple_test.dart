@@ -20,7 +20,7 @@ class MockAppConfig implements AppConfig {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  
+
   group('LogUtil Simple Tests', () {
     final getIt = GetIt.instance;
     final mockConfig = MockAppConfig();
@@ -38,7 +38,7 @@ void main() {
       LogUtil.i('Test info message');
       LogUtil.w('Test warning message');
       LogUtil.e('Test error message');
-      
+
       // If we get here without exceptions, the test passes
       expect(true, isTrue);
     });

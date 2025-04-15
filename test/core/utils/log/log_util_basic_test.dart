@@ -20,7 +20,7 @@ class MockAppConfig implements AppConfig {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  
+
   group('LogUtil Basic Tests', () {
     // Note: Testing print statements directly is tricky.
     // These tests mainly check if the basic logging methods can be called without errors.

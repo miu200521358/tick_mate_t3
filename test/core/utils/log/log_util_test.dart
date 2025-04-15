@@ -21,7 +21,7 @@ class MockAppConfig implements AppConfig {
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  
+
   group('LogUtil', () {
     // Note: Testing print statements directly is tricky.
     // These tests mainly check if the methods can be called without errors.
@@ -42,7 +42,7 @@ void main() {
     test('LogUtil methods can be called without throwing', () {
       // テスト環境フラグを設定
       debugDefaultTargetPlatformOverride = TargetPlatform.android;
-      
+
       expect(() => LogUtil.d('Debug message'), returnsNormally);
       expect(() => LogUtil.i('Info message'), returnsNormally);
       expect(() => LogUtil.w('Warning message'), returnsNormally);
@@ -59,7 +59,7 @@ void main() {
         ),
         returnsNormally,
       );
-      
+
       debugDefaultTargetPlatformOverride = null;
     });
 
@@ -69,11 +69,11 @@ void main() {
 
       // テスト環境フラグを設定
       debugDefaultTargetPlatformOverride = TargetPlatform.android;
-      
+
       // We can't easily assert print output, but we can check no exceptions are thrown
       expect(() => LogUtil.d('This should not be printed'), returnsNormally);
       expect(() => LogUtil.i('This should be printed'), returnsNormally);
-      
+
       debugDefaultTargetPlatformOverride = null;
     });
   });

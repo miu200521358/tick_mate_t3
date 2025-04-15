@@ -2,18 +2,26 @@ import 'package:flutter/foundation.dart';
 
 // モックの Firebase Analytics クラス
 class FirebaseAnalytics {
-  static final FirebaseAnalytics _instance = FirebaseAnalytics._();
-  
   FirebaseAnalytics._();
-  
+
+  static final FirebaseAnalytics _instance = FirebaseAnalytics._();
+
   static FirebaseAnalytics get instance => _instance;
 
-  Future<void> logEvent({required String name, Map<String, dynamic>? parameters}) async {
+  Future<void> logEvent({
+    required String name,
+    Map<String, dynamic>? parameters,
+  }) async {
     debugPrint('Firebase Analytics logEvent: $name, params: $parameters');
   }
 
-  Future<void> logScreenView({required String screenName, String? screenClass}) async {
-    debugPrint('Firebase Analytics logScreenView: $screenName, class: $screenClass');
+  Future<void> logScreenView({
+    required String screenName,
+    String? screenClass,
+  }) async {
+    debugPrint(
+      'Firebase Analytics logScreenView: $screenName, class: $screenClass',
+    );
   }
 }
 

@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
@@ -7,16 +5,17 @@ import 'package:tick_mate/config/app_config.dart';
 import 'package:tick_mate/core/constants/app_constants.dart';
 
 // Firebase関連のインポートは条件付きで行う
-import 'firebase_imports.dart' if (dart.library.html) 'firebase_imports_web.dart';
+import 'firebase_imports.dart'
+    if (dart.library.html) 'firebase_imports_web.dart';
 
 /// ログユーティリティクラス
 /// アプリケーション全体で統一されたログ出力方針を提供します
 class LogUtil {
-  // シングルトンインスタンス
-  static final LogUtil _instance = LogUtil._internal();
-  
+  factory LogUtil() => _instance;
+
   // プライベートコンストラクタ
-  LogUtil._internal() : _analytics = _isTestEnvironment ? null : getFirebaseAnalytics() {
+  LogUtil._internal()
+    : _analytics = _isTestEnvironment ? null : getFirebaseAnalytics() {
     // Loggerの初期化
     _logger = Logger(
       level: _currentLevel,
@@ -31,7 +30,7 @@ class LogUtil {
       filter: ProductionFilter(),
     );
   }
-  
+
   // テスト用コンストラクタ
   @visibleForTesting
   LogUtil.test() : _analytics = null {
@@ -47,7 +46,7 @@ class LogUtil {
       ),
     );
   }
-  
+
   // テスト用コンストラクタ（内部使用）
   LogUtil._test(this._logger) : _analytics = null;
 
@@ -59,6 +58,9 @@ class LogUtil {
     }
     return _instance;
   }
+
+  // シングルトンインスタンス
+  static final LogUtil _instance = LogUtil._internal();
 
   // テスト環境用のインスタンスを作成
   static LogUtil _createTestInstance() {
@@ -73,10 +75,10 @@ class LogUtil {
         dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
       ),
     );
-    
+
     return LogUtil._test(logger);
   }
-  
+
   // ロガーインスタンス
   late final Logger _logger;
 
@@ -84,7 +86,10 @@ class LogUtil {
   final dynamic _analytics;
 
   // 環境設定
-  AppConfig? get _config => GetIt.instance.isRegistered<AppConfig>() ? GetIt.instance<AppConfig>() : null;
+  AppConfig? get _config =>
+      GetIt.instance.isRegistered<AppConfig>()
+          ? GetIt.instance<AppConfig>()
+          : null;
 
   // 現在のログレベル
   Level get _currentLevel {
@@ -93,10 +98,9 @@ class LogUtil {
 
   // テスト環境かどうかを判定
   static bool get _isTestEnvironment {
-    return kDebugMode && const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false);
+    return kDebugMode &&
+        const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false);
   }
-  
-  factory LogUtil() => _instance;
 
   /// デバッグログを出力
   static void d(String message) {
@@ -197,13 +201,13 @@ class LogUtil {
         debugPrint('テスト環境のため、Analyticsへの記録をスキップします: $name');
         return;
       }
-      
+
       final analytics = _instance._analytics;
       if (analytics == null) {
         debugPrint('Analyticsが初期化されていないため、イベント記録をスキップします: $name');
         return;
       }
-      
+
       try {
         await analytics.logEvent(name: name, parameters: parameters);
       } catch (e) {
@@ -226,13 +230,13 @@ class LogUtil {
         debugPrint('テスト環境のため、画面アクセスログの記録をスキップします: $screenName');
         return;
       }
-      
+
       final analytics = _instance._analytics;
       if (analytics == null) {
         debugPrint('Analyticsが初期化されていないため、画面アクセスログの記録をスキップします: $screenName');
         return;
       }
-      
+
       try {
         await analytics.logScreenView(
           screenName: screenName,

@@ -7,9 +7,6 @@ import 'package:tick_mate/core/constants/app_constants.dart';
 /// ログユーティリティクラス
 /// アプリケーション全体で統一されたログ出力方針を提供します
 class LogUtil {
-  // シングルトンインスタンス
-  static final LogUtil _instance = LogUtil._internal();
-  
   // プライベートコンストラクタ
   LogUtil._internal() {
     // Loggerの初期化
@@ -26,18 +23,24 @@ class LogUtil {
       filter: ProductionFilter(),
     );
   }
-  
+
+  // シングルトンインスタンス
+  static final LogUtil _instance = LogUtil._internal();
+
   // ロガーインスタンス
   late final Logger _logger;
-  
+
   // 環境設定
-  AppConfig? get _config => GetIt.instance.isRegistered<AppConfig>() ? GetIt.instance<AppConfig>() : null;
-  
+  AppConfig? get _config =>
+      GetIt.instance.isRegistered<AppConfig>()
+          ? GetIt.instance<AppConfig>()
+          : null;
+
   // 現在のログレベル
   Level get _currentLevel {
     return (_config?.isDebugMode ?? true) ? Level.debug : Level.info;
   }
-  
+
   // テスト環境かどうかを判定
   static bool get _isTestEnvironment {
     return const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false);
@@ -131,7 +134,7 @@ class LogUtil {
         debugPrint('テスト環境のため、Analyticsへの記録をスキップします: $name');
         return;
       }
-      
+
       try {
         // 実行環境でのみFirebaseを使用
         if (!kIsWeb && !_isTestEnvironment) {
@@ -159,7 +162,7 @@ class LogUtil {
         debugPrint('テスト環境のため、画面アクセスログの記録をスキップします: $screenName');
         return;
       }
-      
+
       try {
         // 実行環境でのみFirebaseを使用
         if (!kIsWeb && !_isTestEnvironment) {
@@ -213,20 +216,23 @@ class LogUtil {
     }
   }
 
-  static Future<void> _logAnalyticsEvent(String name, Map<String, dynamic>? parameters) async {
+  static Future<void> _logAnalyticsEvent(
+    String name,
+    Map<String, dynamic>? parameters,
+  ) async {
     try {
       // ignore: avoid_dynamic_calls
       final analytics = _getFirebaseAnalytics();
-      await analytics.logEvent(
-        name: name,
-        parameters: parameters,
-      );
+      await analytics.logEvent(name: name, parameters: parameters);
     } catch (e) {
       debugPrint('Analyticsへのイベント記録に失敗しました: $e');
     }
   }
 
-  static Future<void> _logAnalyticsScreenView(String screenName, String? screenClass) async {
+  static Future<void> _logAnalyticsScreenView(
+    String screenName,
+    String? screenClass,
+  ) async {
     try {
       // ignore: avoid_dynamic_calls
       final analytics = _getFirebaseAnalytics();
@@ -292,7 +298,10 @@ class LogUtil {
   static dynamic _getDynamicFirebaseCrashlytics() {
     try {
       // ignore: avoid_dynamic_calls
-      return _dynamicImport('package:firebase_crashlytics/firebase_crashlytics.dart', 'FirebaseCrashlytics');
+      return _dynamicImport(
+        'package:firebase_crashlytics/firebase_crashlytics.dart',
+        'FirebaseCrashlytics',
+      );
     } catch (e) {
       debugPrint('Firebaseが初期化されていないため、Crashlyticsの動的インポートに失敗しました: $e');
       return null;
@@ -302,7 +311,10 @@ class LogUtil {
   static dynamic _getDynamicFirebaseAnalytics() {
     try {
       // ignore: avoid_dynamic_calls
-      return _dynamicImport('package:firebase_analytics/firebase_analytics.dart', 'FirebaseAnalytics');
+      return _dynamicImport(
+        'package:firebase_analytics/firebase_analytics.dart',
+        'FirebaseAnalytics',
+      );
     } catch (e) {
       debugPrint('Firebaseが初期化されていないため、Analyticsの動的インポートに失敗しました: $e');
       return null;
