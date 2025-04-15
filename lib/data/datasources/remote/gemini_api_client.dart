@@ -3,7 +3,14 @@ import 'package:tick_mate/data/datasources/remote/base_api_client.dart';
 
 /// Gemini API用クライアント
 class GeminiApiClient extends BaseApiClient {
-  GeminiApiClient(super.httpClient, super.config, this._secureStorage);
+  GeminiApiClient(super.httpClient, super.config, this._secureStorage) {
+    // Gemini APIは高速応答が求められるため、タイムアウト時間を短く設定
+    super.httpClient.setCustomTimeout(
+      connectTimeout: super.config.geminiConnectTimeout,
+      receiveTimeout: super.config.geminiReceiveTimeout,
+      sendTimeout: super.config.geminiSendTimeout,
+    );
+  }
 
   final SecureStorageDataSource _secureStorage;
 

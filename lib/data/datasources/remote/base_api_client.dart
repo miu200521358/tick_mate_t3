@@ -8,7 +8,13 @@ abstract class BaseApiClient {
   }
 
   final HttpClient _httpClient;
+
+  /// HTTPクライアントを取得
+  HttpClient get httpClient => _httpClient;
   final AppConfig _config;
+  
+  /// 設定を取得
+  AppConfig get config => _config;
 
   /// APIクライアントの初期化
   void _initialize() {
@@ -29,8 +35,13 @@ abstract class BaseApiClient {
   Future<dynamic> get(
     String path, {
     Map<String, dynamic>? queryParameters,
+    void Function(Exception error, String requestPath)? onError,
   }) async {
-    return _httpClient.get(path, queryParameters: queryParameters);
+    return _httpClient.get(
+      path,
+      queryParameters: queryParameters,
+      onError: onError,
+    );
   }
 
   /// POSTリクエストを送信
@@ -38,8 +49,14 @@ abstract class BaseApiClient {
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    void Function(Exception error, String requestPath)? onError,
   }) async {
-    return _httpClient.post(path, data: data, queryParameters: queryParameters);
+    return _httpClient.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      onError: onError,
+    );
   }
 
   /// PUTリクエストを送信
@@ -47,8 +64,14 @@ abstract class BaseApiClient {
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    void Function(Exception error, String requestPath)? onError,
   }) async {
-    return _httpClient.put(path, data: data, queryParameters: queryParameters);
+    return _httpClient.put(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      onError: onError,
+    );
   }
 
   /// DELETEリクエストを送信
@@ -56,11 +79,13 @@ abstract class BaseApiClient {
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    void Function(Exception error, String requestPath)? onError,
   }) async {
     return _httpClient.delete(
       path,
       data: data,
       queryParameters: queryParameters,
+      onError: onError,
     );
   }
 }

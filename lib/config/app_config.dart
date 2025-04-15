@@ -23,5 +23,15 @@ abstract class AppConfig {
   // APIレート制限関連の設定
   int get apiRateLimitPerMinute;
 
+  // HTTP通信関連の設定
+  Duration get defaultConnectTimeout;
+  Duration get defaultReceiveTimeout;
+  Duration get defaultSendTimeout;
+  
+  // Gemini API用のタイムアウト設定
+  Duration get geminiConnectTimeout;
+  Duration get geminiReceiveTimeout;
+  Duration get geminiSendTimeout;
+
   // その他の環境依存設定があれば追加
 }
