@@ -37,7 +37,7 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(
-      TimerCreated(
+      const TimerCreated(
         title: 'test',
         timerType: TimerType.schedule,
         repeatType: RepeatType.none,
@@ -124,8 +124,6 @@ void main() {
       await tester.pump();
 
       // 日時を選択（DateTimePickerWidgetの内部実装をモックできないため、直接選択はテストしない）
-      final testDateTime = DateTime(2025, 4, 15, 14, 30);
-
       // DateTimePickerWidgetのonDateTimeSelectedコールバックを直接呼び出す方法はないため、
       // 送信ボタンをタップしてイベント発行を検証
       await tester.tap(find.byType(ElevatedButton));

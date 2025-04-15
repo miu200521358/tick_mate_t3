@@ -31,13 +31,11 @@ void main() {
   group('DateTimePickerWidget', () {
     testWidgets('初期値なしで正しく表示されること', (WidgetTester tester) async {
       // Arrange
-      DateTime? selectedDateTime;
-      
       // Act
       await tester.pumpWidget(
         createWidgetUnderTest(
           onDateTimeSelected: (dateTime) {
-            selectedDateTime = dateTime;
+            // 実際のテストでは使用しないが、コールバックは必要
           },
         ),
       );
@@ -60,14 +58,13 @@ void main() {
     testWidgets('初期値ありで正しく表示されること', (WidgetTester tester) async {
       // Arrange
       final initialDateTime = DateTime(2025, 4, 15, 14, 30);
-      DateTime? selectedDateTime;
       
       // Act
       await tester.pumpWidget(
         createWidgetUnderTest(
           initialDateTime: initialDateTime,
           onDateTimeSelected: (dateTime) {
-            selectedDateTime = dateTime;
+            // 実際のテストでは使用しないが、コールバックは必要
           },
         ),
       );
@@ -87,13 +84,11 @@ void main() {
     
     testWidgets('日付フィールドをタップすると日付ピッカーが表示されること', (WidgetTester tester) async {
       // Arrange
-      DateTime? selectedDateTime;
-      
       // Act
       await tester.pumpWidget(
         createWidgetUnderTest(
           onDateTimeSelected: (dateTime) {
-            selectedDateTime = dateTime;
+            // 実際のテストでは使用しないが、コールバックは必要
           },
         ),
       );
@@ -112,13 +107,11 @@ void main() {
     
     testWidgets('時刻フィールドをタップすると時刻ピッカーが表示されること', (WidgetTester tester) async {
       // Arrange
-      DateTime? selectedDateTime;
-      
       // Act
       await tester.pumpWidget(
         createWidgetUnderTest(
           onDateTimeSelected: (dateTime) {
-            selectedDateTime = dateTime;
+            // 実際のテストでは使用しないが、コールバックは必要
           },
         ),
       );
