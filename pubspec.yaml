@@ -90,6 +90,7 @@ flutter_launcher_icons: # Corrected key
   remove_alpha_ios: true # Added for iOS best practice
   adaptive_icon_background: "#29ABE2" # Android 8.0 以降向け（背景）
   adaptive_icon_foreground: "assets/icon/app_icon.png" # 同上（前景）
+  adaptive_icon_foreground_inset: 32 # Add padding to foreground (default: 16)
 
 
 flutter_native_splash:
