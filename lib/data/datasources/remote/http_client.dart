@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:tick_mate/config/app_config.dart';
 import 'package:tick_mate/core/error/exceptions.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/auth_interceptor.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/logging_interceptor.dart';
@@ -14,6 +15,7 @@ class HttpClient {
     this._loggingInterceptor,
     this._retryInterceptor,
     this._authInterceptor,
+    this._config,
   ) {
     _dio.interceptors.addAll([
       _loggingInterceptor,
@@ -21,16 +23,17 @@ class HttpClient {
       _authInterceptor,
     ]);
 
-    // デフォルトのタイムアウト設定
-    _dio.options.connectTimeout = const Duration(seconds: 10);
-    _dio.options.receiveTimeout = const Duration(seconds: 10);
-    _dio.options.sendTimeout = const Duration(seconds: 10);
+    // configからデフォルトのタイムアウト設定を適用
+    _dio.options.connectTimeout = _config.defaultConnectTimeout;
+    _dio.options.receiveTimeout = _config.defaultReceiveTimeout;
+    _dio.options.sendTimeout = _config.defaultSendTimeout;
   }
 
   final Dio _dio;
   final LoggingInterceptor _loggingInterceptor;
   final RetryInterceptor _retryInterceptor;
   final AuthInterceptor _authInterceptor;
+  final AppConfig _config;
 
   /// エラー通知コールバック
   void Function(Exception error, String requestPath)? _onErrorCallback;
@@ -69,9 +72,9 @@ class HttpClient {
 
   /// デフォルトのタイムアウト設定に戻す
   void resetToDefaultTimeout() {
-    _dio.options.connectTimeout = const Duration(seconds: 10);
-    _dio.options.receiveTimeout = const Duration(seconds: 10);
-    _dio.options.sendTimeout = const Duration(seconds: 10);
+    _dio.options.connectTimeout = _config.defaultConnectTimeout;
+    _dio.options.receiveTimeout = _config.defaultReceiveTimeout;
+    _dio.options.sendTimeout = _config.defaultSendTimeout;
   }
 
   /// GETリクエストを送信

@@ -38,7 +38,8 @@ abstract class AppModule {
     LoggingInterceptor loggingInterceptor,
     RetryInterceptor retryInterceptor,
     AuthInterceptor authInterceptor,
-  ) => HttpClient(dio, loggingInterceptor, retryInterceptor, authInterceptor);
+    AppConfig config,
+  ) => HttpClient(dio, loggingInterceptor, retryInterceptor, authInterceptor, config);
 
   /// GeminiApiClientを環境に応じて提供
   @lazySingleton
