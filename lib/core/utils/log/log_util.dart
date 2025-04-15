@@ -13,14 +13,6 @@ import 'firebase_imports.dart'
 class LogUtil {
   factory LogUtil() => _instance;
 
-  /// テスト環境用に LogUtil を初期化する
-  /// このメソッドはテストコード内でのみ使用してください
-  @visibleForTesting
-  static void initializeForTest() {
-    // テスト環境フラグを強制的に true に設定
-    _forceTestEnvironment = true;
-  }
-
   // プライベートコンストラクタ
   LogUtil._internal()
     : _analytics = _isTestEnvironment ? null : getFirebaseAnalytics() {
@@ -57,6 +49,14 @@ class LogUtil {
 
   // テスト用コンストラクタ（内部使用）
   LogUtil._test(this._logger) : _analytics = null;
+
+  /// テスト環境用に LogUtil を初期化する
+  /// このメソッドはテストコード内でのみ使用してください
+  @visibleForTesting
+  static void initializeForTest() {
+    // テスト環境フラグを強制的に true に設定
+    _forceTestEnvironment = true;
+  }
 
   // シングルトンインスタンスを安全に取得
   static LogUtil get _safeInstance {
