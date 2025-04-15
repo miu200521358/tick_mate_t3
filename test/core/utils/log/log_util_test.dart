@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tick_mate/config/app_config.dart';
 import 'package:tick_mate/core/utils/log/log_util.dart';
+import 'firebase_test_helper.dart';
 
 // AppConfigのモック
 class MockAppConfig implements AppConfig {
@@ -37,6 +38,8 @@ void main() {
       getIt.registerSingleton<AppConfig>(mockConfig);
       // Reset debug mode for each test
       mockConfig.isDebugMode = true;
+      // LogUtilをテスト環境用に初期化
+      LogTestHelper.initializeForTest();
     });
 
     test('LogUtil methods can be called without throwing', () {

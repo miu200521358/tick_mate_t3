@@ -13,6 +13,14 @@ import 'firebase_imports.dart'
 class LogUtil {
   factory LogUtil() => _instance;
 
+  /// テスト環境用に LogUtil を初期化する
+  /// このメソッドはテストコード内でのみ使用してください
+  @visibleForTesting
+  static void initializeForTest() {
+    // テスト環境フラグを強制的に true に設定
+    _forceTestEnvironment = true;
+  }
+
   // プライベートコンストラクタ
   LogUtil._internal()
     : _analytics = _isTestEnvironment ? null : getFirebaseAnalytics() {
@@ -96,10 +104,14 @@ class LogUtil {
     return (_config?.isDebugMode ?? true) ? Level.debug : Level.info;
   }
 
+  // テスト用の環境フラグ
+  static bool _forceTestEnvironment = false;
+
   // テスト環境かどうかを判定
   static bool get _isTestEnvironment {
-    return kDebugMode &&
-        const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false);
+    return _forceTestEnvironment ||
+        (kDebugMode &&
+            const bool.fromEnvironment('FLUTTER_TEST', defaultValue: false));
   }
 
   /// デバッグログを出力
