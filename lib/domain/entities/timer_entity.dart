@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart'; // For TimeOfDay
 
 /// タイマー種別
 enum TimerType {
@@ -39,13 +40,28 @@ enum RepeatType {
   customDays,
 }
 
+/// 時間指定種別
+enum TimeSpecificationType {
+  /// 日時を指定
+  dateTime,
+
+  /// 特定時刻のみを指定
+  specificTime,
+
+  /// 特定時間範囲を指定
+  timeRange,
+}
+
 /// タイマーエンティティ
 class TimerEntity extends Equatable {
   const TimerEntity({
     required this.id,
     required this.title,
-    this.dateTime,
-    this.timeRange,
+    required this.timeSpecificationType, // <<< 追加
+    this.dateTime, // Used when timeSpecificationType is dateTime
+    this.startTimeOfDay, // Used when timeSpecificationType is specificTime or timeRange (TimeOfDay?)
+    this.endTimeOfDay, // Used when timeSpecificationType is timeRange (TimeOfDay?)
+    this.timeRange, // TODO: Review if this is still needed or replaced by startTimeOfDay/endTimeOfDay
     required this.timerType,
     required this.repeatType,
     required this.characterIds,
@@ -58,8 +74,11 @@ class TimerEntity extends Equatable {
 
   final String id;
   final String title;
+  final TimeSpecificationType timeSpecificationType;
   final DateTime? dateTime;
-  final String? timeRange;
+  final TimeOfDay? startTimeOfDay;
+  final TimeOfDay? endTimeOfDay;
+  final String? timeRange; // Keep for now, review later if needed
   final TimerType timerType;
   final RepeatType repeatType;
   final List<String> characterIds;
@@ -71,15 +90,28 @@ class TimerEntity extends Equatable {
 
   /// タイマーが有効かどうかをチェック
   bool get isValid {
-    // 日時の設定またはタイムレンジが必要
-    return dateTime != null || timeRange != null;
+    // TODO: Update validation logic based on timeSpecificationType
+    switch (timeSpecificationType) {
+      case TimeSpecificationType.dateTime:
+        return dateTime != null;
+      case TimeSpecificationType.specificTime:
+        return startTimeOfDay != null;
+      case TimeSpecificationType.timeRange:
+        // Ensure start is before end? Or just that both exist? For now, just existence.
+        return startTimeOfDay != null && endTimeOfDay != null;
+      // Default case should not happen if type is always set
+    }
+    // return dateTime != null || timeRange != null; // Old logic
   }
 
   @override
   List<Object?> get props => [
     id,
     title,
+    timeSpecificationType, // <<< 追加
     dateTime,
+    startTimeOfDay, // <<< 追加
+    endTimeOfDay, // <<< 追加
     timeRange,
     timerType,
     repeatType,
@@ -95,8 +127,12 @@ class TimerEntity extends Equatable {
   TimerEntity copyWith({
     String? id,
     String? title,
-    DateTime? dateTime,
-    String? timeRange,
+    TimeSpecificationType? timeSpecificationType, // <<< 追加
+    // Use ValueGetter to allow explicitly setting to null
+    ValueGetter<DateTime?>? dateTime,
+    ValueGetter<TimeOfDay?>? startTimeOfDay, // <<< 追加
+    ValueGetter<TimeOfDay?>? endTimeOfDay, // <<< 追加
+    ValueGetter<String?>? timeRange,
     TimerType? timerType,
     RepeatType? repeatType,
     List<String>? characterIds,
@@ -109,8 +145,16 @@ class TimerEntity extends Equatable {
     return TimerEntity(
       id: id ?? this.id,
       title: title ?? this.title,
-      dateTime: dateTime ?? this.dateTime,
-      timeRange: timeRange ?? this.timeRange,
+      timeSpecificationType:
+          timeSpecificationType ?? this.timeSpecificationType, // <<< 追加
+      dateTime: dateTime != null ? dateTime() : this.dateTime,
+      startTimeOfDay:
+          startTimeOfDay != null
+              ? startTimeOfDay()
+              : this.startTimeOfDay, // <<< 追加
+      endTimeOfDay:
+          endTimeOfDay != null ? endTimeOfDay() : this.endTimeOfDay, // <<< 追加
+      timeRange: timeRange != null ? timeRange() : this.timeRange,
       timerType: timerType ?? this.timerType,
       repeatType: repeatType ?? this.repeatType,
       characterIds: characterIds ?? this.characterIds,

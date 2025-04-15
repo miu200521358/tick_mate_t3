@@ -45,6 +45,7 @@ void main() {
     registerFallbackValue(
       const TimerCreated(
         title: 'test',
+        timeSpecificationType: TimeSpecificationType.dateTime, // <<< 追加
         timerType: TimerType.schedule,
         repeatType: RepeatType.none,
         characterIds: ['test'],
@@ -109,6 +110,7 @@ void main() {
       final initialTimer = TimerEntity(
         id: 'test_id',
         title: 'テストタイマー',
+        timeSpecificationType: TimeSpecificationType.dateTime, // <<< 追加
         timerType: TimerType.schedule,
         repeatType: RepeatType.none,
         characterIds: ['test_character_id'],

@@ -15,6 +15,7 @@ void main() {
   final testTimerEntity = TimerEntity(
     id: 'test_timer_1',
     title: 'テストタイマー',
+    timeSpecificationType: TimeSpecificationType.dateTime, // <<< 追加
     dateTime: testDateTime,
     timeRange: '10:00-11:00',
     timerType: TimerType.schedule,

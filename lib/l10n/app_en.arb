@@ -99,5 +99,13 @@
   "selectTime": "Select Time",
   "dateTimePickerTitle": "Select Date and Time",
   "dateTimePickerConfirm": "Confirm",
-  "dateTimePickerCancel": "Cancel"
+  "dateTimePickerCancel": "Cancel",
+  "timeSpecificationTypeLabel": "Time Specification Type",
+  "timeSpecTypeDateTime": "Set Date/Time",
+  "timeSpecTypeSpecificTime": "Specific Time Only",
+  "timeSpecTypeTimeRange": "Specific Time Range",
+  "timePickerLabelFrom": "From",
+  "timePickerLabelTo": "To",
+  "timePickerLabel": "Time"
+
 }

@@ -26,16 +26,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ok => 'OK';
 
   @override
-  String get errorServerMessage =>
-      'An error occurred while communicating with the server.';
+  String get errorServerMessage => 'An error occurred while communicating with the server.';
 
   @override
-  String get errorNetworkMessage =>
-      'There is a problem with the network connection. Please check your internet connection.';
+  String get errorNetworkMessage => 'There is a problem with the network connection. Please check your internet connection.';
 
   @override
-  String get errorTimeoutMessage =>
-      'No response from the server. Please try again later.';
+  String get errorTimeoutMessage => 'No response from the server. Please try again later.';
 
   @override
   String get errorCacheMessage => 'Failed to load data.';
@@ -74,8 +71,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get geminiApiKeySettings => 'Gemini API Key Settings';
 
   @override
-  String get geminiApiKeyDescription =>
-      'Please enter your Google Gemini API key. The API key will be stored in the device\'s secure storage and will only be used within the app.';
+  String get geminiApiKeyDescription => 'Please enter your Google Gemini API key. The API key will be stored in the device\'s secure storage and will only be used within the app.';
 
   @override
   String get geminiApiKey => 'Gemini API key';
@@ -172,4 +168,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dateTimePickerCancel => 'Cancel';
+
+  @override
+  String get timeSpecificationTypeLabel => 'Time Specification Type';
+
+  @override
+  String get timeSpecTypeDateTime => 'Set Date/Time';
+
+  @override
+  String get timeSpecTypeSpecificTime => 'Specific Time Only';
+
+  @override
+  String get timeSpecTypeTimeRange => 'Specific Time Range';
+
+  @override
+  String get timePickerLabelFrom => 'From';
+
+  @override
+  String get timePickerLabelTo => 'To';
+
+  @override
+  String get timePickerLabel => 'Time';
 }

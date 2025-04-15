@@ -36,8 +36,11 @@ class MockTimerBloc extends Mock implements TimerBloc {
         TimerEntity(
           id: '1',
           title: 'テストタイマー',
+          timeSpecificationType:
+              TimeSpecificationType.timeRange, // <<< 修正 (timeRangeがあるので)
           dateTime: null,
-          timeRange: '9:00-10:00',
+          timeRange:
+              '9:00-10:00', // TODO: This should likely use TimeOfDay fields now
           timerType: TimerType.schedule,
           repeatType: RepeatType.none,
           characterIds: ['test_character'],
@@ -134,8 +137,11 @@ void main() {
       TimerEntity(
         id: '1',
         title: 'テストタイマー',
+        timeSpecificationType:
+            TimeSpecificationType.timeRange, // <<< 修正 (timeRangeがあるので)
         dateTime: null,
-        timeRange: '9:00-10:00',
+        timeRange:
+            '9:00-10:00', // TODO: This should likely use TimeOfDay fields now
         timerType: TimerType.schedule,
         repeatType: RepeatType.none,
         characterIds: ['test_character'],

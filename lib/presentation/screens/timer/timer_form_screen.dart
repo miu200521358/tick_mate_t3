@@ -9,6 +9,7 @@ import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_event.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 import 'package:tick_mate/presentation/widgets/date_time_picker_widget.dart';
+import 'package:tick_mate/presentation/widgets/time_picker_widget.dart'; // <<< 追加
 
 /// タイマー作成画面
 class TimerFormScreen extends StatefulWidget {
@@ -25,10 +26,17 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
 
+  // <<< 状態変数を追加・変更 >>>
+  TimeSpecificationType _timeSpecificationType =
+      TimeSpecificationType.dateTime; // Default
   DateTime? _selectedDateTime;
-  TimerType _timerType = TimerType.schedule;
-  RepeatType _repeatType = RepeatType.none;
-  final List<String> _characterIds = ['sample_character_id'];
+  TimeOfDay? _startTimeOfDay;
+  TimeOfDay? _endTimeOfDay;
+  TimerType _timerType = TimerType.schedule; // Keep existing fields for now
+  RepeatType _repeatType = RepeatType.none; // Keep existing fields for now
+  final List<String> _characterIds = [
+    'sample_character_id',
+  ]; // Keep existing fields for now
 
   @override
   void initState() {
@@ -45,24 +53,45 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
   /// フォームの初期値を設定
   void _initializeFormValues() {
     if (widget.initialTimer != null) {
-      _titleController.text = widget.initialTimer!.title;
+      final timer = widget.initialTimer!;
+      _titleController.text = timer.title;
+      _timeSpecificationType = timer.timeSpecificationType; // <<< 追加
       // Convert UTC DateTime from entity to local time for the picker
-      _selectedDateTime = widget.initialTimer!.dateTime?.toLocal();
-      _timerType = widget.initialTimer!.timerType;
-      _repeatType = widget.initialTimer!.repeatType;
+      _selectedDateTime = timer.dateTime?.toLocal();
+      _startTimeOfDay = timer.startTimeOfDay; // <<< 追加
+      _endTimeOfDay = timer.endTimeOfDay; // <<< 追加
+      _timerType = timer.timerType;
+      _repeatType = timer.repeatType;
       _characterIds.clear();
-      _characterIds.addAll(widget.initialTimer!.characterIds);
+      _characterIds.addAll(timer.characterIds);
     }
   }
 
   /// タイマーの作成または更新を行う
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
+      // TODO: Add validation for time pickers based on _timeSpecificationType
+      // e.g., ensure start time is before end time for timeRange
+
       context.read<TimerBloc>().add(
         TimerCreated(
           title: _titleController.text,
-          dateTime: _selectedDateTime,
-          timeRange: null, // TODO: 時間範囲入力機能は別Issueで実装予定
+          // <<< Pass new fields to event >>>
+          timeSpecificationType: _timeSpecificationType,
+          dateTime:
+              _timeSpecificationType == TimeSpecificationType.dateTime
+                  ? _selectedDateTime
+                  : null,
+          startTimeOfDay:
+              (_timeSpecificationType == TimeSpecificationType.specificTime ||
+                      _timeSpecificationType == TimeSpecificationType.timeRange)
+                  ? _startTimeOfDay
+                  : null,
+          endTimeOfDay:
+              _timeSpecificationType == TimeSpecificationType.timeRange
+                  ? _endTimeOfDay
+                  : null,
+          timeRange: null, // Keep null for now, as per original TODO
           timerType: _timerType,
           repeatType: _repeatType,
           characterIds: _characterIds,
@@ -72,30 +101,108 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
     }
   }
 
+  // Helper to build the time specification dropdown items
+  List<DropdownMenuItem<TimeSpecificationType>> _buildTimeSpecDropdownItems(
+    AppLocalizations l10n,
+  ) {
+    return TimeSpecificationType.values.map((type) {
+      String text;
+      switch (type) {
+        case TimeSpecificationType.dateTime:
+          text = l10n.timeSpecTypeDateTime;
+          break;
+        case TimeSpecificationType.specificTime:
+          text = l10n.timeSpecTypeSpecificTime;
+          break;
+        case TimeSpecificationType.timeRange:
+          text = l10n.timeSpecTypeTimeRange;
+          break;
+      }
+      return DropdownMenuItem(value: type, child: Text(text));
+    }).toList();
+  }
+
+  // Helper to build the conditional time input widget
+  Widget _buildTimeInputWidget(AppLocalizations l10n) {
+    switch (_timeSpecificationType) {
+      case TimeSpecificationType.dateTime:
+        return DateTimePickerWidget(
+          initialDateTime: _selectedDateTime,
+          onDateTimeSelected: (dateTime) {
+            setState(() {
+              _selectedDateTime = dateTime;
+              // Clear other time fields when switching type
+              _startTimeOfDay = null;
+              _endTimeOfDay = null;
+            });
+          },
+        );
+      case TimeSpecificationType.specificTime:
+        return TimePickerWidget(
+          initialTimeOfDay: _startTimeOfDay,
+          labelText: l10n.timePickerLabel,
+          onTimeSelected: (time) {
+            setState(() {
+              _startTimeOfDay = time;
+              // Clear other time fields when switching type
+              _selectedDateTime = null;
+              _endTimeOfDay = null;
+            });
+          },
+        );
+      case TimeSpecificationType.timeRange:
+        return Column(
+          children: [
+            TimePickerWidget(
+              initialTimeOfDay: _startTimeOfDay,
+              labelText: l10n.timePickerLabelFrom,
+              onTimeSelected: (time) {
+                setState(() {
+                  _startTimeOfDay = time;
+                  // Clear other time fields when switching type
+                  _selectedDateTime = null;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+            TimePickerWidget(
+              initialTimeOfDay: _endTimeOfDay,
+              labelText: l10n.timePickerLabelTo,
+              onTimeSelected: (time) {
+                setState(() {
+                  _endTimeOfDay = time;
+                  // Clear other time fields when switching type
+                  _selectedDateTime = null;
+                });
+              },
+            ),
+          ],
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final errorHandler = GetIt.instance<ErrorHandlerService>(); // <<< 追加
+    final errorHandler = GetIt.instance<ErrorHandlerService>();
 
-    // <<< BlocListener で Scaffold をラップ >>>
     return BlocListener<TimerBloc, TimerState>(
       listener: (context, state) {
         if (state is TimerError) {
-          // エラーダイアログを表示 (ナビゲーションはしない)
           errorHandler.showErrorDialog(
             context,
             state.message,
-            title: l10n.error(''), // Use generic error title for now
+            title: l10n.error(''),
           );
         } else if (state is TimerCreateSuccess) {
-          // 成功したら前の画面に戻る
           Navigator.pop(context);
         }
       },
       child: Scaffold(
-        // <<< 元の Scaffold は child になる >>>
         appBar: AppBar(
-          title: Text(l10n.addTimer),
+          title: Text(
+            widget.initialTimer == null ? l10n.addTimer : 'タイマー編集',
+          ), // TODO: Localize edit title
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: SingleChildScrollView(
@@ -109,44 +216,62 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
                 TextFormField(
                   controller: _titleController,
                   decoration: InputDecoration(
-                    labelText:
-                        l10n.addTimer, // Consider a more specific label like "Timer Title"
+                    labelText: 'タイマー名', // TODO: Localize "Timer Title"
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'タイトルを入力してください'; // TODO: 多言語対応
+                      return 'タイトルを入力してください'; // TODO: Localize validation
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
 
-                // 日時ピッカー
-                DateTimePickerWidget(
-                  initialDateTime: _selectedDateTime,
-                  onDateTimeSelected: (dateTime) {
-                    setState(() {
-                      _selectedDateTime = dateTime;
-                    });
+                // <<< 時間指定種別ドロップダウンを追加 >>>
+                DropdownButtonFormField<TimeSpecificationType>(
+                  value: _timeSpecificationType,
+                  decoration: InputDecoration(
+                    labelText: l10n.timeSpecificationTypeLabel,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  items: _buildTimeSpecDropdownItems(l10n),
+                  onChanged: (TimeSpecificationType? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _timeSpecificationType = newValue;
+                        // Reset time fields when type changes to avoid inconsistent state
+                        _selectedDateTime = null;
+                        _startTimeOfDay = null;
+                        _endTimeOfDay = null;
+                      });
+                    }
                   },
                 ),
+                const SizedBox(height: 16),
+
+                // <<< 条件付き時間入力ウィジェット >>>
+                _buildTimeInputWidget(l10n),
                 const SizedBox(height: 32),
 
                 // 送信ボタン
                 Center(
                   child: ElevatedButton(
                     onPressed: _submitForm,
-                    child: Text(l10n.dateTimePickerConfirm),
+                    child: Text(
+                      l10n.dateTimePickerConfirm,
+                    ), // Use confirm label for save
                   ),
                 ),
               ],
             ),
           ),
         ),
-      ), // <<< Scaffold の終わり >>>
-    ); // <<< BlocListener の終わり >>>
+      ),
+    );
   }
 }

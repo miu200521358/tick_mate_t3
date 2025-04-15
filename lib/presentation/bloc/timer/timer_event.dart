@@ -24,7 +24,10 @@ class TimersLoaded extends TimerEvent {
 class TimerCreated extends TimerEvent {
   const TimerCreated({
     required this.title,
+    required this.timeSpecificationType, // <<< 追加
     this.dateTime,
+    this.startTimeOfDay, // <<< 追加
+    this.endTimeOfDay, // <<< 追加
     this.timeRange,
     required this.timerType,
     required this.repeatType,
@@ -36,7 +39,10 @@ class TimerCreated extends TimerEvent {
   });
 
   final String title;
+  final TimeSpecificationType timeSpecificationType; // <<< 追加
   final DateTime? dateTime;
+  final TimeOfDay? startTimeOfDay; // <<< 追加
+  final TimeOfDay? endTimeOfDay; // <<< 追加
   final String? timeRange;
   final TimerType timerType;
   final RepeatType repeatType;
@@ -49,7 +55,10 @@ class TimerCreated extends TimerEvent {
   @override
   List<Object?> get props => [
     title,
+    timeSpecificationType, // <<< 追加
     dateTime,
+    startTimeOfDay, // <<< 追加
+    endTimeOfDay, // <<< 追加
     timeRange,
     timerType,
     repeatType,
