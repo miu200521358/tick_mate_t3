@@ -8,6 +8,7 @@ import 'package:tick_mate/core/services/error_handler_service.dart';
 import 'package:tick_mate/data/datasources/local/secure_storage_datasource.dart';
 import 'package:tick_mate/data/datasources/remote/gemini_api_client.dart';
 import 'package:tick_mate/data/datasources/remote/http_client.dart';
+import 'package:tick_mate/data/datasources/remote/interceptors/auth_interceptor.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/logging_interceptor.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/retry_interceptor.dart';
 
@@ -26,12 +27,18 @@ abstract class AppModule {
   @lazySingleton
   Random get random => Random();
 
+  /// AuthInterceptorインスタンスを提供
+  @lazySingleton
+  AuthInterceptor provideAuthInterceptor() => AuthInterceptor();
+
   /// HttpClientインスタンスを提供
+  @lazySingleton
   HttpClient provideHttpClient(
     Dio dio,
     LoggingInterceptor loggingInterceptor,
     RetryInterceptor retryInterceptor,
-  ) => HttpClient(dio, loggingInterceptor, retryInterceptor);
+    AuthInterceptor authInterceptor,
+  ) => HttpClient(dio, loggingInterceptor, retryInterceptor, authInterceptor);
 
   /// GeminiApiClientを環境に応じて提供
   @lazySingleton

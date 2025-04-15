@@ -25,12 +25,20 @@ abstract class BaseApiClient {
     });
   }
 
+  /// エラー通知コールバック型定義
+  typedef OnErrorCallback = void Function(Exception error, String requestPath);
+
   /// GETリクエストを送信
   Future<dynamic> get(
     String path, {
     Map<String, dynamic>? queryParameters,
+    OnErrorCallback? onError,
   }) async {
-    return _httpClient.get(path, queryParameters: queryParameters);
+    return _httpClient.get(
+      path, 
+      queryParameters: queryParameters,
+      onError: onError,
+    );
   }
 
   /// POSTリクエストを送信
@@ -38,8 +46,14 @@ abstract class BaseApiClient {
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    OnErrorCallback? onError,
   }) async {
-    return _httpClient.post(path, data: data, queryParameters: queryParameters);
+    return _httpClient.post(
+      path, 
+      data: data, 
+      queryParameters: queryParameters,
+      onError: onError,
+    );
   }
 
   /// PUTリクエストを送信
@@ -47,8 +61,14 @@ abstract class BaseApiClient {
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    OnErrorCallback? onError,
   }) async {
-    return _httpClient.put(path, data: data, queryParameters: queryParameters);
+    return _httpClient.put(
+      path, 
+      data: data, 
+      queryParameters: queryParameters,
+      onError: onError,
+    );
   }
 
   /// DELETEリクエストを送信
@@ -56,11 +76,13 @@ abstract class BaseApiClient {
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    OnErrorCallback? onError,
   }) async {
     return _httpClient.delete(
       path,
       data: data,
       queryParameters: queryParameters,
+      onError: onError,
     );
   }
 }

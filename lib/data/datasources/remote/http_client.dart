@@ -1,12 +1,22 @@
 import 'package:dio/dio.dart';
 import 'package:tick_mate/core/error/exceptions.dart';
+import 'package:tick_mate/data/datasources/remote/interceptors/auth_interceptor.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/logging_interceptor.dart';
 import 'package:tick_mate/data/datasources/remote/interceptors/retry_interceptor.dart';
 
 /// DioをラップするカスタムHTTPクライアント
 class HttpClient {
-  HttpClient(this._dio, this._loggingInterceptor, this._retryInterceptor) {
-    _dio.interceptors.addAll([_loggingInterceptor, _retryInterceptor]);
+  HttpClient(
+    this._dio,
+    this._loggingInterceptor,
+    this._retryInterceptor,
+    this._authInterceptor,
+  ) {
+    _dio.interceptors.addAll([
+      _loggingInterceptor,
+      _retryInterceptor,
+      _authInterceptor,
+    ]);
 
     // デフォルトのタイムアウト設定
     _dio.options.connectTimeout = const Duration(seconds: 10);
@@ -17,6 +27,18 @@ class HttpClient {
   final Dio _dio;
   final LoggingInterceptor _loggingInterceptor;
   final RetryInterceptor _retryInterceptor;
+  final AuthInterceptor _authInterceptor;
+
+  /// エラー通知コールバック型定義
+  typedef OnErrorCallback = void Function(Exception error, String requestPath);
+
+  /// エラー通知コールバック
+  OnErrorCallback? _onErrorCallback;
+
+  /// エラー通知コールバックを設定
+  void setOnErrorCallback(OnErrorCallback callback) {
+    _onErrorCallback = callback;
+  }
 
   /// リクエストオプションを準備
   Options _prepareOptions(Options? options) {
@@ -25,6 +47,30 @@ class HttpClient {
     requestOptions.extra = {...requestOptions.extra ?? {}, 'dio': _dio};
     return requestOptions;
   }
+  
+  /// APIごとの特別なタイムアウト設定を適用
+  void setCustomTimeout({
+    Duration? connectTimeout,
+    Duration? receiveTimeout,
+    Duration? sendTimeout,
+  }) {
+    if (connectTimeout != null) {
+      _dio.options.connectTimeout = connectTimeout;
+    }
+    if (receiveTimeout != null) {
+      _dio.options.receiveTimeout = receiveTimeout;
+    }
+    if (sendTimeout != null) {
+      _dio.options.sendTimeout = sendTimeout;
+    }
+  }
+  
+  /// デフォルトのタイムアウト設定に戻す
+  void resetToDefaultTimeout() {
+    _dio.options.connectTimeout = const Duration(seconds: 10);
+    _dio.options.receiveTimeout = const Duration(seconds: 10);
+    _dio.options.sendTimeout = const Duration(seconds: 10);
+  }
 
   /// GETリクエストを送信
   Future<dynamic> get(
@@ -32,6 +78,7 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
+    OnErrorCallback? onError,
   }) async {
     try {
       final response = await _dio.get(
@@ -42,7 +89,18 @@ class HttpClient {
       );
       return response.data;
     } on DioException catch (e) {
-      throw _handleError(e);
+      final error = _handleError(e);
+      
+      // ローカルのエラーコールバックがある場合は実行
+      if (onError != null) {
+        onError(error, url);
+      } 
+      // グローバルのエラーコールバックがある場合は実行
+      else if (_onErrorCallback != null) {
+        _onErrorCallback!(error, url);
+      }
+      
+      throw error;
     }
   }
 
@@ -53,6 +111,7 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
+    OnErrorCallback? onError,
   }) async {
     try {
       final response = await _dio.post(
@@ -64,7 +123,18 @@ class HttpClient {
       );
       return response.data;
     } on DioException catch (e) {
-      throw _handleError(e);
+      final error = _handleError(e);
+      
+      // ローカルのエラーコールバックがある場合は実行
+      if (onError != null) {
+        onError(error, url);
+      } 
+      // グローバルのエラーコールバックがある場合は実行
+      else if (_onErrorCallback != null) {
+        _onErrorCallback!(error, url);
+      }
+      
+      throw error;
     }
   }
 
@@ -75,6 +145,7 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
+    OnErrorCallback? onError,
   }) async {
     try {
       final response = await _dio.put(
@@ -86,7 +157,18 @@ class HttpClient {
       );
       return response.data;
     } on DioException catch (e) {
-      throw _handleError(e);
+      final error = _handleError(e);
+      
+      // ローカルのエラーコールバックがある場合は実行
+      if (onError != null) {
+        onError(error, url);
+      } 
+      // グローバルのエラーコールバックがある場合は実行
+      else if (_onErrorCallback != null) {
+        _onErrorCallback!(error, url);
+      }
+      
+      throw error;
     }
   }
 
@@ -97,6 +179,7 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
+    OnErrorCallback? onError,
   }) async {
     try {
       final response = await _dio.delete(
@@ -108,7 +191,18 @@ class HttpClient {
       );
       return response.data;
     } on DioException catch (e) {
-      throw _handleError(e);
+      final error = _handleError(e);
+      
+      // ローカルのエラーコールバックがある場合は実行
+      if (onError != null) {
+        onError(error, url);
+      } 
+      // グローバルのエラーコールバックがある場合は実行
+      else if (_onErrorCallback != null) {
+        _onErrorCallback!(error, url);
+      }
+      
+      throw error;
     }
   }
 
