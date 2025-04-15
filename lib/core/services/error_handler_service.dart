@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:tick_mate/core/error/exceptions.dart';
-import 'package:tick_mate/core/log/logger.dart';
+import 'package:tick_mate/core/utils/log/log_util.dart';
 import 'package:tick_mate/l10n/app_localizations.dart';
 
 /// エラーハンドラサービス
@@ -34,7 +34,7 @@ class ErrorHandlerService {
     );
 
     // ログに記録
-    Logger.e('エラーが発生しました: ${appException.message}', appException, stackTrace);
+    LogUtil.e('エラーが発生しました: ${appException.message}', appException, stackTrace);
 
     // Crashlyticsに記録（オプション）
     if (recordToCrashlytics) {

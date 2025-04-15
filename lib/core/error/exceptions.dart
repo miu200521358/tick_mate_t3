@@ -1,4 +1,4 @@
-import 'package:tick_mate/core/log/logger.dart';
+import 'package:tick_mate/core/utils/log/log_util.dart';
 
 /// Base class for all application-specific exceptions.
 
@@ -13,7 +13,7 @@ class AppException implements Exception {
 
   /// エラーをCrashlyticsに記録する
   Future<void> recordToCrashlytics({bool fatal = false}) async {
-    await Logger.recordError(this, stackTrace, message: message, fatal: fatal);
+    await LogUtil.recordError(this, stackTrace, message: message, fatal: fatal);
   }
 }
 

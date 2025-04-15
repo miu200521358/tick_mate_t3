@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:tick_mate/core/log/logger.dart';
+import 'package:tick_mate/core/utils/log/log_util.dart';
 
 /// APIリクエスト/レスポンスのログを出力するインターセプター
 @injectable
 class LoggingInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    Logger.i(
+    LogUtil.i(
       'REQUEST[${options.method}] => PATH: ${options.path}\n'
       'HEADERS: ${options.headers}\n'
       'BODY: ${options.data}',
@@ -17,7 +17,7 @@ class LoggingInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    Logger.i(
+    LogUtil.i(
       'RESPONSE[${response.statusCode}] <= PATH: ${response.requestOptions.path}\n'
       'BODY: ${response.data}',
     );
@@ -26,7 +26,7 @@ class LoggingInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    Logger.e(
+    LogUtil.e(
       'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}\n'
       'MESSAGE: ${err.message}\n'
       'ERROR: ${err.error}\n'
