@@ -92,7 +92,8 @@ flutter_launcher_icons: # Corrected key
   adaptive_icon_foreground: "assets/icon/app_icon.png" # 同上（前景）
 
 flutter_native_splash:
-  image: assets/icon/splash_icon.png # スプラッシュに表示するアイコン
+  color: "#29ABE2" # スプラッシュの背景色
+  image: assets/icon/app_icon.png # スプラッシュに表示するアイコン
   android: true
   ios: true
   web: false # Assuming web is not targeted
