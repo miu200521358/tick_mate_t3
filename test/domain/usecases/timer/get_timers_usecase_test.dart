@@ -17,6 +17,7 @@ void main() {
   final testTimer1 = TimerEntity(
     id: 'test_timer_1',
     title: 'テストタイマー1',
+    timeSpecificationType: TimeSpecificationType.dateTime, // <<< 追加
     dateTime: testDateTime,
     timeRange: '10:00-11:00',
     timerType: TimerType.schedule,
@@ -29,6 +30,7 @@ void main() {
   final testTimer2 = TimerEntity(
     id: 'test_timer_2',
     title: 'テストタイマー2',
+    timeSpecificationType: TimeSpecificationType.dateTime, // <<< 追加
     dateTime: testDateTime.add(const Duration(days: 1)),
     timeRange: '13:00-14:00',
     timerType: TimerType.status,

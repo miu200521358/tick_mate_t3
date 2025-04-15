@@ -55,8 +55,12 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       function:
           () async => _createTimerUseCase.execute(
             title: event.title,
+            // <<< Pass new fields to use case >>>
+            timeSpecificationType: event.timeSpecificationType,
             dateTime: event.dateTime,
-            timeRange: event.timeRange,
+            startTimeOfDay: event.startTimeOfDay,
+            endTimeOfDay: event.endTimeOfDay,
+            timeRange: event.timeRange, // Keep for now, review later
             timerType: event.timerType,
             repeatType: event.repeatType,
             characterIds: event.characterIds,
@@ -68,28 +72,24 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
       messageKey: 'errorCreatingTimer',
     ).then((timer) {
       if (timer != null) {
-        // ★★★ 追加: 成功状態をemitしてナビゲーションをトリガー ★★★
+        // Emit success state to trigger navigation or other UI updates
         emit(const TimerCreateSuccess());
-        // ★★★ ここまで ★★★
 
-        // 現在の状態がTimerLoadedの場合、新しいタイマーを追加
-        // Note: Check state *before* emitting TimerCreateSuccess might be safer
-        // if state transitions matter, but for now, follow the plan.
-        // Re-checking state after emitting success state.
-        final currentStateSnapshot =
-            state; // Capture state before potential async gap
+        // Update the list of timers if the current state is TimerLoaded
+        final currentStateSnapshot = state; // Capture state after success emit
         if (currentStateSnapshot is TimerLoaded) {
           final updatedTimers = List<TimerEntity>.from(
             currentStateSnapshot.timers,
           )..add(timer);
+          // Emit updated loaded state *after* the success state
           emit(currentStateSnapshot.copyWith(timers: updatedTimers));
         } else {
-          // If the state wasn't TimerLoaded (e.g., TimerInitial, TimerLoading, or even TimerError briefly),
-          // just load the single new timer.
+          // If the state wasn't TimerLoaded, load the single new timer.
+          // This might happen if creation is the first action.
           emit(TimerLoaded(timers: [timer]));
         }
       }
-      // エラー時は BlocErrorHandler が TimerError を emit する
+      // Errors are handled by BlocErrorHandler, which emits TimerError
     });
   }
 

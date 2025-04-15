@@ -99,5 +99,13 @@
   "selectTime": "時刻を選択",
   "dateTimePickerTitle": "日時を選択",
   "dateTimePickerConfirm": "確定",
-  "dateTimePickerCancel": "キャンセル"
+  "dateTimePickerCancel": "キャンセル",
+  "timeSpecificationTypeLabel": "時間指定種別",
+  "timeSpecTypeDateTime": "日時の設定",
+  "timeSpecTypeSpecificTime": "特定時間のみ",
+  "timeSpecTypeTimeRange": "特定時間範囲",
+  "timePickerLabelFrom": "開始時刻",
+  "timePickerLabelTo": "終了時刻",
+  "timePickerLabel": "時刻"
+
 }
