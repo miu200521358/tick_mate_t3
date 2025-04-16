@@ -58,6 +58,8 @@
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>キャラクター画像を選択するために写真ライブラリへのアクセスが必要です。</string>
 		<key>UIStatusBarHidden</key>
+		<true/>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 	</dict>
 </plist>
