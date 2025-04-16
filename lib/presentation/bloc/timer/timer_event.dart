@@ -31,6 +31,7 @@ class TimerCreated extends TimerEvent {
     this.timeRange,
     required this.timerType,
     required this.repeatType,
+    this.repeatDetails = const {}, // 繰り返しパターンの詳細情報
     required this.characterIds,
     this.notificationSound,
     this.location,
@@ -46,6 +47,7 @@ class TimerCreated extends TimerEvent {
   final String? timeRange;
   final TimerType timerType;
   final RepeatType repeatType;
+  final Map<String, dynamic> repeatDetails;
   final List<String> characterIds;
   final String? notificationSound;
   final String? location;
@@ -62,6 +64,7 @@ class TimerCreated extends TimerEvent {
     timeRange,
     timerType,
     repeatType,
+    repeatDetails,
     characterIds,
     notificationSound,
     location,

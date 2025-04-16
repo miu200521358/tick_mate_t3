@@ -119,5 +119,19 @@
   "repeatBimonthlyByWeekday": "隔月（第n曜日）",
   "repeatMonthlyByDay": "毎月（n日）",
   "repeatBimonthlyByDay": "隔月（n日）",
-  "repeatYearly": "毎年（月日指定）"
+  "repeatYearly": "毎年（月日指定）",
+  
+  "monday": "月曜日",
+  "tuesday": "火曜日",
+  "wednesday": "水曜日",
+  "thursday": "木曜日",
+  "friday": "金曜日",
+  "saturday": "土曜日",
+  "sunday": "日曜日",
+  
+  "firstWeek": "第1",
+  "secondWeek": "第2",
+  "thirdWeek": "第3",
+  "fourthWeek": "第4",
+  "lastWeek": "最終"
 }

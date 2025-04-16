@@ -119,5 +119,19 @@
   "repeatBimonthlyByWeekday": "Bi-monthly (nth weekday)",
   "repeatMonthlyByDay": "Monthly (day of month)",
   "repeatBimonthlyByDay": "Bi-monthly (day of month)",
-  "repeatYearly": "Yearly (month and day)"
+  "repeatYearly": "Yearly (month and day)",
+  
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  
+  "firstWeek": "1st",
+  "secondWeek": "2nd",
+  "thirdWeek": "3rd",
+  "fourthWeek": "4th",
+  "lastWeek": "Last"
 }

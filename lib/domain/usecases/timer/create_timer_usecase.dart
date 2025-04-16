@@ -20,6 +20,7 @@ class CreateTimerUseCase {
     String? timeRange, // Keep for now, review later
     required TimerType timerType,
     required RepeatType repeatType,
+    Map<String, dynamic> repeatDetails = const {}, // 繰り返しパターンの詳細情報
     required List<String> characterIds,
     String? notificationSound,
     String? location,
@@ -71,6 +72,7 @@ class CreateTimerUseCase {
       timeRange: timeRange, // Keep for now
       timerType: timerType,
       repeatType: repeatType,
+      repeatDetails: repeatDetails, // 繰り返しパターンの詳細情報
       characterIds: characterIds,
       notificationSound: notificationSound,
       location: location,

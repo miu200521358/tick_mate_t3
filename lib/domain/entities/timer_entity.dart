@@ -70,6 +70,7 @@ class TimerEntity extends Equatable {
     this.timeRange, // TODO: Review if this is still needed or replaced by startTimeOfDay/endTimeOfDay
     required this.timerType,
     required this.repeatType,
+    this.repeatDetails = const {}, // 繰り返しパターンの詳細情報
     required this.characterIds,
     this.notificationSound,
     this.location,
@@ -121,6 +122,7 @@ class TimerEntity extends Equatable {
     timeRange,
     timerType,
     repeatType,
+    repeatDetails,
     characterIds,
     notificationSound,
     location,
@@ -141,6 +143,7 @@ class TimerEntity extends Equatable {
     ValueGetter<String?>? timeRange,
     TimerType? timerType,
     RepeatType? repeatType,
+    Map<String, dynamic>? repeatDetails,
     List<String>? characterIds,
     String? notificationSound,
     String? location,
@@ -163,6 +166,7 @@ class TimerEntity extends Equatable {
       timeRange: timeRange != null ? timeRange() : this.timeRange,
       timerType: timerType ?? this.timerType,
       repeatType: repeatType ?? this.repeatType,
+      repeatDetails: repeatDetails ?? this.repeatDetails,
       characterIds: characterIds ?? this.characterIds,
       notificationSound: notificationSound ?? this.notificationSound,
       location: location ?? this.location,
