@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tick_mate/domain/entities/timer_entity.dart';
-import 'package:tick_mate/gen/l10n/app_localizations.dart';
 import 'package:tick_mate/presentation/bloc/app/app_bloc.dart';
 import 'package:tick_mate/presentation/bloc/app/app_state.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
-import 'package:tick_mate/presentation/screens/home/home_screen.dart';
 
 class MockTimerBloc extends Mock implements TimerBloc {}
 class MockAppBloc extends Mock implements AppBloc {}
@@ -25,6 +21,9 @@ void main() {
     when(() => mockAppBloc.state).thenReturn(const AppReady());
   });
 
+  // このテストは現在スキップされているため、ウィジェット作成関数も使用されていません
+  // 将来的にテストを復活させる際に必要になるため、コメントとして残しておきます
+  /*
   Widget createWidgetUnderTest() {
     return MaterialApp(
       localizationsDelegates: const [
@@ -48,6 +47,7 @@ void main() {
       ),
     );
   }
+  */
 
   group('HomeScreen', () {
     testWidgets('タイマーリストが表示されること', (WidgetTester tester) async {
@@ -86,6 +86,8 @@ void main() {
       // このテストは現在スキップされています
       // 繰り返しパターン機能の実装に伴い、ホーム画面のテストは別のPRで修正する予定です
       // TODO: 適切なテストを実装する
+      
+      // Note: createWidgetUnderTest関数は現在使用されていないためコメントアウトしています
     });
   });
 }
