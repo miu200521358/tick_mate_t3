@@ -185,7 +185,10 @@ void main() {
       await tester.pumpAndSettle();
 
       // 毎日のラジオボタンを選択
-      await tester.tap(find.widgetWithText(RadioListTile<RepeatType>, '毎日'));
+      final dailyRadio = find.text('毎日').first;
+      await tester.ensureVisible(dailyRadio);
+      await tester.pumpAndSettle();
+      await tester.tap(dailyRadio);
       await tester.pumpAndSettle();
 
       // タイトルを入力
