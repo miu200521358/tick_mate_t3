@@ -63,6 +63,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
             timeRange: event.timeRange, // Keep for now, review later
             timerType: event.timerType,
             repeatType: event.repeatType,
+            repeatDetails: event.repeatDetails,
             characterIds: event.characterIds,
             notificationSound: event.notificationSound,
             location: event.location,

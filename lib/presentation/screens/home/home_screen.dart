@@ -57,6 +57,8 @@ class HomeScreen extends StatelessWidget {
                           dateTime: timer.dateTime,
                           timeRange: timer.timeRange,
                           timerType: timer.timerType.toString().split('.').last,
+                          repeatType:
+                              timer.repeatType.toString().split('.').last,
                           characters: timer.characterIds,
                           onTap: () {
                             // TODO: タイマー詳細画面への遷移を実装

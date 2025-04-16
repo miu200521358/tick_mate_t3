@@ -103,6 +103,11 @@ void main() {
       expect(find.byType(TextFormField), findsOneWidget);
       expect(find.byType(ElevatedButton), findsOneWidget);
       expect(find.text('確定'), findsOneWidget);
+      
+      // 繰り返しパターンのUIが表示されていることを確認
+      expect(find.text('繰り返しパターン'), findsOneWidget);
+      expect(find.byType(RadioListTile<RepeatType>), findsAtLeastNWidgets(1)); // 繰り返しパターンのラジオボタン
+      expect(find.byWidgetPredicate((widget) => widget.toString().contains('DropdownButtonFormField')), findsAtLeastNWidgets(1)); // 時間指定種別のドロップダウン
     });
 
     testWidgets('初期タイマーがある場合、フォームに値が設定されること', (WidgetTester tester) async {
@@ -128,6 +133,7 @@ void main() {
 
       // Assert
       expect(find.text('テストタイマー'), findsOneWidget);
+      expect(find.text('繰り返しなし'), findsOneWidget); // 初期値の繰り返しパターンが表示されていることを確認
     });
 
     testWidgets('タイトルを入力して送信ボタンをタップするとTimerCreatedイベントが発行されること', (
@@ -168,6 +174,38 @@ void main() {
 
       // Assert
       expect(find.text('タイトルを入力してください'), findsOneWidget);
+    });
+
+    testWidgets('繰り返しパターンを選択できること', (WidgetTester tester) async {
+      // Arrange
+      when(() => mockTimerBloc.state).thenReturn(const TimerInitial());
+
+      // Act
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      // 毎日のラジオボタンを選択
+      final dailyRadio = find.text('毎日').first;
+      await tester.ensureVisible(dailyRadio);
+      await tester.pumpAndSettle();
+      await tester.tap(dailyRadio);
+      await tester.pumpAndSettle();
+
+      // タイトルを入力
+      await tester.enterText(find.byType(TextFormField), 'テストタイマー');
+      await tester.pump();
+
+      // 送信ボタンをタップ
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+
+      // Assert
+      verify(() => mockTimerBloc.add(any(
+        that: predicate<TimerCreated>((event) => 
+          event.title == 'テストタイマー' && 
+          event.repeatType == RepeatType.daily
+        ),
+      ))).called(1);
     });
 
     testWidgets('タイマー作成成功時にトーストメッセージが表示されること', (WidgetTester tester) async {

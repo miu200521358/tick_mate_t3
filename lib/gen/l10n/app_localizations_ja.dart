@@ -192,4 +192,73 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get timerCreatedSuccessfully => 'タイマーが作成されました';
+
+  @override
+  String get repeatPattern => '繰り返しパターン';
+
+  @override
+  String get repeatNone => '繰り返しなし';
+
+  @override
+  String get repeatDaily => '毎日';
+
+  @override
+  String get repeatWeekdays => '平日（月〜金）';
+
+  @override
+  String get repeatWeekly => '毎週';
+
+  @override
+  String get repeatBiweekly => '隔週';
+
+  @override
+  String get repeatMonthlyByWeekday => '毎月（第n曜日）';
+
+  @override
+  String get repeatBimonthlyByWeekday => '隔月（第n曜日）';
+
+  @override
+  String get repeatMonthlyByDay => '毎月（n日）';
+
+  @override
+  String get repeatBimonthlyByDay => '隔月（n日）';
+
+  @override
+  String get repeatYearly => '毎年（月日指定）';
+
+  @override
+  String get monday => '月曜日';
+
+  @override
+  String get tuesday => '火曜日';
+
+  @override
+  String get wednesday => '水曜日';
+
+  @override
+  String get thursday => '木曜日';
+
+  @override
+  String get friday => '金曜日';
+
+  @override
+  String get saturday => '土曜日';
+
+  @override
+  String get sunday => '日曜日';
+
+  @override
+  String get firstWeek => '第1';
+
+  @override
+  String get secondWeek => '第2';
+
+  @override
+  String get thirdWeek => '第3';
+
+  @override
+  String get fourthWeek => '第4';
+
+  @override
+  String get lastWeek => '最終';
 }

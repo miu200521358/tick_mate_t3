@@ -192,4 +192,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timerCreatedSuccessfully => 'Timer created successfully';
+
+  @override
+  String get repeatPattern => 'Repeat Pattern';
+
+  @override
+  String get repeatNone => 'No Repeat';
+
+  @override
+  String get repeatDaily => 'Daily';
+
+  @override
+  String get repeatWeekdays => 'Weekdays (Mon-Fri)';
+
+  @override
+  String get repeatWeekly => 'Weekly';
+
+  @override
+  String get repeatBiweekly => 'Bi-weekly';
+
+  @override
+  String get repeatMonthlyByWeekday => 'Monthly (nth weekday)';
+
+  @override
+  String get repeatBimonthlyByWeekday => 'Bi-monthly (nth weekday)';
+
+  @override
+  String get repeatMonthlyByDay => 'Monthly (day of month)';
+
+  @override
+  String get repeatBimonthlyByDay => 'Bi-monthly (day of month)';
+
+  @override
+  String get repeatYearly => 'Yearly (month and day)';
+
+  @override
+  String get monday => 'Monday';
+
+  @override
+  String get tuesday => 'Tuesday';
+
+  @override
+  String get wednesday => 'Wednesday';
+
+  @override
+  String get thursday => 'Thursday';
+
+  @override
+  String get friday => 'Friday';
+
+  @override
+  String get saturday => 'Saturday';
+
+  @override
+  String get sunday => 'Sunday';
+
+  @override
+  String get firstWeek => '1st';
+
+  @override
+  String get secondWeek => '2nd';
+
+  @override
+  String get thirdWeek => '3rd';
+
+  @override
+  String get fourthWeek => '4th';
+
+  @override
+  String get lastWeek => 'Last';
 }

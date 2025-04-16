@@ -8,6 +8,7 @@ class TimerCardWidget extends StatelessWidget {
     this.dateTime,
     this.timeRange,
     required this.timerType,
+    required this.repeatType,
     required this.characters,
     required this.onTap,
   });
@@ -16,6 +17,7 @@ class TimerCardWidget extends StatelessWidget {
   final DateTime? dateTime;
   final String? timeRange;
   final String timerType;
+  final String repeatType;
   final List<String> characters;
   final VoidCallback onTap;
 
@@ -45,6 +47,11 @@ class TimerCardWidget extends StatelessWidget {
               const SizedBox(height: 4.0),
               Text(
                 'タイプ: $timerType',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 4.0),
+              Text(
+                '繰り返し: $repeatType',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 8.0),

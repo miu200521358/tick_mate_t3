@@ -18,6 +18,9 @@ enum RepeatType {
   /// 毎日
   daily,
 
+  /// 平日（月～金）
+  weekdays,
+
   /// 毎週
   weekly,
 
@@ -35,6 +38,9 @@ enum RepeatType {
 
   /// 隔月○日
   bimonthlyByDay,
+
+  /// 毎年○月○日
+  yearly,
 
   /// 一定日数おき
   customDays,
@@ -64,6 +70,7 @@ class TimerEntity extends Equatable {
     this.timeRange, // TODO: Review if this is still needed or replaced by startTimeOfDay/endTimeOfDay
     required this.timerType,
     required this.repeatType,
+    this.repeatDetails = const {}, // 繰り返しパターンの詳細情報
     required this.characterIds,
     this.notificationSound,
     this.location,
@@ -81,6 +88,7 @@ class TimerEntity extends Equatable {
   final String? timeRange; // Keep for now, review later if needed
   final TimerType timerType;
   final RepeatType repeatType;
+  final Map<String, dynamic> repeatDetails; // 繰り返しパターンの詳細情報
   final List<String> characterIds;
   final String? notificationSound;
   final String? location;
@@ -115,6 +123,7 @@ class TimerEntity extends Equatable {
     timeRange,
     timerType,
     repeatType,
+    repeatDetails,
     characterIds,
     notificationSound,
     location,
@@ -135,6 +144,7 @@ class TimerEntity extends Equatable {
     ValueGetter<String?>? timeRange,
     TimerType? timerType,
     RepeatType? repeatType,
+    Map<String, dynamic>? repeatDetails,
     List<String>? characterIds,
     String? notificationSound,
     String? location,
@@ -157,6 +167,7 @@ class TimerEntity extends Equatable {
       timeRange: timeRange != null ? timeRange() : this.timeRange,
       timerType: timerType ?? this.timerType,
       repeatType: repeatType ?? this.repeatType,
+      repeatDetails: repeatDetails ?? this.repeatDetails,
       characterIds: characterIds ?? this.characterIds,
       notificationSound: notificationSound ?? this.notificationSound,
       location: location ?? this.location,

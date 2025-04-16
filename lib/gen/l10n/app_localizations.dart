@@ -448,6 +448,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Timer created successfully'**
   String get timerCreatedSuccessfully;
+
+  /// No description provided for @repeatPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Pattern'**
+  String get repeatPattern;
+
+  /// No description provided for @repeatNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No Repeat'**
+  String get repeatNone;
+
+  /// No description provided for @repeatDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get repeatDaily;
+
+  /// No description provided for @repeatWeekdays.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekdays (Mon-Fri)'**
+  String get repeatWeekdays;
+
+  /// No description provided for @repeatWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get repeatWeekly;
+
+  /// No description provided for @repeatBiweekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Bi-weekly'**
+  String get repeatBiweekly;
+
+  /// No description provided for @repeatMonthlyByWeekday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly (nth weekday)'**
+  String get repeatMonthlyByWeekday;
+
+  /// No description provided for @repeatBimonthlyByWeekday.
+  ///
+  /// In en, this message translates to:
+  /// **'Bi-monthly (nth weekday)'**
+  String get repeatBimonthlyByWeekday;
+
+  /// No description provided for @repeatMonthlyByDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly (day of month)'**
+  String get repeatMonthlyByDay;
+
+  /// No description provided for @repeatBimonthlyByDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Bi-monthly (day of month)'**
+  String get repeatBimonthlyByDay;
+
+  /// No description provided for @repeatYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly (month and day)'**
+  String get repeatYearly;
+
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get sunday;
+
+  /// No description provided for @firstWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'1st'**
+  String get firstWeek;
+
+  /// No description provided for @secondWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'2nd'**
+  String get secondWeek;
+
+  /// No description provided for @thirdWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'3rd'**
+  String get thirdWeek;
+
+  /// No description provided for @fourthWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'4th'**
+  String get fourthWeek;
+
+  /// No description provided for @lastWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Last'**
+  String get lastWeek;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
