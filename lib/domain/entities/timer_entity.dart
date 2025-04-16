@@ -88,6 +88,7 @@ class TimerEntity extends Equatable {
   final String? timeRange; // Keep for now, review later if needed
   final TimerType timerType;
   final RepeatType repeatType;
+  final Map<String, dynamic> repeatDetails; // 繰り返しパターンの詳細情報
   final List<String> characterIds;
   final String? notificationSound;
   final String? location;
