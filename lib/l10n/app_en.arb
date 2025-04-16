@@ -107,6 +107,17 @@
   "timePickerLabelFrom": "From",
   "timePickerLabelTo": "To",
   "timePickerLabel": "Time",
-  "timerCreatedSuccessfully": "Timer created successfully"
-
+  "timerCreatedSuccessfully": "Timer created successfully",
+  
+  "repeatPattern": "Repeat Pattern",
+  "repeatNone": "No Repeat",
+  "repeatDaily": "Daily",
+  "repeatWeekdays": "Weekdays (Mon-Fri)",
+  "repeatWeekly": "Weekly",
+  "repeatBiweekly": "Bi-weekly",
+  "repeatMonthlyByWeekday": "Monthly (nth weekday)",
+  "repeatBimonthlyByWeekday": "Bi-monthly (nth weekday)",
+  "repeatMonthlyByDay": "Monthly (day of month)",
+  "repeatBimonthlyByDay": "Bi-monthly (day of month)",
+  "repeatYearly": "Yearly (month and day)"
 }

@@ -192,4 +192,37 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get timerCreatedSuccessfully => 'タイマーが作成されました';
+
+  @override
+  String get repeatPattern => '繰り返しパターン';
+
+  @override
+  String get repeatNone => '繰り返しなし';
+
+  @override
+  String get repeatDaily => '毎日';
+
+  @override
+  String get repeatWeekdays => '平日（月〜金）';
+
+  @override
+  String get repeatWeekly => '毎週';
+
+  @override
+  String get repeatBiweekly => '隔週';
+
+  @override
+  String get repeatMonthlyByWeekday => '毎月（第n曜日）';
+
+  @override
+  String get repeatBimonthlyByWeekday => '隔月（第n曜日）';
+
+  @override
+  String get repeatMonthlyByDay => '毎月（n日）';
+
+  @override
+  String get repeatBimonthlyByDay => '隔月（n日）';
+
+  @override
+  String get repeatYearly => '毎年（月日指定）';
 }

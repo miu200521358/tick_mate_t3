@@ -181,6 +181,28 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
     }
   }
 
+  // Helper to build the repeat type dropdown items
+  List<DropdownMenuItem<RepeatType>> _buildRepeatTypeDropdownItems(
+    AppLocalizations l10n,
+  ) {
+    final Map<RepeatType, String> repeatLabels = {
+      RepeatType.none: l10n.repeatNone,
+      RepeatType.daily: l10n.repeatDaily,
+      RepeatType.weekdays: l10n.repeatWeekdays,
+      RepeatType.weekly: l10n.repeatWeekly,
+      RepeatType.biweekly: l10n.repeatBiweekly,
+      RepeatType.monthlyByWeekday: l10n.repeatMonthlyByWeekday,
+      RepeatType.bimonthlyByWeekday: l10n.repeatBimonthlyByWeekday,
+      RepeatType.monthlyByDay: l10n.repeatMonthlyByDay,
+      RepeatType.bimonthlyByDay: l10n.repeatBimonthlyByDay,
+      RepeatType.yearly: l10n.repeatYearly,
+    };
+
+    return repeatLabels.entries.map((entry) {
+      return DropdownMenuItem(value: entry.key, child: Text(entry.value));
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -260,6 +282,26 @@ class _TimerFormScreenState extends State<TimerFormScreen> {
 
                 // <<< 条件付き時間入力ウィジェット >>>
                 _buildTimeInputWidget(l10n),
+                const SizedBox(height: 16),
+
+                // <<< 繰り返しパターンドロップダウンを追加 >>>
+                DropdownButtonFormField<RepeatType>(
+                  value: _repeatType,
+                  decoration: InputDecoration(
+                    labelText: l10n.repeatPattern,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  items: _buildRepeatTypeDropdownItems(l10n),
+                  onChanged: (RepeatType? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _repeatType = newValue;
+                      });
+                    }
+                  },
+                ),
                 const SizedBox(height: 32),
 
                 // 送信ボタン

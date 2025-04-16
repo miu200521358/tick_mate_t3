@@ -448,6 +448,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Timer created successfully'**
   String get timerCreatedSuccessfully;
+
+  /// No description provided for @repeatPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Pattern'**
+  String get repeatPattern;
+
+  /// No description provided for @repeatNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No Repeat'**
+  String get repeatNone;
+
+  /// No description provided for @repeatDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get repeatDaily;
+
+  /// No description provided for @repeatWeekdays.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekdays (Mon-Fri)'**
+  String get repeatWeekdays;
+
+  /// No description provided for @repeatWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get repeatWeekly;
+
+  /// No description provided for @repeatBiweekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Bi-weekly'**
+  String get repeatBiweekly;
+
+  /// No description provided for @repeatMonthlyByWeekday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly (nth weekday)'**
+  String get repeatMonthlyByWeekday;
+
+  /// No description provided for @repeatBimonthlyByWeekday.
+  ///
+  /// In en, this message translates to:
+  /// **'Bi-monthly (nth weekday)'**
+  String get repeatBimonthlyByWeekday;
+
+  /// No description provided for @repeatMonthlyByDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly (day of month)'**
+  String get repeatMonthlyByDay;
+
+  /// No description provided for @repeatBimonthlyByDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Bi-monthly (day of month)'**
+  String get repeatBimonthlyByDay;
+
+  /// No description provided for @repeatYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly (month and day)'**
+  String get repeatYearly;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

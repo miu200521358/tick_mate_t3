@@ -107,6 +107,17 @@
   "timePickerLabelFrom": "開始時刻",
   "timePickerLabelTo": "終了時刻",
   "timePickerLabel": "時刻",
-  "timerCreatedSuccessfully": "タイマーが作成されました"
-
+  "timerCreatedSuccessfully": "タイマーが作成されました",
+  
+  "repeatPattern": "繰り返しパターン",
+  "repeatNone": "繰り返しなし",
+  "repeatDaily": "毎日",
+  "repeatWeekdays": "平日（月〜金）",
+  "repeatWeekly": "毎週",
+  "repeatBiweekly": "隔週",
+  "repeatMonthlyByWeekday": "毎月（第n曜日）",
+  "repeatBimonthlyByWeekday": "隔月（第n曜日）",
+  "repeatMonthlyByDay": "毎月（n日）",
+  "repeatBimonthlyByDay": "隔月（n日）",
+  "repeatYearly": "毎年（月日指定）"
 }

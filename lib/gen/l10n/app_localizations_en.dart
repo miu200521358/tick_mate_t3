@@ -192,4 +192,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get timerCreatedSuccessfully => 'Timer created successfully';
+
+  @override
+  String get repeatPattern => 'Repeat Pattern';
+
+  @override
+  String get repeatNone => 'No Repeat';
+
+  @override
+  String get repeatDaily => 'Daily';
+
+  @override
+  String get repeatWeekdays => 'Weekdays (Mon-Fri)';
+
+  @override
+  String get repeatWeekly => 'Weekly';
+
+  @override
+  String get repeatBiweekly => 'Bi-weekly';
+
+  @override
+  String get repeatMonthlyByWeekday => 'Monthly (nth weekday)';
+
+  @override
+  String get repeatBimonthlyByWeekday => 'Bi-monthly (nth weekday)';
+
+  @override
+  String get repeatMonthlyByDay => 'Monthly (day of month)';
+
+  @override
+  String get repeatBimonthlyByDay => 'Bi-monthly (day of month)';
+
+  @override
+  String get repeatYearly => 'Yearly (month and day)';
 }

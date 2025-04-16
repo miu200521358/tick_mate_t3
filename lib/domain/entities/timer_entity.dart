@@ -18,6 +18,9 @@ enum RepeatType {
   /// 毎日
   daily,
 
+  /// 平日（月～金）
+  weekdays,
+
   /// 毎週
   weekly,
 
@@ -35,6 +38,9 @@ enum RepeatType {
 
   /// 隔月○日
   bimonthlyByDay,
+
+  /// 毎年○月○日
+  yearly,
 
   /// 一定日数おき
   customDays,
