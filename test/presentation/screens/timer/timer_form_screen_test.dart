@@ -104,9 +104,10 @@ void main() {
       expect(find.byType(ElevatedButton), findsOneWidget);
       expect(find.text('確定'), findsOneWidget);
       
-      // 繰り返しパターンのドロップダウンが表示されていることを確認
+      // 繰り返しパターンのUIが表示されていることを確認
       expect(find.text('繰り返しパターン'), findsOneWidget);
-      expect(find.byWidgetPredicate((widget) => widget.toString().contains('DropdownButtonFormField')), findsAtLeastNWidgets(2)); // 時間指定種別と繰り返しパターンの2つ
+      expect(find.byType(RadioListTile<RepeatType>), findsAtLeastNWidgets(1)); // 繰り返しパターンのラジオボタン
+      expect(find.byWidgetPredicate((widget) => widget.toString().contains('DropdownButtonFormField')), findsAtLeastNWidgets(1)); // 時間指定種別のドロップダウン
     });
 
     testWidgets('初期タイマーがある場合、フォームに値が設定されること', (WidgetTester tester) async {
@@ -183,12 +184,8 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest());
       await tester.pumpAndSettle();
 
-      // 繰り返しパターンのドロップダウンを開く
-      await tester.tap(find.text('繰り返しなし'));
-      await tester.pumpAndSettle();
-
-      // 毎日を選択
-      await tester.tap(find.text('毎日').last);
+      // 毎日のラジオボタンを選択
+      await tester.tap(find.widgetWithText(RadioListTile<RepeatType>, '毎日'));
       await tester.pumpAndSettle();
 
       // タイトルを入力

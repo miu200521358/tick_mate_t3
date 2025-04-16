@@ -514,6 +514,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Yearly (month and day)'**
   String get repeatYearly;
+
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get sunday;
+
+  /// No description provided for @firstWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'1st'**
+  String get firstWeek;
+
+  /// No description provided for @secondWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'2nd'**
+  String get secondWeek;
+
+  /// No description provided for @thirdWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'3rd'**
+  String get thirdWeek;
+
+  /// No description provided for @fourthWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'4th'**
+  String get fourthWeek;
+
+  /// No description provided for @lastWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Last'**
+  String get lastWeek;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

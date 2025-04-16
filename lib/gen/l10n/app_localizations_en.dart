@@ -225,4 +225,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get repeatYearly => 'Yearly (month and day)';
+
+  @override
+  String get monday => 'Monday';
+
+  @override
+  String get tuesday => 'Tuesday';
+
+  @override
+  String get wednesday => 'Wednesday';
+
+  @override
+  String get thursday => 'Thursday';
+
+  @override
+  String get friday => 'Friday';
+
+  @override
+  String get saturday => 'Saturday';
+
+  @override
+  String get sunday => 'Sunday';
+
+  @override
+  String get firstWeek => '1st';
+
+  @override
+  String get secondWeek => '2nd';
+
+  @override
+  String get thirdWeek => '3rd';
+
+  @override
+  String get fourthWeek => '4th';
+
+  @override
+  String get lastWeek => 'Last';
 }

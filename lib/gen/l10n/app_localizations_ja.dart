@@ -225,4 +225,40 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get repeatYearly => '毎年（月日指定）';
+
+  @override
+  String get monday => '月曜日';
+
+  @override
+  String get tuesday => '火曜日';
+
+  @override
+  String get wednesday => '水曜日';
+
+  @override
+  String get thursday => '木曜日';
+
+  @override
+  String get friday => '金曜日';
+
+  @override
+  String get saturday => '土曜日';
+
+  @override
+  String get sunday => '日曜日';
+
+  @override
+  String get firstWeek => '第1';
+
+  @override
+  String get secondWeek => '第2';
+
+  @override
+  String get thirdWeek => '第3';
+
+  @override
+  String get fourthWeek => '第4';
+
+  @override
+  String get lastWeek => '最終';
 }
