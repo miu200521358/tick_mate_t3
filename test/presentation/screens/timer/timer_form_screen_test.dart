@@ -103,6 +103,10 @@ void main() {
       expect(find.byType(TextFormField), findsOneWidget);
       expect(find.byType(ElevatedButton), findsOneWidget);
       expect(find.text('確定'), findsOneWidget);
+      
+      // 繰り返しパターンのドロップダウンが表示されていることを確認
+      expect(find.text('繰り返しパターン'), findsOneWidget);
+      expect(find.byWidgetPredicate((widget) => widget.toString().contains('DropdownButtonFormField')), findsAtLeastNWidgets(2)); // 時間指定種別と繰り返しパターンの2つ
     });
 
     testWidgets('初期タイマーがある場合、フォームに値が設定されること', (WidgetTester tester) async {
@@ -128,6 +132,7 @@ void main() {
 
       // Assert
       expect(find.text('テストタイマー'), findsOneWidget);
+      expect(find.text('繰り返しなし'), findsOneWidget); // 初期値の繰り返しパターンが表示されていることを確認
     });
 
     testWidgets('タイトルを入力して送信ボタンをタップするとTimerCreatedイベントが発行されること', (
@@ -168,6 +173,39 @@ void main() {
 
       // Assert
       expect(find.text('タイトルを入力してください'), findsOneWidget);
+    });
+
+    testWidgets('繰り返しパターンを選択できること', (WidgetTester tester) async {
+      // Arrange
+      when(() => mockTimerBloc.state).thenReturn(const TimerInitial());
+
+      // Act
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      // 繰り返しパターンのドロップダウンを開く
+      await tester.tap(find.text('繰り返しなし'));
+      await tester.pumpAndSettle();
+
+      // 毎日を選択
+      await tester.tap(find.text('毎日').last);
+      await tester.pumpAndSettle();
+
+      // タイトルを入力
+      await tester.enterText(find.byType(TextFormField), 'テストタイマー');
+      await tester.pump();
+
+      // 送信ボタンをタップ
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+
+      // Assert
+      verify(() => mockTimerBloc.add(any(
+        that: predicate<TimerCreated>((event) => 
+          event.title == 'テストタイマー' && 
+          event.repeatType == RepeatType.daily
+        ),
+      ))).called(1);
     });
 
     testWidgets('タイマー作成成功時にトーストメッセージが表示されること', (WidgetTester tester) async {
