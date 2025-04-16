@@ -10,7 +10,6 @@ import 'package:tick_mate/presentation/bloc/app/app_state.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_bloc.dart';
 import 'package:tick_mate/presentation/bloc/timer/timer_state.dart';
 import 'package:tick_mate/presentation/screens/home/home_screen.dart';
-import 'package:tick_mate/presentation/widgets/timer_card_widget.dart';
 
 class MockTimerBloc extends Mock implements TimerBloc {}
 class MockAppBloc extends Mock implements AppBloc {}
